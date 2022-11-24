@@ -25,7 +25,9 @@ const convert_to_jpeg = async (props, type) => {
         </body>
       </html>`;
         await fs.writeFile(`./temp/users/${props.user_id}/Полный_разворот_1.html`, russian_full_side_1, async (error) => {});
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox'],
+        });
         const page1 = await browser.newPage();
         await page1.goto(`E:///myProjects/driveBot/temp/users/${props.user_id}/Полный_разворот_1.html`);
         await page1.setViewport({
