@@ -44,12 +44,12 @@ bot.on('successful_payment', async (ctx, next) => { // ответ в случа�
         await ctx.reply('Заказ успешно оплачен. В течениие 1-5 минут вам придут файлы для скачивания.')
         await newDBconnect.getOrderInfo(async (result) => {
             await convert_to_jpeg(result, "original").then(async () => {
-                await ctx.replyWithDocument({ source: `./root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
-                await ctx.replyWithDocument({ source: `./root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
-                await ctx.replyWithDocument({ source: `./root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
+                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
+                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
+                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
                 if (ctx.state.prava === "+европейские"){
-                    await ctx.replyWithDocument({ source: `./root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
-                    await ctx.replyWithDocument({ source: `./root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
+                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
+                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
                 }
             });
 
