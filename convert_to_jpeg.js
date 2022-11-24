@@ -64,7 +64,9 @@ const convert_to_jpeg = async (props, type) => {
       </html>`;
 
         await fs.writeFile(`./temp/users/${props.user_id}/Полный_разворот_2.html`, russian_full_side_2, async (error) => {});
-        const browser2 = await puppeteer.launch();
+        const browser2 = await puppeteer.launch({
+            args: ['--no-sandbox'],
+        });
         const page2 = await browser2.newPage();
         await page2.goto(`E:///myProjects/driveBot/temp/users/${props.user_id}/Полный_разворот_2.html`);
         await page2.setViewport({
@@ -115,7 +117,9 @@ const convert_to_jpeg = async (props, type) => {
       </html>`;
 
         await fs.writeFile(`./temp/users/${props.user_id}/Короткая_версия.html`, russian_short, async (error) => {});
-        const browser3 = await puppeteer.launch();
+        const browser3 = await puppeteer.launch({
+            args: ['--no-sandbox'],
+        });
         const page3 = await browser3.newPage();
         await page3.goto(`E:///myProjects/driveBot/temp/users/${props.user_id}/Короткая_версия.html`);
         await page3.setViewport({
@@ -159,7 +163,9 @@ const convert_to_jpeg = async (props, type) => {
         </body>
       </html>`;
         await fs.writeFile(`./temp/users/${props.user_id}/Европейские(на пластик)_1.html`, international_side_1, async (error) => {});
-        const browser4 = await puppeteer.launch();
+        const browser4 = await puppeteer.launch({
+            args: ['--no-sandbox'],
+        });
         const page4 = await browser4.newPage();
         await page4.goto(`E:///myProjects/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_1.html`);
         await page4.setViewport({
@@ -196,7 +202,9 @@ const convert_to_jpeg = async (props, type) => {
       </html>`;
 
         await fs.writeFile(`./temp/users/${props.user_id}/Европейские(на пластик)_2.html`, international_side_2, async (error) => {});
-        const browser5 = await puppeteer.launch();
+        const browser5 = await puppeteer.launch({
+            args: ['--no-sandbox'],
+        });
         const page5 = await browser5.newPage();
         await page5.goto(`E:///myProjects/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_2.html`);
         await page5.setViewport({
