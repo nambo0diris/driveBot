@@ -1,0 +1,225 @@
+@font-face {
+    font-family: 'Hypermarket-Bold';
+    src: url('assets/font/Hypermarket-Bold.eot');
+    src: url('assets/font/Hypermarket-Bold.eot?#iefix') format('embedded-opentype'),
+    url('assets/font/Hypermarket-Bold.woff') format('woff'),
+    url('assets/font/Hypermarket-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Aparajita-Bold';
+    src: url('assets/font/Aparajita-Bold.eot');
+    src: url('assets/font/Aparajita-Bold.eot?#iefix') format('embedded-opentype'),
+    url('assets/font/Aparajita-Bold.woff') format('woff'),
+    url('assets/font/Aparajita-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    width: 4032px;
+    height: 2992px;
+    margin: 0;
+    padding: 0;
+}
+#container {
+    width: 4032px;
+    height: 2992px;
+    position: relative;
+}
+
+#main-background {
+    width: 4032px;
+    height: 2992px;
+}
+#main-background--image {
+    margin: 0;
+    padding: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+
+
+/*first side*/
+
+
+#serial-number-main {
+    width: 100%;
+    position: absolute;
+    font-size: 132px;
+    top: 1180px;
+    left: 610px;
+    z-index: 10;
+    font-family: Aparajita-Bold, sans-serif;
+    color: #870808;
+}
+#serial-number-main>span:nth-of-type(2) {
+    margin: 0 60px;
+}
+
+#expire-date {
+    font-size: 76px;
+    font-family: Hypermarket-Bold, sans-serif;
+    position: absolute;
+    top: 1650px;
+    left: 610px;
+    z-index: 10;
+    width: 100%;
+    color: #3a3535;
+}
+#issued-by {
+    font-family: Hypermarket-Bold, sans-serif;
+    font-size: 76px;
+    position: absolute;
+    top:1800px;
+    left:420px;
+    z-index: 10;
+      width: 100%;
+    color: #3a3535;
+}
+#issued-at {
+    font-family: Hypermarket-Bold, sans-serif;
+    font-size: 76px;
+    position: absolute;
+    top: 1950px;
+    left: 420px;
+    z-index: 10;
+      width: 100%;
+    color: #3a3535;
+}
+#date {
+    font-family: Hypermarket-Bold, sans-serif;
+    font-size: 76px;
+    position: absolute;
+    top: 2100px;
+    left: 420px;
+    z-index: 10;
+      width: 100%;
+    color: #3a3535;
+}
+#national-licence-serial-number {
+    font-family: Hypermarket-Bold, sans-serif;
+    font-size: 76px;
+    position: absolute;
+    top: 2330px;
+    left: 1250px;
+    z-index: 10;
+      width: 100%;
+    color: #3a3535;
+}
+
+#photo {
+    height: 1028px;
+    width: 772px;
+    position: absolute;
+    z-index: 5;
+    top: 645px;
+    left: 3155px;
+    box-shadow: 6px 3px 4px;
+
+}
+#official-signature {
+    position: absolute;
+    z-index: 10;
+    top: 2320px;
+    left: 1220px;
+}
+
+
+
+
+
+/*second side*/
+
+#first-name, #last-name, #place-of-birth, #date-of-birth, #living-place {
+    font-family: Hypermarket-Bold, sans-serif;
+    position: absolute;
+    left: 2450px;
+    z-index: 10;
+    font-size: 76px;
+    width: 100%;
+    color: #3a3535;
+}
+
+#first-name {
+    top: 160px;
+}
+#last-name {
+    top: 250px;
+}
+#place-of-birth {
+    top: 335px;
+}
+#date-of-birth {
+    top: 420px;
+}
+#living-place {
+    top: 500px;
+}
+
+
+.category_stamp_1 {
+    top: 685px;
+    left: 2184px;
+    z-index: 10;
+    position: absolute;
+
+}
+.category_stamp_2 {
+    top: 685px;
+    left: 2620px;
+    z-index: 10;
+    position: absolute;
+}
+.category_stamp_3 {
+    top: 885px;
+    left: 2684px;
+    z-index: 10;
+    position: absolute;
+}
+
+#stamp {
+    top: 1500px;
+    left: 3500px;
+    z-index: 10;
+    position: absolute;
+
+}
+#stamp2 {
+    top: 2127px;
+    left: 3500px;
+    z-index: 10;
+    position: absolute;
+    transform: rotate(-10deg);
+
+}
+
+#client-signature {
+    top: 1730px;
+    left:3200px;
+    z-index: 10;
+    position: absolute;
+}
+#example_1, #example_2 {
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: Arial, sans-serif;
+    font-size: 950px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    color: red;
+    z-index: 20;
+    opacity: .8;
+}
+#example_1 {
+    top: 25%;
+}
+#example_2 {
+    top: 75%;
+}

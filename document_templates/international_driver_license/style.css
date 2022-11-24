@@ -1,0 +1,287 @@
+body {
+    width: 1011px;
+    height: 638px;
+    margin: 0;
+    padding: 0;
+}
+#container {
+    width: 1011px;
+    height: 638px;
+    position: relative;
+}
+
+#main-background {
+    width: 1011px;
+    height: 638px;
+    position: relative;
+}
+#main-background--image {
+    margin: 0;
+    padding: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    z-index: 1;
+}
+
+
+
+/*first side*/
+
+#first-name {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    left: 577px;
+    top: 254px;
+    font-weight: bold;
+}
+#last-name {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    left: 577px;
+    top: 287px;
+    font-weight: bold;
+}
+#date-of-birth {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    left: 577px;
+    top: 320px;
+    font-weight: bold;
+}
+#place-of-birth {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    left: 577px;
+    top: 353px;
+    font-weight: bold;
+}
+/*house_number*/
+/*living-street-and-city*/
+/*living-index-and-country*/
+#house_number {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    right: 20px;
+    top: 386px;
+    font-weight: bold;
+    text-align: right;
+    max-width: 320px;
+}
+#living-street-and-city {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    right: 20px;
+    top: 416px;
+    font-weight: bold;
+    text-align: right;
+
+}
+#living-index-and-country {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    right: 20px;
+    top: 446px;
+    font-weight: bold;
+    text-align: right;
+
+}
+#sex {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    left: 470px;
+    top: 490px;
+}
+#eyes {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    left: 676px;
+    top: 490px;
+}
+#ht {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    left: 860px;
+    top: 490px;
+}
+#category {
+    position: absolute;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    left: 535px;
+    top: 528px;
+}
+#signature {
+    position: absolute;
+    z-index: 10;
+    top: 560px;
+    left: 450px;
+    max-height: 65px;
+    max-width: 100px;
+}
+#issued {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 871px;
+    top: 560px;
+    color: #0184b8;
+}
+#expires {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 871px;
+    top: 595px;
+    color: #dc2913;
+}
+#photo {
+    position: absolute;
+    z-index: 10;
+    left: 52px;
+    top: 242px;
+    width: 302px;
+    height: 372px;
+}
+
+/*second side*/
+
+#national-driver-license {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 299px;
+    top: 60px;
+}
+#issued-on {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 645px;
+    top: 126px;
+}
+#expires-on {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 870px;
+    top: 126px;
+}
+#national-driver-license-issued-on {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 740px;
+    top: 60px;
+}
+
+#id-code {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 250px;
+    top: 96px;
+}
+#passport {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 350px;
+    top: 126px;
+}
+#a {
+    font-family: Arial, sans-serif;
+    font-size: 21px;
+    letter-spacing: -1px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 532px;
+    top: 222px;
+    color: #dc2913;
+}
+#a1 {
+    font-family: Arial, sans-serif;
+    font-size: 21px;
+    letter-spacing: -1px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 532px;
+    top: 260px;
+    color: #dc2913;
+}
+#b {
+    font-family: Arial, sans-serif;
+    font-size: 21px;
+    letter-spacing: -1px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+    left: 532px;
+    top: 296px;
+    color: #dc2913;
+}
+
+#example_1, #example_2 {
+    font-family: Arial, sans-serif;
+    font-size: 110px;
+    position: absolute;
+    width: 100%;
+
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    color: red;
+    z-index: 20;
+    opacity: .6;
+}
+#example_1 {
+    top: 20%;
+}
+#example_2 {
+   top: 70%;
+}

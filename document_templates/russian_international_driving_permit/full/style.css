@@ -1,0 +1,213 @@
+@font-face {
+    font-family: 'Hypermarket-Bold';
+    src: url('assets/font/Hypermarket-Bold.eot');
+    src: url('assets/font/Hypermarket-Bold.eot?#iefix') format('embedded-opentype'),
+    url('assets/font/Hypermarket-Bold.woff') format('woff'),
+    url('assets/font/Hypermarket-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Aparajita-Bold';
+    src: url('assets/font/Aparajita-Bold.eot');
+    src: url('assets/font/Aparajita-Bold.eot?#iefix') format('embedded-opentype'),
+    url('assets/font/Aparajita-Bold.woff') format('woff'),
+    url('assets/font/Aparajita-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    width: 9606px;
+    height: 4665px;
+    margin: 0;
+    padding: 0;
+}
+#container {
+    width: 9606px;
+    height: 4665px;
+    position: relative;
+}
+
+#main-background {
+    width: 9606px;
+    height: 4665px;
+}
+#main-background--image {
+    margin: 0;
+    padding: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+
+
+/*first side*/
+
+
+#serial-number-main {
+    width: 100%;
+    position: absolute;
+    font-size: 192px;
+    top: 1809px;
+    left: 7499px;
+    z-index: 10;
+    font-family: Aparajita-Bold, sans-serif;
+    color: #870808;
+}
+#serial-number-main>span:nth-of-type(1) {
+
+}
+#serial-number-main>span:nth-of-type(2) {
+   margin: 0 125px;
+}
+#serial-number-main>span:nth-of-type(3) {
+
+}
+
+#expire-date {
+    font-size: 122px;
+    font-family: Hypermarket-Bold, sans-serif;
+    position: absolute;
+    top: 2500px;
+    left: 7778px;
+    z-index: 10;
+    width: 100%;
+    color: #3a3535;
+}
+#issued-by {
+    font-family: Hypermarket-Bold, sans-serif;
+    font-size: 122px;
+    position: absolute;
+    top:2740px;
+    left:7458px;
+    z-index: 10;
+      width: 100%;
+    color: #3a3535;
+}
+#issued-at {
+    font-family: Hypermarket-Bold, sans-serif;
+    font-size: 122px;
+    position: absolute;
+    top: 2967px;
+    left: 7134px;
+    z-index: 10;
+      width: 100%;
+    color: #3a3535;
+}
+#date {
+    font-family: Hypermarket-Bold, sans-serif;
+    font-size: 122px;
+    position: absolute;
+    top: 3190px;
+    left: 7140px;
+    z-index: 10;
+      width: 100%;
+    color: #3a3535;
+}
+#national-licence-serial-number {
+    font-family: Hypermarket-Bold, sans-serif;
+    font-size: 122px;
+    position: absolute;
+    top: 3523px;
+    left: 8352px;
+    z-index: 10;
+      width: 100%;
+    color: #3a3535;
+}
+
+#photo {
+    height: 1446px;
+    width: 1126px;
+    position: absolute;
+    z-index: 5;
+    top: 1096px;
+    left: 8230px;
+    box-shadow: 6px 3px 4px;
+
+}
+#official-signature {
+    position: absolute;
+    z-index: 10;
+    top: 3700px;
+    left: 8140px;
+}
+
+
+
+
+
+/*second side*/
+
+#first-name, #last-name, #place-of-birth, #date-of-birth, #living-place {
+    font-family: Hypermarket-Bold, sans-serif;
+    position: absolute;
+    left: 6922px;
+    z-index: 10;
+    font-size: 111px;
+    width: 100%;
+    color: #3a3535;
+}
+
+#first-name {
+    top: 333px;
+}
+#last-name {
+    top: 469px;
+}
+#place-of-birth {
+    top:603px;
+}
+#date-of-birth {
+    top:737px;
+}
+#living-place {
+    top:870px;
+}
+#serial-number {
+    top: 4409px;
+    left: 4361px;
+    z-index: 10;
+    font-weight: 900;
+    position: absolute;
+    font-size: 182px;
+    font-family: Aparajita-Bold, sans-serif;
+    color: #870808;
+}
+
+#stamp {
+    top: 2174px;
+    left: 8769px;
+    z-index: 10;
+    position: absolute;
+
+}
+#client-signature {
+    top: 2870px;
+    left:8400px;
+    z-index: 10;
+    position: absolute;
+}
+
+#example_1, #example_2 {
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: Arial, sans-serif;
+    font-size: 1260px;
+    position: absolute;
+    width: 9606px;
+    color: red;
+    z-index: 20;
+    opacity: .8;
+}
+#example_1 {
+    top: 20%;
+    left: 2560px;
+
+}
+#example_2 {
+    top: 80%;
+    left: 4260px;
+}
