@@ -52,8 +52,6 @@ bot.on('successful_payment', async (ctx, next) => { // ответ в случа�
                     await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
                 }
             });
-
-
             return ctx.scene.leave();
         });
     } catch (e) {
@@ -87,8 +85,6 @@ bot.start(async (ctx) => {
 
             }
         });
-
-
 
         newDBconnect = new db_connect(ctx.message.chat.id);
         await newDBconnect.closeOrder();
