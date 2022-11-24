@@ -29,15 +29,14 @@ const convert_to_jpeg = async (props, type) => {
             args: ['--no-sandbox'],
         });
         const page1 = await browser.newPage();
-        await page1.goto(`E:///myProjects/driveBot/temp/users/${props.user_id}/Полный_разворот_1.html`);
+        await page1.goto(`file:///root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.html`);
         await page1.setViewport({
             width: 9960,
             height: 4665,
             deviceScaleFactor: 1,
         });
-        await page1.screenshot({path: `E:///myProjects/driveBot/temp/users/${props.user_id}/Полный_разворот_1.jpg`, quality: 30 });
+        await page1.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.jpg`, quality: 30 });
         await browser.close();
-
 
         let russian_full_side_2 = `<!DOCTYPE html>
       <html lang="en">
@@ -68,13 +67,13 @@ const convert_to_jpeg = async (props, type) => {
             args: ['--no-sandbox'],
         });
         const page2 = await browser2.newPage();
-        await page2.goto(`E:///myProjects/driveBot/temp/users/${props.user_id}/Полный_разворот_2.html`);
+        await page2.goto(`file:///root/driveBot/temp/users/${props.user_id}/Полный_разворот_2.html`);
         await page2.setViewport({
             width: 9960,
             height: 4665,
             deviceScaleFactor: 1,
         });
-        await page2.screenshot({path: `E:///myProjects/driveBot/temp/users/${props.user_id}/Полный_разворот_2.jpg`, quality: 30});
+        await page2.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_2.jpg`, quality: 30});
         await browser2.close();
 
         let russian_short = `<!DOCTYPE html>
@@ -121,13 +120,13 @@ const convert_to_jpeg = async (props, type) => {
             args: ['--no-sandbox'],
         });
         const page3 = await browser3.newPage();
-        await page3.goto(`E:///myProjects/driveBot/temp/users/${props.user_id}/Короткая_версия.html`);
+        await page3.goto(`file:///root/driveBot/temp/users/${props.user_id}/Короткая_версия.html`);
         await page3.setViewport({
             width: 4032,
             height: 2992,
             deviceScaleFactor: 1,
         });
-        await page3.screenshot({path: `E:///myProjects/driveBot/temp/users/${props.user_id}/Короткая_версия.jpg`, quality: 75});
+        await page3.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Короткая_версия.jpg`, quality: 75});
         await browser3.close();
 
 
@@ -167,13 +166,13 @@ const convert_to_jpeg = async (props, type) => {
             args: ['--no-sandbox'],
         });
         const page4 = await browser4.newPage();
-        await page4.goto(`E:///myProjects/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_1.html`);
+        await page4.goto(`file:///root/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_1.html`);
         await page4.setViewport({
             width: 1011,
             height: 638,
             deviceScaleFactor: 1,
         });
-        await page4.screenshot({path: `E:///myProjects/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_1.jpg`, quality: 75});
+        await page4.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_1.jpg`, quality: 75});
         await browser4.close();
 
 
@@ -206,13 +205,13 @@ const convert_to_jpeg = async (props, type) => {
             args: ['--no-sandbox'],
         });
         const page5 = await browser5.newPage();
-        await page5.goto(`E:///myProjects/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_2.html`);
+        await page5.goto(`file:///root/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_2.html`);
         await page5.setViewport({
             width: 1011,
             height: 638,
             deviceScaleFactor: 1,
         });
-        await page5.screenshot({path: `E:///myProjects/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_2.jpg`, quality: 75});
+        await page5.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_2.jpg`, quality: 75});
         await browser5.close();
 
     } catch (e) {
