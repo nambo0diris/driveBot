@@ -2,7 +2,7 @@ module.exports = {
     apps : [{
         name   : "drive_bot",
         script : "./index.js",
-        watch: true,
-        exec_mode: "cluster"
+        exec_mode: "cluster",
+        ignore_watch: "/root/driveBot/temp/"
     }]
 }
