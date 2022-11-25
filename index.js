@@ -95,7 +95,7 @@ bot.start(async (ctx) => {
         });
         await ctx.replyWithHTML(startText, Markup.keyboard(
             [
-                ["Сделать права"]
+                ["Сделать сувенирные права"]
             ]
         ))
 
