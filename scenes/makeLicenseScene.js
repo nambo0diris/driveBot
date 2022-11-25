@@ -295,6 +295,8 @@ getLivingStreet.on("text", async (ctx) => {
         }
         if (ctx.message.text.trim().toLowerCase() === "россия") {
             country = "Russia"
+        } else if (ctx.message.text.trim().toLowerCase() === "ссср") {
+            country = "USSR"
         } else {
             country = cyrillicToTranslit.transform(ctx.message.text).toUpperCase();
         }
