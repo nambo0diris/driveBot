@@ -25,7 +25,7 @@ const convert_to_jpeg = async (props, type) => {
           </div>
         </body>
       </html>`;
-        await fs.writeFile(`./temp/users/${props.user_id}/Полный_разворот_1.html`, russian_full_side_1, async (error) => {});
+        await fs.writeFile(`/root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.html`, russian_full_side_1, async (error) => {});
         const browser = await puppeteer.launch({
             args: ['--no-sandbox'],
         });
@@ -63,7 +63,7 @@ const convert_to_jpeg = async (props, type) => {
         </body>
       </html>`;
 
-        await fs.writeFile(`./temp/users/${props.user_id}/Полный_разворот_2.html`, russian_full_side_2, async (error) => {});
+        await fs.writeFile(`/root/driveBot/temp/users/${props.user_id}/Полный_разворот_2.html`, russian_full_side_2, async (error) => {});
         const browser2 = await puppeteer.launch({
             args: ['--no-sandbox'],
         });
@@ -116,7 +116,7 @@ const convert_to_jpeg = async (props, type) => {
         </body>
       </html>`;
 
-        await fs.writeFile(`./temp/users/${props.user_id}/Короткая_версия.html`, russian_short, async (error) => {});
+        await fs.writeFile(`/root/driveBot/temp/users/${props.user_id}/Короткая_версия.html`, russian_short, async (error) => {});
         const browser3 = await puppeteer.launch({
             args: ['--no-sandbox'],
         });
@@ -162,7 +162,7 @@ const convert_to_jpeg = async (props, type) => {
           </div>
         </body>
       </html>`;
-        await fs.writeFile(`./temp/users/${props.user_id}/Европейские(на пластик)_1.html`, international_side_1, async (error) => {});
+        await fs.writeFile(`/root/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_1.html`, international_side_1, async (error) => {});
         const browser4 = await puppeteer.launch({
             args: ['--no-sandbox'],
         });
@@ -201,7 +201,7 @@ const convert_to_jpeg = async (props, type) => {
         </body>
       </html>`;
 
-        await fs.writeFile(`./temp/users/${props.user_id}/Европейские(на пластик)_2.html`, international_side_2, async (error) => {});
+        await fs.writeFile(`/root/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_2.html`, international_side_2, async (error) => {});
         const browser5 = await puppeteer.launch({
             args: ['--no-sandbox'],
         });
