@@ -244,7 +244,7 @@ getCityOfBirth.on("text", async (ctx) => {
             await newDBconnect.updateOrder({key: "passport_number", value: `${passport_number()}`});
             await newDBconnect.updateOrder({key: "national_driver_license", value: `${passport_number()}`});
             await ctx.replyWithHTML("<b>Загрузите фото как на документы, соотношение ширины к высоте 3:4. " +
-                "Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте</b>", Markup.keyboard([["Начать заново"]]))
+                "Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.</b>", Markup.keyboard([["Начать заново"]]))
             return ctx.wizard.selectStep(16);
         }
 
@@ -455,7 +455,7 @@ getPhoto.on("text", async (ctx) => {
             await newDBconnect.updateOrder({key: "passport_number", value: `${passport_number()}`});
             await newDBconnect.updateOrder({key: "national_driver_license", value: `${passport_number()}`});
             await ctx.replyWithHTML("<b>Загрузите фото как на документы, соотношение ширины к высоте 3:4. " +
-                "Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте</b>", Markup.keyboard([["Начать заново"]]))
+                "Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.</b>", Markup.keyboard([["Начать заново"]]))
             return ctx.wizard.selectStep(16);
         }
         if (ctx.message.text === "Не верно" ) {
