@@ -18,7 +18,7 @@ const stage = new Scenes.Stage([makeLicenseScene]);
 bot.use(session());
 bot.use(stage.middleware());
 
-bot.hears('Сделать права', ctx => ctx.scene.enter("makeLicenseScene"))
+bot.hears('Сделать сувенирные права', ctx => ctx.scene.enter("makeLicenseScene"))
 bot.hears('Оплатить', async (ctx) => {
     try {
         console.log("Оплатить")
@@ -93,7 +93,7 @@ bot.start(async (ctx) => {
                 await newDBconnect.addNewCustomer();
             }
         });
-        await ctx.reply(startText, Markup.keyboard(
+        await ctx.replyWithHTML(startText, Markup.keyboard(
             [
                 ["Сделать права"]
             ]
