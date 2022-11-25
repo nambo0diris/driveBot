@@ -16,10 +16,10 @@ const convert_to_jpeg = async (props, type) => {
             <div id="example_2">${type==="example" ? "Образец" : ""}</div>
             <img id="main-background--image" src="../../../document_templates/russian_international_driving_permit/full/assets/images/backgrounds/side_1.jpg" alt=""/>
             <div id="serial-number-main"><span>${props.subject_id.split(' ')[0]}</span><span>${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
-            <div id="expire-date">12.10.2023</div>
+            <div id="expire-date">12.10.2024</div>
             <div id="issued-by">State Road Traffic Safety Inspection</div>
             <div id="issued-at">${props.living_city}</div>
-            <div id="date">12.10.2020</div>
+            <div id="date">12.10.2021</div>
             <div id="national-licence-serial-number">${props.national_driver_license}</div>
             <img id="official-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/official/signature_${random_signature()}.png"/>
           </div>
