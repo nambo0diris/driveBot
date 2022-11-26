@@ -52,7 +52,7 @@ const getDateOfBirthStep = new Composer();
 getDateOfBirthStep.hears("/start", ctx => ctx.scene.leave())
 getDateOfBirthStep.on("text", async (ctx) => {
     try {
-
+        ctx.state.prava = ctx.message.text;
         await ctx.replyWithHTML("Напишите Дату Рождения (формат: <b>дд.мм.гггг</b>)", Markup.keyboard([["Начать заново"]]))
         if (ctx.message.text === "РФ международные") {
             return ctx.wizard.selectStep(5);
@@ -68,7 +68,7 @@ getDateOfBirthStep.on("text", async (ctx) => {
 // 2
 const getSex = new Composer();
 getSex.on("text", async(ctx) => {
-    ctx.state.prava = ctx.message.text;
+
     try {
         if(ctx.message.text === "/start") {
             return ctx.scene.leave()
@@ -404,7 +404,7 @@ getApprove.on("text", async (ctx) => {
 
         await newDBconnect.updateOrder({key: "subject_id", value: `${serial_number(ctx.message.text)}`});
         await newDBconnect.getOrderInfo(async (result) => {
-            if(ctx.state.prava === "РФ международные + европейские"){
+            if(ctx.scene.session.prava === "РФ международные + европейские"){
                 await ctx.replyWithHTML(`
                  <b>Проверьте правильность введенной информации:</b>
                  Имя: ${result.first_name},
