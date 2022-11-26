@@ -36,7 +36,7 @@ const convert_to_jpeg = async (props, type) => {
             height: 4665,
             deviceScaleFactor: 1,
         });
-        await page1.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.jpg`, quality: 30 });
+        await page1.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.jpg`, quality: 10 });
         await browser.close();
 
         let russian_full_side_2 = `<!DOCTYPE html>
@@ -74,7 +74,7 @@ const convert_to_jpeg = async (props, type) => {
             height: 4665,
             deviceScaleFactor: 1,
         });
-        await page2.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_2.jpg`, quality: 30});
+        await page2.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_2.jpg`, quality: 10});
         await browser2.close();
 
         let russian_short = `<!DOCTYPE html>
@@ -127,7 +127,7 @@ const convert_to_jpeg = async (props, type) => {
             height: 2992,
             deviceScaleFactor: 1,
         });
-        await page3.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Короткая_версия.jpg`, quality: 75});
+        await page3.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Короткая_версия.jpg`, quality: 50});
         await browser3.close();
 
 
