@@ -512,7 +512,7 @@ sendPhoto.on("photo", async (ctx) => {
                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
             });
 
-            if (ctx.state.prava === "+европейские"){
+            if (ctx.state.prava === "РФ международные + европейские"){
                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
             }
