@@ -52,7 +52,7 @@ const getDateOfBirthStep = new Composer();
 getDateOfBirthStep.hears("/start", ctx => ctx.scene.leave())
 getDateOfBirthStep.on("text", async (ctx) => {
     try {
-        ctx.scene.session.prava = ctx.message.text;
+        await newDBconnect.updateOrder({key:"type", value:`${ctx.message.text}`});
         await ctx.replyWithHTML("Напишите Дату Рождения (формат: <b>дд.мм.гггг</b>)", Markup.keyboard([["Начать заново"]]))
         if (ctx.message.text === "РФ международные") {
             return ctx.wizard.selectStep(5);
@@ -404,7 +404,7 @@ getApprove.on("text", async (ctx) => {
 
         await newDBconnect.updateOrder({key: "subject_id", value: `${serial_number(ctx.message.text)}`});
         await newDBconnect.getOrderInfo(async (result) => {
-            if(ctx.scene.session.prava === "РФ международные + европейские"){
+            if(result.type === "РФ международные + европейские"){
                 await ctx.replyWithHTML(`
                  <b>Проверьте правильность введенной информации:</b>
                  Имя: ${result.first_name},
@@ -511,7 +511,7 @@ sendPhoto.on("photo", async (ctx) => {
                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
-                if (ctx.scene.session.prava === "РФ международные + европейские"){
+                if (result.type === "РФ международные + европейские"){
                     await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
                     await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
                 }
