@@ -125,7 +125,7 @@ body {
 #official-signature {
     position: absolute;
     z-index: 10;
-    top: 2320px;
+    top: 2450px;
     left: 1220px;
 }
 
@@ -199,7 +199,7 @@ body {
 }
 
 #client-signature {
-    top: 1730px;
+    top: 1810px;
     left:3200px;
     z-index: 10;
     position: absolute;
