@@ -52,7 +52,7 @@ const getDateOfBirthStep = new Composer();
 getDateOfBirthStep.hears("/start", ctx => ctx.scene.leave())
 getDateOfBirthStep.on("text", async (ctx) => {
     try {
-        ctx.state.prava = ctx.message.text;
+        ctx.scene.session.prava = ctx.message.text;
         await ctx.replyWithHTML("Напишите Дату Рождения (формат: <b>дд.мм.гггг</b>)", Markup.keyboard([["Начать заново"]]))
         if (ctx.message.text === "РФ международные") {
             return ctx.wizard.selectStep(5);
@@ -511,7 +511,7 @@ sendPhoto.on("photo", async (ctx) => {
                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
-                if (ctx.state.prava === "РФ международные + европейские"){
+                if (ctx.scene.session.prava === "РФ международные + европейские"){
                     await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
                     await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
                 }
