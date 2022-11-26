@@ -141,8 +141,8 @@ const convert_to_jpeg = async (props, type) => {
         </head>
         <body>
           <div id="main-background">
-            <div id="example_1">${type==="example" ? "Образец" : ""}</div>
-            <div id="example_2">${type==="example" ? "Образец" : ""}</div>
+            <div id="example_1">${type==="example" ? "Образец Образец" : ""}</div>
+            <div id="example_2">${type==="example" ? "Образец Образец" : ""}</div>
             <img id="main-background--image" src="../../../document_templates/international_driver_license/assets/images/background/side_1.jpg" alt="">
             <div id="first-name">${props.first_name}</div>
             <div id="last-name">${props.last_name}</div>
@@ -185,8 +185,8 @@ const convert_to_jpeg = async (props, type) => {
        </head>
        <body>
             <div id="main-background">
-                <div id="example_1">${type==="example" ? "Образец" : ""}</div>
-                <div id="example_2">${type==="example" ? "Образец" : ""}</div>
+                <div id="example_1">${type==="example" ? "Образец Образец" : ""}</div>
+                <div id="example_2">${type==="example" ? "Образец Образец" : ""}</div>
                 <img id="main-background--image" src="../../../document_templates/international_driver_license/assets/images/background/side_2.jpg" alt="">
                 <div id="national-driver-license">${props.national_driver_license}</div>
                 <div id="national-driver-license-issued-on">24.12.2021</div>
