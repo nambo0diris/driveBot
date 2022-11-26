@@ -99,11 +99,11 @@ getEyesColor.on("text", async(ctx) => {
             await ctx.replyWithHTML("Подтвердите", Markup.keyboard([["Начать заново"]]));
             return ctx.wizard.selectStep(0);
         }
-        switch (ctx.message.text) {
-            case "М":
-                sex = "M";
-            case "Ж":
-                sex = "F";
+        if (ctx.message.text === "М") {
+            sex = "M";
+        }
+        if (ctx.message.text === "Ж") {
+            sex = "F";
         }
         await newDBconnect.updateOrder({key:"sex", value:`${sex}`});
         await ctx.replyWithHTML("Укажите цвет глаз", Markup.keyboard([
