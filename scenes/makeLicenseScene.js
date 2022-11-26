@@ -403,7 +403,7 @@ getApprove.on("text", async (ctx) => {
 
         await newDBconnect.updateOrder({key: "subject_id", value: `${serial_number(ctx.message.text)}`});
         await newDBconnect.getOrderInfo(async (result) => {
-            if(ctx.state.prava === "+европейские"){
+            if(ctx.state.prava === "РФ международные + европейские"){
                 await ctx.replyWithHTML(`
                  <b>Проверьте правильность введенной информации:</b>
                  Имя: ${result.first_name},
