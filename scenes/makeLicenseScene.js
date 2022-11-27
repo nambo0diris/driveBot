@@ -607,14 +607,12 @@ getAnswer.on('text', async (ctx) => {
 //20
 const sendFinalData = new Composer();
 sendFinalData.action("start_again", async ctx => {
-    if (ctx.update.callback_query.data === "start_again") {
-        await ctx.answerCbQuery();
-        await ctx.wizard.selectStep(0);
-    }
+    await ctx.answerCbQuery("update_photo");
+    await ctx.wizard.selectStep(0);
 })
 sendFinalData.action("next", async ctx => {
     await ctx.answerCbQuery();
-    await ctx.wizard.selectStep(17);
+    await ctx.wizard.selectStep(16);
 })
 sendFinalData.on('text', async (ctx) => {  // это обработчик конкретного текста, данном случае это - "pay"
     try {
