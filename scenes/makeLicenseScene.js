@@ -575,10 +575,8 @@ sendPhoto.on("photo", async (ctx) => {
 // 17
 const getAnswer = new Composer();
 getAnswer.action("start_again", async ctx => {
-    if (ctx.update.callback_query.data === "start_again") {
-        await ctx.answerCbQuery();
-        await ctx.wizard.selectStep(0);
-    }
+    await ctx.answerCbQuery();
+    await ctx.wizard.selectStep(0);
 })
 getAnswer.action("update_photo", async ctx => {
     await ctx.replyWithHTML(`Подтвердите`,
@@ -613,6 +611,10 @@ sendFinalData.action("start_again", async ctx => {
         await ctx.answerCbQuery();
         await ctx.wizard.selectStep(0);
     }
+})
+sendFinalData.action("next", async ctx => {
+    await ctx.answerCbQuery();
+    await ctx.wizard.selectStep(17);
 })
 sendFinalData.on('text', async (ctx) => {  // это обработчик конкретного текста, данном случае это - "pay"
     try {
