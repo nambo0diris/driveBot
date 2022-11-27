@@ -586,19 +586,10 @@ getAnswer.action("update_photo", async ctx => {
     )
     return ctx.wizard.selectStep(15)
 })
-getAnswer.on('text', async (ctx) => {
+getAnswer.action("make_payment", async ctx => {
     try {
-        switch (ctx.message.text) {
-            case "Оплатить":
-                try {
-                    console.log("Оплатить")
-                    await ctx.replyWithInvoice(getInvoice(ctx.from.id))
-                } catch (e) {
-                    console.log(e)
-                }
-            case "/start":
-                return ctx.scene.leave();
-        }
+        console.log("Оплатить")
+        await ctx.replyWithInvoice(getInvoice(ctx.update.callback_query.from.id));
     } catch (e) {
         console.log(e)
     }
