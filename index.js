@@ -92,7 +92,7 @@ bot.start(async (ctx) => {
         });
         await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
             [
-                [Markup.button.callback("#&2B50 Сделать сувенирные права", "make_drive_license")]
+                [Markup.button.callback("&#2B50 Сделать сувенирные права", "make_drive_license")]
             ]
         ))
 
