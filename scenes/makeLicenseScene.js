@@ -37,8 +37,8 @@ getChoice.on("callback_query", async (ctx) => {
             "Вы можете выбрать вариант 'РФ международные + европейские' это " +
             "на цену никак не влияет, но нужно будет ответить на пару дополнительных" +
             "вопросов, зато вы получите макет для печати на пластике", Markup.inlineKeyboard([
-            [Markup.button.callback("РФ международные","ru" )],
-            [Markup.button.callback("РФ международные + европейские", "eu")]
+            [Markup.button.callback("🇷🇺 РФ международные","ru" )],
+            [Markup.button.callback("🇷🇺 РФ международные + 🇪🇺 европейские", "eu")]
         ]));
         return ctx.wizard.selectStep(1);
     } catch (e) {
@@ -56,24 +56,18 @@ getDateOfBirthStep.on("callback_query", async ctx => {
         await ctx.answerCbQuery();
         await ctx.wizard.selectStep(0);
     }
+
+    await ctx.answerCbQuery();
+    newDBconnect = new db_connect(ctx.update.callback_query.from.id);
+    await newDBconnect.addNewOrder().then(async ()=>{
+        await newDBconnect.updateOrder({key:"type", value: ctx.update.callback_query.data});
+    });
+    await ctx.replyWithHTML("Напишите Дату Рождения 🎂 (формат: <b>дд.мм.гггг</b>)",
+        Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
     if (ctx.update.callback_query.data === "ru") {
-        await ctx.answerCbQuery();
-        newDBconnect = new db_connect(ctx.update.callback_query.from.id);
-        await newDBconnect.addNewOrder().then(async ()=>{
-            await newDBconnect.updateOrder({key:"type", value:`ru`});
-        });
-        await ctx.replyWithHTML("Напишите Дату Рождения (формат: <b>дд.мм.гггг</b>)",
-            Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]))
         return ctx.wizard.selectStep(5);
     }
     if (ctx.update.callback_query.data === "eu") {
-        await ctx.answerCbQuery();
-        newDBconnect = new db_connect(ctx.update.callback_query.from.id);
-        await newDBconnect.addNewOrder().then(async ()=>{
-            await newDBconnect.updateOrder({key:"type", value:`eu`});
-        });
-        await ctx.replyWithHTML("Напишите Дату Рождения (формат: <b>дд.мм.гггг</b>)",
-            Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]))
         return ctx.wizard.selectStep(2);
     }
 });
@@ -88,17 +82,10 @@ getSex.action("start_again", async ctx => {
 })
 getSex.on("text", async(ctx) => {
     try {
-        if(ctx.message.text === "/start") {
-            return ctx.scene.leave()
-        }
-        if (ctx.message.text === "Начать заново (жми два раза)" ) {
-            await ctx.replyWithHTML("Подтвердите",  Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]));
-            return ctx.wizard.selectStep(0);
-        }
         await newDBconnect.updateOrder({key:"date_of_birth", value:`${ctx.message.text}`});
         await ctx.replyWithHTML("Укажите ваш пол", Markup.inlineKeyboard([
-            [Markup.button.callback("М","M"), Markup.button.callback("Ж","F")],
-            [Markup.button.callback("Начать заново (жми два раза)","start_again")]
+            [Markup.button.callback("🦸‍♂️М","M"), Markup.button.callback("🦸‍♀️Ж","F")],
+            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
         ]))
         return ctx.wizard.selectStep(3);
     } catch (e) {
@@ -118,10 +105,10 @@ getEyesColor.on("callback_query", async(ctx) => {
     let sex = ctx.update.callback_query.data;
     try {
         await newDBconnect.updateOrder({key:"sex", value:`${sex}`});
-        await ctx.replyWithHTML("Укажите цвет глаз", Markup.inlineKeyboard([
-            [Markup.button.callback("Серые","BLUE"),Markup.button.callback("Зеленые","GREEN") ],
-            [Markup.button.callback("Желтые", "YELLOW"), Markup.button.callback("Синие", "BLUE"), Markup.button.callback("Карие","BROWN")],
-            [Markup.button.callback("Начать заново (жми два раза)","start_again")]
+        await ctx.replyWithHTML("Укажите цвет глаз 👀", Markup.inlineKeyboard([
+            [Markup.button.callback("⚪ Серые","BLUE"),Markup.button.callback("🟢 Зеленые","GREEN") ],
+            [Markup.button.callback("🟡 Желтые", "YELLOW"), Markup.button.callback("🔵 Синие", "BLUE"), Markup.button.callback("🟤 Карие","BROWN")],
+            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
         ]))
         return ctx.wizard.selectStep(4);
     } catch (e) {
@@ -142,7 +129,7 @@ getHeight.on("callback_query", async (ctx) => {
     let eyes_color = ctx.update.callback_query.data;
     try {
         await newDBconnect.updateOrder({key:"eyes", value:`${eyes_color}`});
-        await ctx.replyWithHTML("<b>Укажите ваш рост в сантиметрах. Например: 183</b>",  Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]))
+        await ctx.replyWithHTML("<b>Укажите ваш рост в сантиметрах. Например: 183</b>",  Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
         return ctx.wizard.selectStep(5);
     } catch (e) {
         console.log(e)
@@ -170,7 +157,7 @@ getNameStep.on("text", async (ctx) => {
         } else {
             await newDBconnect.updateOrder({key:"height", value:`${ctx.message.text}`});
         }
-        await ctx.replyWithHTML("Напишите Фамилию Имя Отчество. Пример: <b>Пушкин Александр Сергеевич</b>",  Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]))
+        await ctx.replyWithHTML("Напишите Фамилию Имя Отчество. Пример: <b>Пушкин Александр Сергеевич</b>",  Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
         return ctx.wizard.selectStep(6);
     } catch (e) {
         console.log(e)
@@ -192,8 +179,8 @@ isRandomAll.on("text", async (ctx) => {
         await newDBconnect.updateOrder({key: "first_name", value: `${cyrillicToTranslit.transform(ctx.message.text.split(" ")[1]).toUpperCase()}`});
         await newDBconnect.updateOrder({key: "second_name", value: `${cyrillicToTranslit.transform(ctx.message.text.split(" ")[2]).toUpperCase()}`});
         await ctx.replyWithHTML("Мы можем заполнить все оставшиеся пункты за вас <b>случайными</b> данными", Markup.inlineKeyboard([
-            [Markup.button.callback("Заполню сам","write_myself"), Markup.button.callback("Случайные данные", "random_data") ],
-            [Markup.button.callback("Начать заново (жми два раза)","start_again")]
+            [Markup.button.callback("🖋 Заполню сам","write_myself"), Markup.button.callback("🔣 Случайные данные", "random_data") ],
+            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
         ]))
 
         return ctx.wizard.selectStep(7);
@@ -241,8 +228,8 @@ getCityOfBirth.on("callback_query", async (ctx) => {
                              Место рождения: ${data.city_of_birth}, ${data.country_of_birth}
                              Место проживания: ${data.living_index}, ${data.living_country}, ${data.living_city}, ${data.living_street}, ${data.house_number}`,
                     Markup.inlineKeyboard([
-                        [Markup.button.callback("Все верно", "confirm"), Markup.button.callback("Сгенерировать заново", "generate_again")],
-                        [Markup.button.callback("Начать заново (жми два раза)", "start_again")]
+                        [Markup.button.callback("✔ Все верно", "confirm"), Markup.button.callback("🔁 Сгенерировать заново", "generate_again")],
+                        [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
                     ])
                 )
             })
@@ -255,7 +242,7 @@ getCityOfBirth.on("callback_query", async (ctx) => {
             await ctx.replyWithHTML("<b>Загрузите фото как на документы, соотношение ширины к высоте 3:4. " +
                 "Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.</b>",
                 Markup.inlineKeyboard([
-                    [Markup.button.callback("Начать заново (жми два раза)", "start_again")]
+                    [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
                 ]))
             return ctx.wizard.selectStep(16);
         }
@@ -263,7 +250,7 @@ getCityOfBirth.on("callback_query", async (ctx) => {
         if (ctx.update.callback_query.data === "write_myself") {
             await ctx.replyWithHTML("Укажитете город, где родились. Пример: <b>Москва</b>",
                 Markup.inlineKeyboard([
-                    [Markup.button.callback("Начать заново (жми два раза)","start_again")]
+                    [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
                 ]))
             return ctx.wizard.selectStep(8);
         }
@@ -289,7 +276,7 @@ getCountryOfBirth.on("text", async (ctx) => {
         await newDBconnect.updateOrder({key:"city_of_birth", value:`${cyrillicToTranslit.transform(ctx.message.text.trim().toUpperCase())}`});
         await ctx.replyWithHTML("Укажите страну рождения. Пример: <b>Россия или СССР </b>",
             Markup.inlineKeyboard([
-                [Markup.button.callback("Начать заново (жми два раза)", "start_again")]
+                [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
             ]))
         return ctx.wizard.selectStep(9);
     } catch (e) {
@@ -318,7 +305,7 @@ getLivingStreet.on("text", async (ctx) => {
         await newDBconnect.updateOrder({key:"country_of_birth", value:`${country}`});
         await ctx.replyWithHTML("Укажите улицу проживания. Пример: <b>ул.Гагарина</b>",
             Markup.inlineKeyboard([
-                [Markup.button.callback("Начать заново (жми два раза)","start_again")]
+                [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
             ]))
         return ctx.wizard.selectStep(10);
     } catch (e) {
@@ -427,7 +414,7 @@ getApprove.on("text", async (ctx) => {
                  Цвет глаз: ${result.eyes}
                  Рост: ${result.height}`,
                     Markup.inlineKeyboard([
-                        [Markup.button.callback("Всё верно","write"),Markup.button.callback("Не верно","wrong") ]
+                        [Markup.button.callback("✔ Всё верно","write"),Markup.button.callback("❌ Не верно","wrong") ]
                     ])
                 )
             } else {
@@ -440,7 +427,7 @@ getApprove.on("text", async (ctx) => {
                  Место рождения: ${result.city_of_birth}, ${result.country_of_birth}
                  Место проживания: ${result.living_index}, ${result.living_country}, ${result.living_city}, ${result.living_street}, ${result.house_number}`,
                     Markup.inlineKeyboard([
-                        [Markup.button.callback("Всё верно","write"),Markup.button.callback("Не верно","wrong") ]
+                        [Markup.button.callback("✔ Всё верно","write"),Markup.button.callback("❌ Не верно","wrong") ]
                     ])
                 )
             }
@@ -478,8 +465,8 @@ getPhoto.action("start_again", async ctx => {
 getPhoto.action("wrong", async ctx => {
     try {
         await ctx.answerCbQuery();
-        await ctx.replyWithHTML("<b>Чтобы перейти к началу заполнения анкеты, нажмите кнопку 'Начать заново (жми два раза)'</b>",
-            Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]));
+        await ctx.replyWithHTML("<b>Чтобы перейти к началу заполнения анкеты, нажмите кнопку '👉 Начать заново (жми два раза)'</b>",
+            Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]));
         return ctx.wizard.selectStep(0);
     } catch (e) {
         console.log(e)
@@ -493,7 +480,7 @@ getPhoto.action("write", async ctx => {
         await newDBconnect.updateOrder({key: "national_driver_license", value: `${passport_number()}`});
         await ctx.replyWithHTML("<b>Загрузите фото как на документы, соотношение ширины к высоте 3:4. " +
             "Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.</b>",
-            Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]))
+            Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
         return ctx.wizard.selectStep(16);
     } catch (e) {
         console.log(e)
@@ -507,7 +494,7 @@ getPhoto.action("update_photo", async ctx => {
         await newDBconnect.updateOrder({key: "national_driver_license", value: `${passport_number()}`});
         await ctx.replyWithHTML("<b>Загрузите фото как на документы, соотношение ширины к высоте 3:4. " +
             "Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.</b>",
-            Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]))
+            Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
         return ctx.wizard.selectStep(16);
     } catch (e) {
         console.log(e)
@@ -559,10 +546,10 @@ sendPhoto.on("photo", async (ctx) => {
                     await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
                 }
             });
-            await ctx.replyWithHTML(`Если образцы вышли хорошо, жмите кнопку <b>Оплатить</b>. В течение 1-5 минут после оплаты, вам придут файлы для печати. Чтобы начать заново (жми два раза) жмите соотвествующую кнопку`,
+            await ctx.replyWithHTML(`Если образцы вышли хорошо, жмите кнопку <b>Оплатить</b>. В течение 1-5 минут после оплаты, вам придут файлы для печати. Чтобы 👉 начать заново (жми два раза) жмите соотвествующую кнопку`,
                 Markup.inlineKeyboard([
-                    [Markup.button.callback("Оплатить","make_payment"), Markup.button.callback("Загрузить другое фото","update_photo")],
-                    [Markup.button.callback("Начать заново (жми два раза)","start_again")]
+                    [Markup.button.callback("💳 Оплатить","make_payment"), Markup.button.callback("🎭 Загрузить другое фото","update_photo")],
+                    [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
                 ])
             )
             return ctx.wizard.selectStep(17);
@@ -581,7 +568,7 @@ getAnswer.action("start_again", async ctx => {
 getAnswer.action("update_photo", async ctx => {
     await ctx.replyWithHTML(`Подтвердите`,
         Markup.inlineKeyboard([
-            [Markup.button.callback("Загрузить другое фото", "update_photo"), Markup.button.callback("Продолжить", "next")]
+            [Markup.button.callback("🎭 Загрузить другое фото", "update_photo"), Markup.button.callback("⏭ Продолжить", "next")]
         ])
     )
     return ctx.wizard.selectStep(15)
