@@ -457,43 +457,71 @@ getApprove.on("text", async (ctx) => {
 // 15
 const getPhoto = new Composer();
 getPhoto.action("start_again", async ctx => {
-    if (ctx.update.callback_query.data === "start_again") {
-        await ctx.answerCbQuery();
-        await ctx.wizard.selectStep(0);
-    }
-})
-getPhoto.on("callback_query", async (ctx) => {
     try {
-        if (ctx.update.callback_query.data === "write" || ctx.update.callback_query.data === "update_photo") {
-            await newDBconnect.updateOrder({key: "id_code", value: `${id_code()}`});
-            await newDBconnect.updateOrder({key: "passport_number", value: `${passport_number()}`});
-            await newDBconnect.updateOrder({key: "national_driver_license", value: `${passport_number()}`});
-            await ctx.replyWithHTML("<b>Загрузите фото как на документы, соотношение ширины к высоте 3:4. " +
-                "Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.</b>",
-                Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]))
-            return ctx.wizard.selectStep(16);
-        }
-        if (ctx.message.text === "wrong" ) {
-            await ctx.replyWithHTML("<b>Чтобы перейти к началу заполнения анкеты, нажмите кнопку 'Начать заново (жми два раза)'</b>",
-                Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]));
-            return ctx.wizard.selectStep(0);
-        }
-        if (ctx.message.text === "start_again" ) {
-            await ctx.replyWithHTML("Подтвердите",
-                Markup.inlineKeyboard([
-                    [Markup.button.callback("Начать заново (жми два раза)","start_again")]
-                ]));
-            return ctx.wizard.selectStep(0);
-        }
-        if (ctx.message.text === "Сгенерировать заново") {
-            await ctx.reply("Генерю...");
-            return ctx.wizard.selectStep(7);
+        if (ctx.update.callback_query.data === "start_again") {
+            await ctx.answerCbQuery();
+            await ctx.wizard.selectStep(0);
         }
     } catch (e) {
         console.log(e)
     }
-})
 
+});
+getPhoto.action("start_again", async ctx => {
+    try {
+        await ctx.answerCbQuery();
+        await ctx.wizard.selectStep(0);
+    } catch (e) {
+        console.log(e)
+    }
+});
+getPhoto.action("wrong", async ctx => {
+    try {
+        await ctx.answerCbQuery();
+        await ctx.replyWithHTML("<b>Чтобы перейти к началу заполнения анкеты, нажмите кнопку 'Начать заново (жми два раза)'</b>",
+            Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]));
+        return ctx.wizard.selectStep(0);
+    } catch (e) {
+        console.log(e)
+    }
+});
+getPhoto.action("write", async ctx => {
+    try {
+        await ctx.answerCbQuery();
+        await newDBconnect.updateOrder({key: "id_code", value: `${id_code()}`});
+        await newDBconnect.updateOrder({key: "passport_number", value: `${passport_number()}`});
+        await newDBconnect.updateOrder({key: "national_driver_license", value: `${passport_number()}`});
+        await ctx.replyWithHTML("<b>Загрузите фото как на документы, соотношение ширины к высоте 3:4. " +
+            "Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.</b>",
+            Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]))
+        return ctx.wizard.selectStep(16);
+    } catch (e) {
+        console.log(e)
+    }
+});
+getPhoto.action("update_photo", async ctx => {
+    try {
+        await ctx.answerCbQuery();
+        await newDBconnect.updateOrder({key: "id_code", value: `${id_code()}`});
+        await newDBconnect.updateOrder({key: "passport_number", value: `${passport_number()}`});
+        await newDBconnect.updateOrder({key: "national_driver_license", value: `${passport_number()}`});
+        await ctx.replyWithHTML("<b>Загрузите фото как на документы, соотношение ширины к высоте 3:4. " +
+            "Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.</b>",
+            Markup.inlineKeyboard([[Markup.button.callback("Начать заново (жми два раза)","start_again")]]))
+        return ctx.wizard.selectStep(16);
+    } catch (e) {
+        console.log(e)
+    }
+});
+getPhoto.action("generate_again", async ctx => {
+    try {
+        await ctx.answerCbQuery();
+        await ctx.reply("Генерю...");
+        return ctx.wizard.selectStep(7);
+    } catch (e) {
+        console.log(e)
+    }
+});
 
 // 16
 const sendPhoto = new Composer();
