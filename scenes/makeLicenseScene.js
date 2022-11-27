@@ -580,6 +580,14 @@ getAnswer.action("start_again", async ctx => {
         await ctx.wizard.selectStep(0);
     }
 })
+getAnswer.action("update_photo", async ctx => {
+    await ctx.replyWithHTML(`Подтвердите`,
+        Markup.inlineKeyboard([
+            [Markup.button.callback("Загрузить другое фото", "update_photo"), Markup.button.callback("Продолжить", "next")]
+        ])
+    )
+    return ctx.wizard.selectStep(15)
+})
 getAnswer.on('text', async (ctx) => {
     try {
         switch (ctx.message.text) {
@@ -592,27 +600,13 @@ getAnswer.on('text', async (ctx) => {
                 }
             case "/start":
                 return ctx.scene.leave();
-            case "Начать заново (жми два раза)":
-                await ctx.replyWithHTML(`Подтвердите`,
-                    Markup.inlineKeyboard([
-                        [Markup.button.callback("Начать заново (жми два раза)", "start_again"), Markup.button.callback("Продолжить", "next")]
-                    ])
-                )
-                return ctx.wizard.selectStep(0);
-            case "Загрузить другое фото":
-                await ctx.replyWithHTML(`Подтвердите`,
-                    Markup.inlineKeyboard([
-                        [Markup.button.callback("Загрузить другое фото", "update_photo"), Markup.button.callback("Продолжить", "next")]
-                    ])
-                )
-                return ctx.wizard.selectStep(15)
         }
     } catch (e) {
         console.log(e)
     }
 })
 
-20
+//20
 const sendFinalData = new Composer();
 sendFinalData.action("start_again", async ctx => {
     if (ctx.update.callback_query.data === "start_again") {
