@@ -404,14 +404,14 @@ getApprove.on("text", async (ctx) => {
             if(result.type === "eu"){
                 await ctx.replyWithHTML(`
                  <b>Проверьте правильность введенной информации:</b>
-                 Имя: ${result.first_name},
-                 Фамилия: ${result.last_name},
-                 Отчество: ${result.second_name},
+                 Имя: ${result.first_name.toUpperCase()},
+                 Фамилия: ${result.last_name.toUpperCase()},
+                 Отчество: ${result.second_name.toUpperCase()},
                  Дата рождения: ${result.date_of_birth},
-                 Место рождения: ${result.city_of_birth}, ${result.country_of_birth}
-                 Место проживания: ${result.living_index}, ${result.living_country}, ${result.living_city}, ${result.living_street}, ${result.house_number},
-                 Пол: ${result.sex}
-                 Цвет глаз: ${result.eyes}
+                 Место рождения: ${result.city_of_birth.toUpperCase()}, ${result.country_of_birth.toUpperCase()}
+                 Место проживания: ${result.living_index.toUpperCase()}, ${result.living_country.toUpperCase()}, ${result.living_city.toUpperCase()}, ${result.living_street.toUpperCase()}, ${result.house_number},
+                 Пол: ${result.sex.toUpperCase()}
+                 Цвет глаз: ${result.eyes.toUpperCase()}
                  Рост: ${result.height}`,
                     Markup.inlineKeyboard([
                         [Markup.button.callback("✔ Всё верно","write"),Markup.button.callback("❌ Не верно","wrong") ]
@@ -420,12 +420,12 @@ getApprove.on("text", async (ctx) => {
             } else {
                 await ctx.replyWithHTML(`
                  <b>Проверьте правильность введенной информации:</b>
-                 Имя: ${result.first_name},
-                 Фамилия: ${result.last_name},
-                 Отчество: ${result.second_name},
-                 Дата рождения: ${result.date_of_birth},
-                 Место рождения: ${result.city_of_birth}, ${result.country_of_birth}
-                 Место проживания: ${result.living_index}, ${result.living_country}, ${result.living_city}, ${result.living_street}, ${result.house_number}`,
+                 Имя: ${result.first_name.toUpperCase()},
+                 Фамилия: ${result.last_name.toUpperCase()},
+                 Отчество: ${result.second_name.toUpperCase()},
+                 Дата рождения: ${result.date_of_birth.toUpperCase()},
+                 Место рождения: ${result.city_of_birth.toUpperCase()}, ${result.country_of_birth.toUpperCase()}
+                 Место проживания: ${result.living_index}, ${result.living_country.toUpperCase()}, ${result.living_city.toUpperCase()}, ${result.living_street.toUpperCase()}, ${result.house_number}`,
                     Markup.inlineKeyboard([
                         [Markup.button.callback("✔ Всё верно","write"),Markup.button.callback("❌ Не верно","wrong") ]
                     ])
