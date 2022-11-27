@@ -4,7 +4,6 @@ export default class db_connect {
     constructor(userChatId) {
         this.userChatId = userChatId;
         this.pool = mysql.createPool(config);
-
     }
     connectDb = () => {
         this.pool.connect()
@@ -74,9 +73,11 @@ export default class db_connect {
 
     getOrderInfo = async (callback) => {
         try {
-            return this.pool.query(`SELECT * FROM orders WHERE user_id=? and status=0`, [this.userChatId], (error, results) => {
+            let result = await this.pool.query(`SELECT * FROM orders WHERE user_id=? and status=0`, [this.userChatId], (error, results) => {
                 callback(Object.values(JSON.parse(JSON.stringify(results)))[0]);
             });
+            return result;
+
         } catch (e) {
             console.log(e)
         }

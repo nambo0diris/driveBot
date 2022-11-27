@@ -12,13 +12,16 @@ import * as path from "path";
 dotenv.config();
 
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
+const bot = new Telegraf(process.env.DEV_BOT_TOKEN);
 const stage = new Scenes.Stage([makeLicenseScene]);
 
 bot.use(session());
 bot.use(stage.middleware());
 
-bot.hears('Сделать сувенирные права', ctx => ctx.scene.enter("makeLicenseScene"))
+bot.action('make_drive_license', async ctx => {
+    await ctx.answerCbQuery();
+    await ctx.scene.enter("makeLicenseScene")
+})
 bot.hears('Оплатить', async (ctx) => {
     try {
         console.log("Оплатить")
@@ -60,13 +63,7 @@ bot.on('successful_payment', async (ctx, next) => { // ответ в случа�
 
 })
 
-// bot.command("/start", async ctx => {
-//     await ctx.reply(startText, Markup.keyboard(
-//         [
-//             ["Сделать права"]
-//         ]
-//     ))
-// })
+
 bot.start(async (ctx) => {
     let newDBconnect;
 
@@ -93,9 +90,9 @@ bot.start(async (ctx) => {
                 await newDBconnect.addNewCustomer();
             }
         });
-        await ctx.replyWithHTML(startText, Markup.keyboard(
+        await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
             [
-                ["Сделать сувенирные права"]
+                [Markup.button.callback("Сделать сувенирные права", "make_drive_license")]
             ]
         ))
 
