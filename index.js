@@ -12,7 +12,7 @@ import * as path from "path";
 dotenv.config();
 
 
-const bot = new Telegraf(process.env.DEV_BOT_TOKEN);
+const bot = new Telegraf(process.env.BOT_TOKEN);
 const stage = new Scenes.Stage([makeLicenseScene]);
 
 bot.use(session());
