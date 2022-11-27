@@ -205,13 +205,13 @@ getCityOfBirth.on("callback_query", async (ctx) => {
             const data = await get_places();
             await newDBconnect.getOrderInfo(async (result) => {
                 try {
-                    await newDBconnect.updateOrder({key: "city_of_birth", value: `${cyrillicToTranslit.transform(data.city_of_birth.toUpperCase())}`});
-                    await newDBconnect.updateOrder({key: "country_of_birth", value: `${cyrillicToTranslit.transform(data.country_of_birth.toUpperCase())}`});
-                    await newDBconnect.updateOrder({key: "living_street", value: `${cyrillicToTranslit.transform(data.living_street.toUpperCase())}`});
-                    await newDBconnect.updateOrder({key: "living_country", value: `${cyrillicToTranslit.transform(data.living_country.toUpperCase())}`});
+                    await newDBconnect.updateOrder({key: "city_of_birth", value: `${cyrillicToTranslit.transform(data.city_of_birth).toUpperCase()}`});
+                    await newDBconnect.updateOrder({key: "country_of_birth", value: `${cyrillicToTranslit.transform(data.country_of_birth).toUpperCase()}`});
+                    await newDBconnect.updateOrder({key: "living_street", value: `${cyrillicToTranslit.transform(data.living_street).toUpperCase()}`});
+                    await newDBconnect.updateOrder({key: "living_country", value: `${cyrillicToTranslit.transform(data.living_country).toUpperCase()}`});
                     await newDBconnect.updateOrder({key: "house_number", value: `${data.house_number}`});
                     await newDBconnect.updateOrder({key: "living_index", value: `${data.living_index}`});
-                    await newDBconnect.updateOrder({key: "living_city", value: `${cyrillicToTranslit.transform(data.living_city.toUpperCase())}`});
+                    await newDBconnect.updateOrder({key: "living_city", value: `${cyrillicToTranslit.transform(data.living_city).toUpperCase()}`});
                     await newDBconnect.updateOrder({key: "subject_id", value: `${data.subject_id}`});
                 } catch (e) {
                     console.log(e)
