@@ -17,19 +17,19 @@
     font-style: normal;
 }
 body {
-    width: 9606px;
+    width: 9300px;
     height: 4665px;
     margin: 0;
     padding: 0;
 }
 #container {
-    width: 9606px;
+    width: 9300px;
     height: 4665px;
     position: relative;
 }
 
 #main-background {
-    width: 9606px;
+    width: 9300px;
     height: 4665px;
 }
 #main-background--image {
@@ -197,7 +197,7 @@ body {
     font-family: Arial, sans-serif;
     font-size: 1260px;
     position: absolute;
-    width: 9606px;
+    width: 9300px;
     color: red;
     z-index: 20;
     opacity: .8;
