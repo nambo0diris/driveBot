@@ -32,7 +32,7 @@ const convert_to_jpeg = async (props, type) => {
         const page1 = await browser.newPage();
         await page1.goto(`file:///root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.html`);
         await page1.setViewport({
-            width: 9960,
+            width: 9606,
             height: 4665,
             deviceScaleFactor: 1,
         });
@@ -70,7 +70,7 @@ const convert_to_jpeg = async (props, type) => {
         const page2 = await browser2.newPage();
         await page2.goto(`file:///root/driveBot/temp/users/${props.user_id}/Полный_разворот_2.html`);
         await page2.setViewport({
-            width: 9960,
+            width: 9606,
             height: 4665,
             deviceScaleFactor: 1,
         });
