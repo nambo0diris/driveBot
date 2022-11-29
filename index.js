@@ -22,6 +22,13 @@ bot.action('make_drive_license', async ctx => {
     await ctx.answerCbQuery();
     await ctx.scene.enter("makeLicenseScene")
 })
+bot.action('to_start', async ctx => {
+    await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
+        [
+            [Markup.button.callback("Сделать сувенирные права", "make_drive_license"), Markup.button.callback("Посмотреть образцы", "look_examples")]
+        ]
+    ));
+})
 bot.action('look_examples', async ctx => {
     await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_1.jpg` });
     await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_2.jpg` });
@@ -30,7 +37,7 @@ bot.action('look_examples', async ctx => {
     await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` }, Markup.inlineKeyboard(
         [
             [Markup.button.callback("Сделать сувенирные права", "make_drive_license")],
-            [Markup.button.callback("В начало", "/start")]
+            [Markup.button.callback("В начало", "to_start")]
         ]
     ));
 })
