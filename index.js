@@ -111,7 +111,8 @@ bot.start(async (ctx) => {
         });
         await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
             [
-                [Markup.button.callback("⭐ Сделать сувенирные права", "make_drive_license"), Markup.button.callback("👁 Посмотреть образцы", "look_examples")]
+                [Markup.button.callback("⭐ Сделать сувенирные права", "make_drive_license")],
+                [Markup.button.callback("👁 Посмотреть образцы", "look_examples")]
             ]
         ));
     } catch (e) {
