@@ -90,14 +90,20 @@ bot.start(async (ctx) => {
                 await newDBconnect.addNewCustomer();
             }
         });
-        await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
+        await ctx.replyWithHTML(startText);
+        await ctx.replyWithPhoto({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_1.jpg` });
+        await ctx.replyWithPhoto({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_2.jpg` });
+        await ctx.replyWithPhoto({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
+        await ctx.replyWithPhoto({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
+        await ctx.replyWithPhoto({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` },Markup.inlineKeyboard(
             [
-                [Markup.button.callback("⭐ Сделать сувенирные права", "make_drive_license")]
+                [Markup.button.callback("Сделать сувенирные права", "make_drive_license")]
             ]
-        ))
+        ));
+
 
     } catch (e) {
-
+        console.log(e)
     }
 })
 bot.help(async ctx => {
