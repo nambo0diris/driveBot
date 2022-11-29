@@ -25,7 +25,7 @@ bot.action('make_drive_license', async ctx => {
 bot.action('to_start', async ctx => {
     await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
         [
-            [Markup.button.callback("Сделать сувенирные права", "make_drive_license"), Markup.button.callback("Посмотреть образцы", "look_examples")]
+            [Markup.button.callback("⭐ Сделать сувенирные права", "make_drive_license"), Markup.button.callback("👁 Посмотреть образцы", "look_examples")]
         ]
     ));
 })
@@ -36,8 +36,8 @@ bot.action('look_examples', async ctx => {
     await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
     await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` }, Markup.inlineKeyboard(
         [
-            [Markup.button.callback("Сделать сувенирные права", "make_drive_license")],
-            [Markup.button.callback("В начало", "to_start")]
+            [Markup.button.callback("⭐ Сделать сувенирные права", "make_drive_license")],
+            [Markup.button.callback("👉 В начало", "to_start")]
         ]
     ));
 })
@@ -111,7 +111,7 @@ bot.start(async (ctx) => {
         });
         await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
             [
-                [Markup.button.callback("Сделать сувенирные права", "make_drive_license"), Markup.button.callback("Посмотреть образцы", "look_examples")]
+                [Markup.button.callback("⭐ Сделать сувенирные права", "make_drive_license"), Markup.button.callback("👁 Посмотреть образцы", "look_examples")]
             ]
         ));
     } catch (e) {
