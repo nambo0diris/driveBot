@@ -91,11 +91,11 @@ bot.start(async (ctx) => {
             }
         });
         await ctx.replyWithHTML(startText);
-        await ctx.replyWithPhoto({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_1.jpg` });
-        await ctx.replyWithPhoto({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_2.jpg` });
-        await ctx.replyWithPhoto({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
-        await ctx.replyWithPhoto({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
-        await ctx.replyWithPhoto({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` },Markup.inlineKeyboard(
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_1.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_2.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_1.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` },Markup.inlineKeyboard(
             [
                 [Markup.button.callback("Сделать сувенирные права", "make_drive_license")]
             ]
