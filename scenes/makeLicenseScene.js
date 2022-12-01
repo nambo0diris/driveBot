@@ -95,7 +95,7 @@ getCategory.on("callback_query", async (ctx) => {
         // Georgia
         // Italy
         // Tajikistan
-        return ctx.wizard.selectStep(1);
+        // return ctx.wizard.selectStep(1);
     } catch (e) {
         console.log(e)
     }
