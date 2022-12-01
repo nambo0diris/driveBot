@@ -72,6 +72,7 @@ getCategory.action("passports", async ctx => {
 
 getCategory.on("callback_query", async (ctx) => {
     try {
+        await ctx.answerCbQuery();
         await ctx.replyWithHTML("Какую бутафорию вы хотите сделать? ",
             Markup.inlineKeyboard([
             [Markup.button.callback("Бутаофрсике водительские удостоверения","drive_license" )],
