@@ -30,16 +30,71 @@ const download_image = (url, image_path) =>
 let newDBconnect;
 
 // 0
-const getChoice = new Composer();
-getChoice.on("callback_query", async (ctx) => {
+const driveDocs = new Composer();
+driveDocs.on("callback_query", async (ctx) => {
     try {
-        await ctx.replyWithHTML("Какие сувенирные права вы хотите сделать? " +
-            "Вы можете выбрать вариант 'РФ международные + европейские' это " +
-            "на цену никак не влияет, но нужно будет ответить на пару дополнительных" +
-            "вопросов, зато вы получите макет для печати на пластике", Markup.inlineKeyboard([
+        await ctx.replyWithHTML("" +
+            "В стоиомсть входит три вида макетов: " +
+            "- Сувенирные Российские международные права полный разворот (2 файла) " +
+            "- Сувенирные Российские международные права только основные части (1 файл) " +
+            "- Сувенирные европейские международные права для печати на пластике (2 файла)",
+            Markup.inlineKeyboard([
             [Markup.button.callback("🇷🇺 РФ международные","ru" )],
             [Markup.button.callback("🇷🇺 РФ международные + 🇪🇺 европейские", "eu")]
         ]));
+        return ctx.wizard.selectStep(1);
+    } catch (e) {
+        console.log(e)
+    }
+})
+//
+// "Вы можете выбрать вариант 'РФ международные + европейские' это " +
+// "на цену никак не влияет, но нужно будет ответить на пару дополнительных" +
+// "вопросов, зато вы получите макет для печати на пластике"
+// 0
+const getCategory = new Composer();
+getCategory.action("drive_license", async ctx => {
+    await ctx.replyWithHTML("Выберите страну", Markup.inlineKeyboard([
+        [Markup.button.callback("Франиция (в разработке)", "france")],
+        [Markup.button.callback("Англия (в разработке)", "united_kingdom")],
+        [Markup.button.callback("Мексика (в разработке)", "mexico")],
+        [Markup.button.callback("Россия", "russia")],
+        [Markup.button.callback("Украина (в разработке)", "ukraine")],
+        [Markup.button.callback("США (в разработке)", "united_states")],
+        ["👉 Начать заново (жми два раза)", "start_again"]
+    ]))
+})
+getCategory.action("passports", async ctx => {
+    await ctx.replyWithHTML("Выберите страну", Markup.inlineKeyboard([
+        ["👉 Начать заново (жми два раза)", "start_again"]
+    ]))
+})
+
+getCategory.on("callback_query", async (ctx) => {
+    try {
+        await ctx.replyWithHTML("Какую бутафорию вы хотите сделать? ",
+            Markup.inlineKeyboard([
+            [Markup.button.callback("Бутаофрсике водительские удостоверения","drive_license" )],
+            [Markup.button.callback("Бутафорские паспорта(в разработке)", "passports")],
+        ]));
+        // Armenia
+        // Argentina
+        // Austria
+        // Australia
+        // Azerbaijan
+        // Bulgaria
+        // Brazil
+        // Canada
+        // Cyprus
+        // Germany
+        // Dominican Republic
+        // Estonia
+        // Egypt
+        // Spain
+        // Finland
+        // Georgia
+        // Italy
+        // Tajikistan
         return ctx.wizard.selectStep(1);
     } catch (e) {
         console.log(e)
@@ -50,6 +105,7 @@ getChoice.on("callback_query", async (ctx) => {
 
 // 1
 const getDateOfBirthStep = new Composer();
+
 getDateOfBirthStep.on("callback_query", async ctx => {
     if (ctx.update.callback_query.data === "start_again") {
         console.log(1)
@@ -610,7 +666,7 @@ sendFinalData.on('text', async (ctx) => {  // это обработчик кон
 
 const makeLicenseScene = new Scenes.WizardScene(
     "makeLicenseScene",
-    getChoice,
+    getCategory,
     getDateOfBirthStep,
     getSex,
     getEyesColor,
