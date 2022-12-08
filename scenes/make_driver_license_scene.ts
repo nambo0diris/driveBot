@@ -294,7 +294,8 @@ getCityOfBirth.on("callback_query", async (ctx) => {
             const date_of_birth = ctx.wizard.state.date_of_birth;
             // @ts-ignore
             ctx.wizard.state.subject_id = subject_id;
-
+            // @ts-ignore
+            ctx.wizard.state.user_id = ctx.message.from.id;
             await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>
                     Имя: ${first_name}
                     Фамилия: ${last_name}
