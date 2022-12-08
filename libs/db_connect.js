@@ -1,5 +1,5 @@
 import mysql from 'mysql';
-import config from "./config.js";
+import config from "../config.js";
 export default class db_connect {
     constructor(userChatId) {
         this.userChatId = userChatId;
@@ -13,7 +13,6 @@ export default class db_connect {
         try {
             await this.pool.query('INSERT INTO customer SET ?', post, function (error, results, fields) {
                 if (error) throw error;
-                console.log(results)
             });
         } catch (e) {
             console.log(e)
@@ -23,7 +22,6 @@ export default class db_connect {
         try {
             await this.pool.query(`UPDATE users SET ${data.key}=? WHERE id=${this.userChatId}`, data.value, function (error, results, fields) {
                 // if (error) throw error;
-                console.log(results)
             });
         } catch (e) {
             console.log(e)
@@ -44,7 +42,6 @@ export default class db_connect {
         try {
             await this.pool.query('INSERT INTO orders SET ?',data , function (error, results, fields) {
                 if (error) throw error;
-                console.log(results)
             });
         } catch (e) {
             console.log(e)
@@ -54,7 +51,6 @@ export default class db_connect {
         try {
             await this.pool.query(`UPDATE orders SET status=? WHERE user_id=${this.userChatId} and status=0`, 1, function (error, results, fields) {
                 if (error) throw error;
-                console.log(results)
             });
         } catch (e) {
             console.log(e)
@@ -64,7 +60,6 @@ export default class db_connect {
     updateOrder = async (data) => {
         try {
             await this.pool.query(`UPDATE orders SET ${data.key}=? WHERE user_id=${this.userChatId} and status=0`, data.value, function (error, results, fields) {
-                console.log(results)
             });
         } catch (e) {
             console.log(e)

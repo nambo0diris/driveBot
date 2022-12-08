@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@a2seven/yoo-checkout": "^1.1.4",
     "axios": "^0.27.2",
     "cyrillic-to-translit-js": "^3.2.1",
     "dotenv": "^16.0.2",

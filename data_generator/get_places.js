@@ -42,9 +42,7 @@ import serial_number from "./serial_number.js";
     try {
         let address = {};
         await random_number(addresses.cities.length).then(async random => {
-            console.log(random)
             const city = addresses.cities[random];
-            console.log(city)
             address.city_of_birth = city.name;
             address.country_of_birth = "Russia";
             await random_number(city.streets.length).then(async living_street_idx => {

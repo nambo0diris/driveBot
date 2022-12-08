@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
 import * as fs from "fs";
-import random_signature from "./data_generator/random_signature.js";
+import random_signature from "../data_generator/random_signature.js";
 
 const convert_to_jpeg = async (props, type) => {
     try {
