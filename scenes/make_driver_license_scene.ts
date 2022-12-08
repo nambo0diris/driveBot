@@ -4,6 +4,7 @@ import get_random_data from "../data_generator/get_random_data";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 import id_code from "../data_generator/id_code";
 import passport_number from "../data_generator/passport_number";
+
 import serial_number from "../data_generator/serial_number";
 import convert_to_jpeg from "../libs/convert_to_jpeg";
 import * as fs from "fs";
@@ -582,15 +583,15 @@ getPhoto.on("photo", async (ctx) => {
 
     try {
 
-        fs.stat(`./temp/users/${ctx.message.chat.id}`, async (err) => {
+        fs.stat(`../temp/users/${ctx.message.chat.id}`, async (err) => {
             if (!err) {
                 await download_image(fileUrl.href, `./temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
             } else if (err.code === 'ENOENT') {
                 console.log('директории нет');
-                fs.mkdir(`./temp/users/${ctx.message.chat.id}`, async (err) => {
+                fs.mkdir(`../temp/users/${ctx.message.chat.id}`, async (err) => {
                     if (err)
                         throw err; // не удалось создать папку
-                    await download_image(fileUrl.href, `./temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
+                    await download_image(fileUrl.href, `../temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
                 });
             }
         });

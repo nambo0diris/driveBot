@@ -21,7 +21,7 @@ export default class db_connect {
     updateCustomerInfo = async (data) => {
         try {
             await this.pool.query(`UPDATE users SET ${data.key}=? WHERE id=${this.userChatId}`, data.value, function (error, results, fields) {
-                // if (error) throw error;
+                if (error) throw error;
             });
         } catch (e) {
             console.log(e)
