@@ -640,7 +640,7 @@ getPhoto.action("right", async ctx => {
         console.log(e)
     }
 });
-getPhoto.action("update_photo", async ctx => {
+getPhoto.action("update_photo", async (ctx) => {
     try {
         await ctx.answerCbQuery();
         // @ts-ignore

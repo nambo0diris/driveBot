@@ -1,7 +1,7 @@
 FROM node:16
 
 # Working Directory
-WORKDIR app/index.js
+WORKDIR app/index.ts
 
 # Copy Package Json Files
 COPY package.json .
@@ -12,4 +12,4 @@ RUN npm install
 # Copy Source Files
 COPY . .
 
-CMD ["node","index.js"]
+CMD ["node","index.ts"]

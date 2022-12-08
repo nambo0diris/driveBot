@@ -8,9 +8,12 @@ import * as path from "path";
 import make_passport_scene from "./scenes/make_passport_scene.js";
 import make_drive_license_scene from "./scenes/make_driver_license_scene.js";
 dotenv.config();
+// @ts-ignore
 const bot = new Telegraf(process.env.BOT_TOKEN);
+// @ts-ignore
 const stage = new Scenes.Stage([make_passport_scene, make_drive_license_scene]);
 bot.use(session());
+// @ts-ignore
 bot.use(stage.middleware());
 bot.action('go_to_fake_market', async ctx => {
     try {
@@ -44,7 +47,7 @@ bot.on("callback_query", async ctx => {
 })
 
 bot.start(async (ctx) => {
-    let newDBconnect;
+    let newDBconnect: db_connect;
 
     try {
         await fs.stat(`./temp/users/${ctx.message.chat.id}`, async (err) => {
@@ -64,7 +67,7 @@ bot.start(async (ctx) => {
 
         newDBconnect = new db_connect(ctx.message.chat.id);
         await newDBconnect.closeOrder();
-        await newDBconnect.checkCustomer(async (result) => {
+        await newDBconnect.checkCustomer(async (result: any) => {
             if (typeof result === "undefined"){
                 await newDBconnect.addNewCustomer();
             }
