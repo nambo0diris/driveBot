@@ -581,10 +581,10 @@ getPhoto.action("wrong", async ctx => {
 getPhoto.on("photo", async (ctx) => {
     // @ts-ignore
     const picture = ctx.message.photo[2].file_id;
-    console.log(picture)
+    console.log("picture " + picture)
 
     const fileUrl = await ctx.telegram.getFileLink(picture);
-    console.log(fileUrl)
+    console.log("fileUrl " + fileUrl)
     try {
         fs.stat(`../temp/users/${ctx.message.chat.id}`, async (err) => {
             if (!err) {
