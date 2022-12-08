@@ -295,7 +295,8 @@ getCityOfBirth.on("callback_query", async (ctx) => {
             // @ts-ignore
             ctx.wizard.state.subject_id = subject_id;
             // @ts-ignore
-            ctx.wizard.state.user_id = ctx.message.from.id;
+            ctx.wizard.state.user_id = ctx.update.callback_query.message.chat.id;
+            // ctx.wizard.sta   te.user_id = ;
             await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>
                     Имя: ${first_name}
                     Фамилия: ${last_name}
@@ -580,41 +581,42 @@ getPhoto.action("wrong", async ctx => {
 getPhoto.on("photo", async (ctx) => {
     // @ts-ignore
     const picture = ctx.message.photo[2].file_id;
+    console.log(picture)
+
     const fileUrl = await ctx.telegram.getFileLink(picture);
-
+    console.log(fileUrl)
     try {
-
-        fs.stat(`./temp/users/${ctx.message.chat.id}`, async (err) => {
+        fs.stat(`../temp/users/${ctx.message.chat.id}`, async (err) => {
             if (!err) {
                 await download_image(fileUrl.href, `./temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
             } else if (err.code === 'ENOENT') {
                 console.log('директории нет');
-                fs.mkdir(`./temp/users/${ctx.message.chat.id}`, async (err) => {
+                fs.mkdir(`../temp/users/${ctx.message.chat.id}`, async (err) => {
                     if (err)
                         throw err; // не удалось создать папку
-                    await download_image(fileUrl.href, `./temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
+                    await download_image(fileUrl.href, `../temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
                 });
             }
         });
 
 
-        // @ts-ignore
-        await convert_to_jpeg(ctx.wizard.state, "example").then(async () => {
-            // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
-            // @ts-ignore
-            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
-            // @ts-ignore
-            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
-            // @ts-ignore
-            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
-            // @ts-ignore
-            if (ctx.wizard.state.type === "ru_eu"){
-                // @ts-ignore
-                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
-                // @ts-ignore
-                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
-            }
-        });
+        // // @ts-ignore
+        // await convert_to_jpeg(ctx.wizard.state, "example").then( async () => {
+        //     // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
+        //     // @ts-ignore
+        //     await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
+        //     // @ts-ignore
+        //     await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
+        //     // @ts-ignore
+        //     await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
+        //     // @ts-ignore
+        //     if (ctx.wizard.state.type === "ru_eu"){
+        //         // @ts-ignore
+        //         await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
+        //         // @ts-ignore
+        //         await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
+        //     }
+        // });
         await ctx.replyWithHTML(`Если образцы вышли хорошо, жмите кнопку <b>Оплатить</b>. В течение 1-5 минут после оплаты, вам придут файлы для печати. Чтобы 👉 начать заново (жми два раза) жмите соотвествующую кнопку`,
             Markup.inlineKeyboard([
                 [Markup.button.callback("💳 Оплатить","make_payment"), Markup.button.callback("🎭 Загрузить другое фото","update_photo")],
