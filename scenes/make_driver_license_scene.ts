@@ -583,15 +583,15 @@ getPhoto.on("photo", async (ctx) => {
 
     try {
 
-        fs.stat(`../temp/users/${ctx.message.chat.id}`, async (err) => {
+        fs.stat(`./temp/users/${ctx.message.chat.id}`, async (err) => {
             if (!err) {
                 await download_image(fileUrl.href, `./temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
             } else if (err.code === 'ENOENT') {
                 console.log('директории нет');
-                fs.mkdir(`../temp/users/${ctx.message.chat.id}`, async (err) => {
+                fs.mkdir(`./temp/users/${ctx.message.chat.id}`, async (err) => {
                     if (err)
                         throw err; // не удалось создать папку
-                    await download_image(fileUrl.href, `../temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
+                    await download_image(fileUrl.href, `./temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
                 });
             }
         });
