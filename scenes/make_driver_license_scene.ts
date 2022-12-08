@@ -586,15 +586,17 @@ getPhoto.on("photo", async (ctx) => {
     const fileUrl = await ctx.telegram.getFileLink(picture);
     console.log("fileUrl " + fileUrl)
     try {
-        fs.stat(`../temp/users/${ctx.message.chat.id}`, async (err) => {
+        fs.stat(`/root/driveBot/temp/users/${ctx.message.chat.id}`, async (err) => {
             if (!err) {
-                await download_image(fileUrl.href, `../temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
+                console.log("папка создана")
+                await download_image(fileUrl.href, `/root/driveBot/temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
             } else if (err.code === 'ENOENT') {
                 console.log('директории нет');
-                fs.mkdir(`../temp/users/${ctx.message.chat.id}`, async (err) => {
+                fs.mkdir(`/root/driveBot/temp/users/${ctx.message.chat.id}`, async (err) => {
                     if (err)
                         throw err; // не удалось создать папку
-                    await download_image(fileUrl.href, `../temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
+                    console.log("папку создал")
+                    await download_image(fileUrl.href, `/root/driveBot/temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
                 });
             }
         });
@@ -767,7 +769,7 @@ sendFinalData.on('text', async (ctx) => {
     try {
         await newDBconnect.getOrderInfo(async (result: any) => {
             await convert_to_jpeg(result).then(async () => {
-                return await ctx.replyWithDocument({ source: `E:///myProjects/driveBot/${ctx.message.chat.id}_full_1.jpg` });
+                // return await ctx.replyWithDocument({ source: `E:///myProjects/driveBot/${ctx.message.chat.id}_full_1.jpg` });
             });
             // @ts-ignore
             return ctx.scene.leave();

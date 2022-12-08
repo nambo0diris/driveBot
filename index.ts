@@ -50,12 +50,12 @@ bot.start(async (ctx) => {
     let newDBconnect: db_connect;
 
     try {
-        await fs.stat(`./temp/users/${ctx.message.chat.id}`, async (err) => {
+        await fs.stat(`/root/driveBot/temp/users/${ctx.message.chat.id}`, async (err) => {
             if (!err) {
-                fs.readdir(`./temp/users/${ctx.message.chat.id}/`, (err, files) => {
+                fs.readdir(`/root/driveBot/temp/users/${ctx.message.chat.id}/`, (err, files) => {
                     if (err) throw err;
                     for (const file of files) {
-                        fs.unlink(path.join(`./temp/users/${ctx.message.chat.id}/`, file), err => {
+                        fs.unlink(path.join(`/root/driveBot/temp/users/${ctx.message.chat.id}/`, file), err => {
                             if (err) throw err;
                         });
                     }
