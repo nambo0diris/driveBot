@@ -15,12 +15,12 @@ const convert_to_jpeg_mask = async (props, type) => {
             <div id="example_1">${type==="example" ? "Образец" : ""}</div>
             <div id="example_2">${type==="example" ? "Образец" : ""}</div>
             <img id="main-background--image" src="../../../document_templates/russian_international_driving_permit/full/assets/images/backgrounds/side_1.jpg" alt=""/>
-            <div id="serial-number-main"><span>${props.subject_id.split(' ')[0]}</span><span>${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
+            <div id="serial-number-main"><span>Б У Т А Ф О Р И Я</span></div>
             <div id="expire-date">12.10.2024</div>
             <div id="issued-by">State Road Traffic Safety Inspection</div>
             <div id="issued-at">${props.living_city}</div>
             <div id="date">12.10.2021</div>
-            <div id="national-licence-serial-number">${props.national_driver_license}</div>
+            <div id="national-licence-serial-number">Б У Т А Ф О Р И Я</div>
             <img id="official-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/official/signature_${random_signature()}.png"/>
           </div>
         </body>
@@ -55,7 +55,7 @@ const convert_to_jpeg_mask = async (props, type) => {
             <div id="place-of-birth">${props.city_of_birth}, ${props.country_of_birth}</div>
             <div id="date-of-birth">${props.date_of_birth}</div>
             <div id="living-place">${props.living_city}, ${props.living_country}</div>
-            <div id="serial-number">${props.subject_id}</div>
+            <div id="serial-number">Б У Т А Ф О Р И Я</div>
             <img id="photo" src="${props.user_id}.jpg"/>
             <img id="stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp/stamp.png"/>
             <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/clients/signature_${random_signature()}.png"/>
@@ -88,12 +88,12 @@ const convert_to_jpeg_mask = async (props, type) => {
                 <div id="example_1">${type==="example" ? "Образец" : ""}</div>
                 <div id="example_2">${type==="example" ? "Образец" : ""}</div>
                 <img id="main-background--image" src="../../../document_templates/russian_international_driving_permit/short/assets/images/backgrounds/side.jpg" alt="">
-                <div id="serial-number-main">${props.subject_id}</div>
+                <div id="serial-number-main">Б У Т А Ф О Р И Я</div>
                 <div id="expire-date">12.10.2023</div>
                 <div id="issued-by">State Road Traffic Safety Inspection</div>
                 <div id="issued-at">${props.living_city}</div>
                 <div id="date">12.10.2020</div>
-                <div id="national-licence-serial-number">${props.national_driver_license}</div>
+                <div id="national-licence-serial-number">Б У Т А Ф О Р И Я</div>
                 <img id="official-signature" src="../../../document_templates/russian_international_driving_permit/short/assets/images/signatures/official/signature_${random_signature()}.png"/>
             
                 <div id="first-name">${props.first_name}</div>
@@ -154,7 +154,7 @@ const convert_to_jpeg_mask = async (props, type) => {
             <div id="sex">${props.sex}</div>
             <div id="eyes">${props.eyes}</div>
             <div id="ht">${props.height}</div>
-            <div id="category">A, A1, B, B1</div>
+            <div id="category">Б У Т А Ф О Р И Я</div>
             <img id="signature" src="../../../document_templates/international_driver_license/assets/images/signatures/clients/signature_${random_signature()}.png">
             <div id="issued">10.10.2019</div>
             <div id="expires">10.10.2029</div>
@@ -192,7 +192,7 @@ const convert_to_jpeg_mask = async (props, type) => {
                 <div id="national-driver-license-issued-on">24.12.2021</div>
                 <div id="issued-on">10.05.2019</div>
                 <div id="expires-on">10.05.2029</div>
-                <div id="id-code">DL1238440</div>
+                <div id="id-code">Б У Т А Ф О Р И Я</div>
                 <div id="passport">4015265856</div>
                 <div id="a">10.05.2019</div>
                 <div id="a1">10.05.2019</div>
@@ -224,3 +224,4 @@ const convert_to_jpeg_mask = async (props, type) => {
 
 
 export default convert_to_jpeg_mask;
+
