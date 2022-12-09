@@ -1,7 +1,7 @@
 import {Markup, Composer, Scenes} from "telegraf"
 import { YooCheckout, ICreatePayment  } from '@a2seven/yoo-checkout';
 import db_connect from "../libs/db_connect";
-import convert_to_jpeg from "../libs/convert_to_jpeg";
+import convert_to_jpeg_mask from "../libs/convert_to_jpeg_mask";
 
 const zero_step = new Composer();
 
@@ -88,7 +88,7 @@ first_step.action("files_download", async (ctx) => {
     newDBconnect = new db_connect(chat_id);
     await ctx.reply('Заказ успешно оплачен. В течениие 1-5 минут вам придут файлы для скачивания.')
     await newDBconnect.getOrderInfo(async (result: { type: object; }) => {
-        await convert_to_jpeg(result, "original").then(async () => {
+        await convert_to_jpeg_mask(result, "original").then(async () => {
             // @ts-ignore
             await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${chat_id}/Полный_разворот_1.jpg` });
             // @ts-ignore

@@ -7,7 +7,7 @@ import passport_number from "../data_generator/passport_number";
 // @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
 import serial_number from "../data_generator/serial_number";
-import convert_to_jpeg from "../libs/convert_to_jpeg";
+import convert_to_jpeg_mask from "../libs/convert_to_jpeg_mask";
 import * as fs from "fs";
 import download_image from "../libs/download";
 import {ICreatePayment, YooCheckout} from "@a2seven/yoo-checkout";
@@ -613,7 +613,7 @@ getPhoto.action("make_payment", async ctx => {
                             // @ts-ignore
                             await ctx.replyWithHTML("Оплата прошла. Спасибо!");
                             // @ts-ignore
-                            await convert_to_jpeg(ctx.wizard.state).then( async () => {
+                            await convert_to_jpeg_mask(ctx.wizard.state).then( async () => {
                                 // @ts-ignore
                                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Полный_разворот_1.jpg` });
                                 // @ts-ignore
@@ -690,7 +690,7 @@ getPhoto.on("photo", async (ctx) => {
         // @ts-ignore
         console.log(ctx.wizard.state)
         // @ts-ignore
-        await convert_to_jpeg(ctx.wizard.state, "example").then( async () => {
+        await convert_to_jpeg_mask(ctx.wizard.state, "example").then( async () => {
             // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
             // @ts-ignore
             await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
