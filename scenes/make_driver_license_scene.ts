@@ -4,7 +4,8 @@ import get_random_data from "../data_generator/get_random_data";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 import id_code from "../data_generator/id_code";
 import passport_number from "../data_generator/passport_number";
-
+// @ts-ignore
+import { v4 as uuidv4 } from 'uuid';
 import serial_number from "../data_generator/serial_number";
 import convert_to_jpeg from "../libs/convert_to_jpeg";
 import * as fs from "fs";
@@ -702,7 +703,7 @@ getAnswer.action("start_again", async ctx => {
 
 getAnswer.action("make_payment", async (ctx) => {
     const checkout = new YooCheckout({ shopId: '963431', secretKey: 'test_UdXJsS7hOt-PLFjMvqhXi_Zj6pa3kPN5L47LbjyrJw8' });
-    const idempotenceKey = 'a41cffcc-67f2-ab2b-3c30-f1a473e4e412';
+    const idempotenceKey = uuidv4();
     const createPayload: ICreatePayment = {
         amount: {
             value: '400.00',
