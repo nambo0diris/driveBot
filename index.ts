@@ -17,10 +17,12 @@ bot.use(session());
 bot.use(stage.middleware());
 bot.action('go_to_fake_market', async ctx => {
     try {
-        await ctx.replyWithHTML("Какую бутафорию вы хотите сделать?",
+        await ctx.replyWithHTML("Какую бутафорию/сувенир вы хотите сделать?",
             Markup.inlineKeyboard([
+                [Markup.button.callback("Карты UNO (в разработке)","drive_license" )],
+                [Markup.button.callback("Карты Imaginarium (в разработке)","drive_license" )],
                 [Markup.button.callback("Бутафорские водительские удостоверения","drive_license" )],
-                [Markup.button.callback("Бутафорские паспорта(в разработке)", "passports")],
+                [Markup.button.callback("Бутафорские паспорта (в разработке)", "passports")],
             ]));
         // @ts-ignore
     } catch (e) {
