@@ -577,8 +577,77 @@ getPhoto.action("start_again", async ctx => {
 getPhoto.action("make_payment", async ctx => {
     try {
         await ctx.answerCbQuery("make_payment");
-        // @ts-ignore
-        await ctx.wizard.selectStep(17);
+        await ctx.answerCbQuery();
+        const checkout = new YooCheckout({ shopId: '963431', secretKey: 'test_UdXJsS7hOt-PLFjMvqhXi_Zj6pa3kPN5L47LbjyrJw8' });
+        const idempotenceKey = uuidv4();
+        const createPayload: ICreatePayment = {
+            amount: {
+                value: '400.00',
+                currency: 'RUB'
+            },
+            payment_method_data: {
+                type: 'bank_card'
+            },
+            confirmation: {
+                type: 'redirect',
+                return_url: 'test'
+            }
+        };
+
+        try {
+
+            const payment = await checkout.createPayment(createPayload, idempotenceKey);
+            const payment_id = payment.id;
+            // @ts-ignore
+            ctx.wizard.state.payment_id = payment.id;
+            const confirmation_url = payment.confirmation.confirmation_url ? payment.confirmation.confirmation_url : 'empty';
+
+            if (confirmation_url != null) {
+                await ctx.replyWithHTML(confirmation_url).then(async () => {
+                    let payment_result = await checkout.getPayment(payment_id);
+                    let counter = 0;
+                    async function getPayment() {
+                        payment_result = await checkout.getPayment(payment_id);
+                        if (payment_result.status === "waiting_for_capture") {
+                            clearInterval(interval_id);
+                            // @ts-ignore
+                            await ctx.replyWithHTML("Оплата прошла. Спасибо!");
+                            // @ts-ignore
+                            // @ts-ignore
+                            await convert_to_jpeg(ctx.wizard.state).then( async () => {
+                                // @ts-ignore
+                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
+                                // @ts-ignore
+                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
+                                // @ts-ignore
+                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
+                                // @ts-ignore
+                                if (ctx.wizard.state.type === "ru_eu"){
+                                    // @ts-ignore
+                                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
+                                    // @ts-ignore
+                                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
+                                }
+                            });
+                        }
+                        if (counter === 15 && payment_result.status !== "waiting_for_capture") {
+                            clearInterval(interval_id);
+                            // @ts-ignore
+                            await ctx.replyWithHTML("По каким-то причинам оплата еще не поступила. " +
+                                "Если у вас списались средства, но файлы не пришли в течении 10 минут, обратитесь в поддержку, нажав соответствующую кнопку.", Markup.inlineKeyboard([
+                                [Markup.button.callback("Оплатить","make_payment" )],
+                                [Markup.button.callback("Обратиться в поддержку","support" )],
+                                [Markup.button.callback("Начать заново","start_again" )],
+                            ]));
+                        }
+                        counter++;
+                    }
+                    const interval_id = setInterval(getPayment, 20000);
+                });
+            }
+        } catch (error) {
+            console.error(error);
+        }
     } catch (e) {
         console.log(e)
     }
@@ -699,83 +768,6 @@ getAnswer.action("start_again", async ctx => {
     await ctx.answerCbQuery();
     // @ts-ignore
     await ctx.wizard.selectStep(0);
-})
-
-getAnswer.on("callback_query", async (ctx) => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "make_payment"){
-        const checkout = new YooCheckout({ shopId: '963431', secretKey: 'test_UdXJsS7hOt-PLFjMvqhXi_Zj6pa3kPN5L47LbjyrJw8' });
-        const idempotenceKey = uuidv4();
-        const createPayload: ICreatePayment = {
-            amount: {
-                value: '400.00',
-                currency: 'RUB'
-            },
-            payment_method_data: {
-                type: 'bank_card'
-            },
-            confirmation: {
-                type: 'redirect',
-                return_url: 'test'
-            }
-        };
-
-        try {
-
-            const payment = await checkout.createPayment(createPayload, idempotenceKey);
-            const payment_id = payment.id;
-            // @ts-ignore
-            ctx.wizard.state.payment_id = payment.id;
-            const confirmation_url = payment.confirmation.confirmation_url ? payment.confirmation.confirmation_url : 'empty';
-
-            if (confirmation_url != null) {
-                await ctx.answerCbQuery();
-                await ctx.replyWithHTML(confirmation_url).then(async () => {
-                    let payment_result = await checkout.getPayment(payment_id);
-                    let counter = 0;
-                    async function getPayment() {
-                        payment_result = await checkout.getPayment(payment_id);
-                        if (payment_result.status === "waiting_for_capture") {
-                            clearInterval(interval_id);
-                            // @ts-ignore
-                            await ctx.replyWithHTML("Оплата прошла. Спасибо!");
-                            // @ts-ignore
-                            // @ts-ignore
-                            await convert_to_jpeg(ctx.wizard.state).then( async () => {
-                                // @ts-ignore
-                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
-                                // @ts-ignore
-                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
-                                // @ts-ignore
-                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
-                                // @ts-ignore
-                                if (ctx.wizard.state.type === "ru_eu"){
-                                    // @ts-ignore
-                                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
-                                    // @ts-ignore
-                                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
-                                }
-                            });
-                        }
-                        if (counter === 15 && payment_result.status !== "waiting_for_capture") {
-                            clearInterval(interval_id);
-                            // @ts-ignore
-                            await ctx.replyWithHTML("По каким-то причинам оплата еще не поступила. " +
-                                "Если у вас списались средства, но файлы не пришли в течении 10 минут, обратитесь в поддержку, нажав соответствующую кнопку.", Markup.inlineKeyboard([
-                                [Markup.button.callback("Оплатить","make_payment" )],
-                                [Markup.button.callback("Обратиться в поддержку","support" )],
-                                [Markup.button.callback("Начать заново","start_again" )],
-                            ]));
-                        }
-                        counter++;
-                    }
-                    const interval_id = setInterval(getPayment, 20000);
-                });
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
 })
 
 
