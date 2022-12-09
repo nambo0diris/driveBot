@@ -167,7 +167,7 @@ getHeight.on("callback_query", async (ctx) => {
         ctx.wizard.state.eyes = eyes_color;
         await ctx.replyWithHTML("<b>Укажите ваш рост в сантиметрах. Например: 183</b>",  Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
         // @ts-ignore
-        return ctx.wizard.selectStep(5);
+        return ctx.wizard.selectStep(6);
     } catch (e) {
         console.log(e)
     }
