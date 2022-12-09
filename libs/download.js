@@ -1,8 +1,9 @@
 import axios from "axios";
 import fs from "fs";
 
-const download_image = (url, image_path) =>
-    axios({
+const download_image = async (url, image_path) =>
+{
+    await axios({
         url,
         responseType: 'stream',
     }).then(
@@ -14,5 +15,6 @@ const download_image = (url, image_path) =>
                     .on('error', e => reject(e));
             }),
     );
+}
 
 export default download_image;
