@@ -502,6 +502,8 @@ getApprove.on("text", async (ctx) => {
         ctx.wizard.state.subject_id = serial_number(ctx.message.text);
         // @ts-ignore
         const { type, first_name, last_name, second_name, date_of_birth, city_of_birth, house_number, subject_id, country_of_birth, living_index, living_country, living_city, living_street, sex, eyes, height} = ctx.wizard.state;
+        // @ts-ignore
+        console.log(ctx.wizard.state)
         if(type === "ru_eu"){
             await ctx.replyWithHTML(`
                  <b>Проверьте правильность введенной информации:</b>
@@ -525,7 +527,7 @@ getApprove.on("text", async (ctx) => {
                  Имя: ${first_name.toUpperCase()},
                  Фамилия: ${last_name.toUpperCase()},
                  Отчество: ${second_name.toUpperCase()},
-                 Дата рождения: ${date_of_birth.toUpperCase()},
+                 Дата рождения: ${date_of_birth},
                  Место рождения: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}
                  Место проживания: ${living_index}, ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}`,
                 Markup.inlineKeyboard([
