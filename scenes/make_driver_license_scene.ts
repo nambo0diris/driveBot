@@ -590,9 +590,9 @@ getPhoto.action("make_payment", async ctx => {
             },
             confirmation: {
                 type: 'redirect',
-                return_url: 'test'
             },
-            description: "Бутафория - Водительское Удостоверение"
+            description: "Бутафория - Водительское Удостоверение",
+            capture: true,
         };
 
         try {
