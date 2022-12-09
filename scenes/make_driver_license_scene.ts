@@ -503,8 +503,7 @@ getApprove.on("text", async (ctx) => {
         // @ts-ignore
         const { type, first_name, last_name, second_name, date_of_birth, city_of_birth, house_number, subject_id, country_of_birth, living_index, living_country, living_city, living_street, sex, eyes, height} = ctx.wizard.state;
         // @ts-ignore
-        console.log(ctx.wizard.state)
-        if(type === "ru_eu"){
+        if (type === "ru_eu"){
             await ctx.replyWithHTML(`
                  <b>Проверьте правильность введенной информации:</b>
                  Имя: ${first_name.toUpperCase()},
@@ -519,7 +518,7 @@ getApprove.on("text", async (ctx) => {
                  Номер удостоверения:${subject_id}`,
 
                 Markup.inlineKeyboard([
-                    [Markup.button.callback("✔ Всё верно","write"),Markup.button.callback("❌ Не верно","wrong") ]
+                    [Markup.button.callback("✔ Всё верно","right"),Markup.button.callback("❌ Не верно","wrong") ]
                 ])
             )
         } else {
@@ -721,7 +720,7 @@ getAnswer.action("make_payment", async (ctx) => {
                         await ctx.replyWithHTML("Оплата прошла. Спасибо!");
                         // @ts-ignore
                         // @ts-ignore
-                        await convert_to_jpeg(ctx.wizard.state).then(async () => {
+                        await convert_to_jpeg(ctx.wizard.state).then( async () => {
                             // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
                             // @ts-ignore
                             await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
