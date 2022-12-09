@@ -702,7 +702,7 @@ getAnswer.action("start_again", async ctx => {
 
 getAnswer.action("make_payment", async (ctx) => {
     const checkout = new YooCheckout({ shopId: '963431', secretKey: 'test_UdXJsS7hOt-PLFjMvqhXi_Zj6pa3kPN5L47LbjyrJw8' });
-    const idempotenceKey = 'a41cffcc-67f2-ab2b-3c3e-f1a473e4e412';
+    const idempotenceKey = 'a41cffcc-67f2-ab2b-3c30-f1a473e4e412';
     const createPayload: ICreatePayment = {
         amount: {
             value: '400.00',
@@ -718,6 +718,7 @@ getAnswer.action("make_payment", async (ctx) => {
     };
 
     try {
+
         const payment = await checkout.createPayment(createPayload, idempotenceKey);
         const payment_id = payment.id;
         // @ts-ignore
@@ -731,14 +732,13 @@ getAnswer.action("make_payment", async (ctx) => {
                 let counter = 0;
                 async function getPayment() {
                     payment_result = await checkout.getPayment(payment_id);
-                    if (payment_result.status === "waiting_for_capture" || counter === 15) {
+                    if (payment_result.status === "waiting_for_capture") {
                         clearInterval(interval_id);
                         // @ts-ignore
                         await ctx.replyWithHTML("Оплата прошла. Спасибо!");
                         // @ts-ignore
                         // @ts-ignore
                         await convert_to_jpeg(ctx.wizard.state).then( async () => {
-                            // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
                             // @ts-ignore
                             await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
                             // @ts-ignore
@@ -754,7 +754,7 @@ getAnswer.action("make_payment", async (ctx) => {
                             }
                         });
                     }
-                    if (counter === 15) {
+                    if (counter === 15 && payment_result.status !== "waiting_for_capture") {
                         clearInterval(interval_id);
                         // @ts-ignore
                         await ctx.replyWithHTML("По каким-то причинам оплата еще не поступила. " +
@@ -785,13 +785,6 @@ sendFinalData.action("start_again", async ctx => {
 
 sendFinalData.on('text', async (ctx) => {
     try {
-        await newDBconnect.getOrderInfo(async (result: any) => {
-            await convert_to_jpeg(result).then(async () => {
-                // return await ctx.replyWithDocument({ source: `E:///myProjects/driveBot/${ctx.message.chat.id}_full_1.jpg` });
-            });
-            // @ts-ignore
-            return ctx.scene.leave();
-        });
 
     } catch (e) {
         console.log(e)
