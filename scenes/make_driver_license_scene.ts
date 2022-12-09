@@ -578,11 +578,11 @@ getPhoto.action("make_payment", async ctx => {
     try {
         await ctx.answerCbQuery("make_payment");
         await ctx.answerCbQuery();
-        const checkout = new YooCheckout({ shopId: '963431', secretKey: 'test_UdXJsS7hOt-PLFjMvqhXi_Zj6pa3kPN5L47LbjyrJw8' });
+        const checkout = new YooCheckout({ shopId: '959346', secretKey: 'live_Ov9tXrXrZAyBU840C2LbZnJbgFb58937zgoq65MazK4' });
         const idempotenceKey = uuidv4();
         const createPayload: ICreatePayment = {
             amount: {
-                value: '400.00',
+                value: '10.00',
                 currency: 'RUB'
             },
             payment_method_data: {
