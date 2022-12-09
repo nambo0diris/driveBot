@@ -173,7 +173,7 @@ const convert_to_jpeg = async (props, type) => {
             height: 638,
             deviceScaleFactor: 1,
         });
-        await page4.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_1.jpg`, quality: 75});
+        await page4.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_1.jpg`, quality: 100});
         await browser4.close();
 
 
@@ -212,7 +212,7 @@ const convert_to_jpeg = async (props, type) => {
             height: 638,
             deviceScaleFactor: 1,
         });
-        await page5.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_2.jpg`, quality: 75});
+        await page5.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Европейские(на пластик)_2.jpg`, quality: 100});
         await browser5.close();
 
     } catch (e) {

@@ -10,6 +10,7 @@ import convert_to_jpeg from "../libs/convert_to_jpeg";
 import * as fs from "fs";
 import download_image from "../libs/download";
 import {ICreatePayment, YooCheckout} from "@a2seven/yoo-checkout";
+import {login} from "telegraf/typings/button";
 let newDBconnect: db_connect;
 // @ts-ignore
 const cyrillicToTranslit = new CyrillicToTranslit();
@@ -38,7 +39,7 @@ description.action("russia", async (ctx) => {
     try {
         // @ts-ignore
         ctx.wizard.state.country = "Russia";
-            // @ts-ignore
+        // @ts-ignore
         await ctx.replyWithHTML("В стоиомсть входит три вида макетов: " +
             "- Сувенирные Российские международные права полный разворот (2 файла) " +
             "- Сувенирные Российские международные права только основные части (1 файл) " +
@@ -66,11 +67,11 @@ getDateOfBirthStep.action("look_examples", async (ctx) => {
     await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
     await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` },
         Markup.inlineKeyboard(
-        [
-            [Markup.button.callback("⭐ Назад", "prev_step")],
-            [Markup.button.callback("👉 В начало", "to_start")]
-        ]
-    ));
+            [
+                [Markup.button.callback("⭐ Назад", "prev_step")],
+                [Markup.button.callback("👉 В начало", "to_start")]
+            ]
+        ));
 })
 getDateOfBirthStep.on("callback_query", async ctx => {
     await ctx.answerCbQuery();
@@ -296,7 +297,23 @@ getCityOfBirth.on("callback_query", async (ctx) => {
             ctx.wizard.state.subject_id = subject_id;
             // @ts-ignore
             ctx.wizard.state.user_id = ctx.update.callback_query.message.chat.id;
-            // ctx.wizard.sta   te.user_id = ;
+            // @ts-ignore
+            ctx.wizard.state.city_of_birth = city_of_birth;
+            // @ts-ignore
+            ctx.wizard.state.country_of_birth = country_of_birth;
+            // @ts-ignore
+            ctx.wizard.state.living_index = living_index;
+            // @ts-ignore
+            ctx.wizard.state.living_country = living_country;
+            // @ts-ignore
+            ctx.wizard.state.living_city = living_city;
+            // @ts-ignore
+            ctx.wizard.state.living_street = living_street;
+            // @ts-ignore
+            ctx.wizard.state.house_number = house_number;
+            // @ts-ignore
+            ctx.wizard.state.subject_id = subject_id;
+
             await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>
                     Имя: ${first_name}
                     Фамилия: ${last_name}
@@ -601,8 +618,8 @@ getPhoto.on("photo", async (ctx) => {
                 });
             }
         });
-
-
+        // @ts-ignore
+        console.log(ctx.wizard.state)
         // @ts-ignore
         await convert_to_jpeg(ctx.wizard.state, "example").then( async () => {
             // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
