@@ -635,7 +635,7 @@ getPhoto.action("make_payment", async ctx => {
                         if (payment_result.status === "succeeded") {
                             clearInterval(interval_id);
                             // @ts-ignore
-                            await ctx.replyWithHTML("Оплата прошла. Спасибо!");
+                            await ctx.replyWithHTML("Оплата прошла. Спасибо! В течении пары минут вам придут файлы для печати.");
                             // @ts-ignore
                             await convert_to_jpeg_mask(ctx.wizard.state).then( async () => {
                                 // @ts-ignore
@@ -690,7 +690,7 @@ getPhoto.action("wrong", async ctx => {
 
 getPhoto.on("photo", async (ctx) => {
     // @ts-ignore
-    const picture = ctx.message.photo[2].file_id;
+    const picture = ctx.message.photo[2].file_id || ctx.message.photo[1].file_id || ctx.message.photo[0].file_id;
     console.log("picture " + picture)
 
     const fileUrl = await ctx.telegram.getFileLink(picture);
