@@ -597,10 +597,10 @@ getPhoto.action("make_payment", async ctx => {
             description: "Бутафория - Водительское Удостоверение",
             capture: true,
             receipt: {
-                // customer: {
-                //     email: "anz77or@gmail.com",
-                //     phone: "+79633442711",
-                // },
+                customer: {
+                    email: "anz77or@gmail.com",
+                    phone: "+79633442711",
+                },
                 items: [
                     {
                         payment_subject:"service",
