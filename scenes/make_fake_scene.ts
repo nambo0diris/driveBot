@@ -86,7 +86,7 @@ first_step.action("files_download", async (ctx) => {
     let chat_id = ctx.update.callback_query.from.id;
     let newDBconnect;
     newDBconnect = new db_connect(chat_id);
-    await ctx.reply('Заказ успешно оплачен. В течениие 1-5 минут вам придут файлы для скачивания.')
+    await ctx.reply('Заказ успешно оплачен. В течениие 5 минут вам придут файлы для скачивания.')
     await newDBconnect.getOrderInfo(async (result: { type: object; }) => {
         await convert_to_jpeg_mask(result, "original").then(async () => {
             // @ts-ignore

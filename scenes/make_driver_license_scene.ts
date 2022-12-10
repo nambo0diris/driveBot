@@ -635,7 +635,7 @@ getPhoto.action("make_payment", async ctx => {
                         if (payment_result.status === "succeeded") {
                             clearInterval(interval_id);
                             // @ts-ignore
-                            await ctx.replyWithHTML("Оплата прошла. Спасибо! В течении пары минут вам придут файлы для печати.");
+                            await ctx.replyWithHTML("Оплата прошла. Спасибо! В течении 5 минут вам придут файлы для печати.");
                             // @ts-ignore
                             await convert_to_jpeg_mask(ctx.wizard.state).then( async () => {
                                 // @ts-ignore
