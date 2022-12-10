@@ -631,7 +631,7 @@ getPhoto.action("make_payment", async ctx => {
                     let counter = 0;
                     async function getPayment() {
                         payment_result = await checkout.getPayment(payment_id);
-                        if (payment_result.status === "waiting_for_capture") {
+                        if (payment_result.status === "succeeded") {
 
                             clearInterval(interval_id);
                             try {
@@ -659,12 +659,11 @@ getPhoto.action("make_payment", async ctx => {
                                 }
                             });
                         }
-                        if (counter === 15 && payment_result.status !== "waiting_for_capture") {
+                        if (counter === 30 && payment_result.status !== "succeeded") {
                             clearInterval(interval_id);
                             // @ts-ignore
                             await ctx.replyWithHTML("По каким-то причинам оплата еще не поступила. " +
                                 "Если у вас списались средства, но файлы не пришли в течении 10 минут, обратитесь в поддержку, нажав соответствующую кнопку.", Markup.inlineKeyboard([
-                                [Markup.button.callback("Оплатить","make_payment" )],
                                 [Markup.button.callback("Обратиться в поддержку","support" )],
                                 [Markup.button.callback("Начать заново","start_again" )],
                             ]));
