@@ -631,15 +631,9 @@ getPhoto.action("make_payment", async ctx => {
                     let counter = 0;
                     async function getPayment() {
                         payment_result = await checkout.getPayment(payment_id);
+                        console.log(payment_result.status)
                         if (payment_result.status === "succeeded") {
-
                             clearInterval(interval_id);
-                            try {
-                                const payment = await checkout.capturePayment(payment_id, createPayload, idempotenceKey);
-                                console.log(payment)
-                            } catch (error) {
-                                console.error(error);
-                            }
                             // @ts-ignore
                             await ctx.replyWithHTML("Оплата прошла. Спасибо!");
                             // @ts-ignore
