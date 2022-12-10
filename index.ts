@@ -19,8 +19,6 @@ bot.action('go_to_fake_market', async ctx => {
     try {
         await ctx.replyWithHTML("Какую бутафорию/сувенир вы хотите сделать?",
             Markup.inlineKeyboard([
-                [Markup.button.callback("Карты UNO (в разработке)","drive_license" )],
-                [Markup.button.callback("Карты Imaginarium (в разработке)","drive_license" )],
                 [Markup.button.callback("Бутафорские водительские удостоверения","drive_license" )],
                 [Markup.button.callback("Бутафорские паспорта (в разработке)", "passports")],
             ]));

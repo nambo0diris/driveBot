@@ -590,8 +590,9 @@ getPhoto.action("make_payment", async ctx => {
 
             },
             confirmation: {
-                type: 'external',
-                locale: "ru_RU"
+                type: 'redirect',
+                locale: "ru_RU",
+                return_url: "https://t.me/xeroxDoc_bot",
             },
             description: "Бутафория - Водительское Удостоверение",
             capture: true,
