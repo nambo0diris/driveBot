@@ -586,13 +586,34 @@ getPhoto.action("make_payment", async ctx => {
                 currency: 'RUB'
             },
             payment_method_data: {
-                type: 'bank_card'
+                type: 'bank_card',
+
             },
             confirmation: {
-                type: 'redirect',
+                type: 'embedded',
+                locale: "ru_RU"
             },
             description: "Бутафория - Водительское Удостоверение",
             capture: true,
+            receipt: {
+                // customer: {
+                //     email: "anz77or@gmail.com",
+                //     phone: "+79633442711",
+                // },
+                items: [
+                    {
+                        payment_subject:"service",
+                        payment_mode: "full_payment",
+                        vat_code: 1,
+                        quantity: "1",
+                        description: "Бутафория - Водительское Удостоверение",
+                        amount: {
+                            value: "50.00",
+                            currency: "RUB",
+                        },
+                    }
+                ],
+            },
         };
 
         try {
