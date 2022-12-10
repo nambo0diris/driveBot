@@ -590,7 +590,7 @@ getPhoto.action("make_payment", async ctx => {
 
             },
             confirmation: {
-                type: 'embedded',
+                type: 'external',
                 locale: "ru_RU"
             },
             description: "Бутафория - Водительское Удостоверение",
