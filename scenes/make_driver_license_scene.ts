@@ -7,7 +7,7 @@ import passport_number from "../data_generator/passport_number";
 // @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
 import serial_number from "../data_generator/serial_number";
-import convert_to_jpeg_mask from "../libs/convert_to_jpeg_mask";
+import convert_to_jpeg_mask from "../libs/convert_to_jpeg";
 import * as fs from "fs";
 import download_image from "../libs/download";
 import {ICreatePayment, YooCheckout} from "@a2seven/yoo-checkout";
@@ -582,7 +582,7 @@ getPhoto.action("make_payment", async ctx => {
         const idempotenceKey = uuidv4();
         const createPayload: ICreatePayment = {
             amount: {
-                value: '1.00',
+                value: '400.00',
                 currency: 'RUB'
             },
             payment_method_data: {
@@ -609,7 +609,7 @@ getPhoto.action("make_payment", async ctx => {
                         quantity: "1",
                         description: "Бутафория - Водительское Удостоверение",
                         amount: {
-                            value: "1.00",
+                            value: "400.00",
                             currency: "RUB",
                         },
                     }

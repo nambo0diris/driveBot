@@ -1,7 +1,7 @@
 import {Markup, Composer, Scenes} from "telegraf"
 import { YooCheckout, ICreatePayment  } from '@a2seven/yoo-checkout';
 import db_connect from "../libs/db_connect";
-import convert_to_jpeg_mask from "../libs/convert_to_jpeg_mask";
+import convert_to_jpeg_mask from "../libs/convert_to_jpeg";
 
 const zero_step = new Composer();
 
