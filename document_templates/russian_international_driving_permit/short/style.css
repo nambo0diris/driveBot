@@ -1,4 +1,23 @@
 @font-face {
+    font-family: 'SagonaSemiBold';
+    src: url('assets/font/SagonaSemiBold.eot');
+    src: url('assets/font/SagonaSemiBold.eot?#iefix') format('embedded-opentype'),
+    url('assets/font/SagonaSemiBold.woff') format('woff'),
+    url('assets/font/SagonaSemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Muara';
+    src: url('assets/font/Muara.eot');
+    src: url('assets/font/Muara.eot?#iefix') format('embedded-opentype'),
+    url('assets/font/Muara.woff') format('woff'),
+    url('assets/font/Muara.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Hypermarket-Bold';
     src: url('assets/font/Hypermarket-Bold.eot');
     src: url('assets/font/Hypermarket-Bold.eot?#iefix') format('embedded-opentype'),
@@ -54,8 +73,8 @@ body {
     top: 1180px;
     left: 610px;
     z-index: 10;
-    font-family: Aparajita-Bold, sans-serif;
-    color: #870808;
+    font-family: Muara, sans-serif;
+    color: #943b36;
 }
 #serial-number-main>span:nth-of-type(2) {
     margin: 0 60px;
