@@ -469,7 +469,6 @@ getLivingCity.on("text", async (ctx) => {
         ctx.wizard.state.living_country = "RUSSIA";
         // @ts-ignore
         ctx.wizard.state.living_index = ctx.message.text.toUpperCase();
-        await newDBconnect.updateOrder({key:"living_index", value:`${ctx.message.text.toUpperCase()}`});
         await ctx.replyWithHTML("Укажите город проживания. Пример: <b>Москва</b>")
         // @ts-ignore
         return ctx.wizard.selectStep(14);
