@@ -65,13 +65,13 @@ bot.start(async (ctx) => {
             }
         });
 
-        newDBconnect = new db_connect(ctx.message.chat.id);
-        await newDBconnect.closeOrder();
-        await newDBconnect.checkCustomer(async (result: any) => {
-            if (typeof result === "undefined"){
-                await newDBconnect.addNewCustomer();
-            }
-        });
+        // newDBconnect = new db_connect(ctx.message.chat.id);
+        // await newDBconnect.closeOrder();
+        // await newDBconnect.checkCustomer(async (result: any) => {
+        //     if (typeof result === "undefined"){
+        //         await newDBconnect.addNewCustomer();
+        //     }
+        // });
         await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
             [
                 [Markup.button.callback("⭐ Перейти к выбору бутафории", "go_to_fake_market")],
