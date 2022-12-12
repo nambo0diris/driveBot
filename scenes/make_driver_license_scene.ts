@@ -73,7 +73,25 @@ getDateOfBirthStep.action("look_examples", async (ctx) => {
                 [Markup.button.callback("👉 В начало", "to_start")]
             ]
         ));
-})
+});
+getDateOfBirthStep.action("prev_step",async (ctx) => {
+    try {
+        ctx.answerCbQuery();
+        // @ts-ignore
+        return ctx.wizard.selectStep(1);
+    } catch (e) {
+        console.log(e);
+    }
+});
+getDateOfBirthStep.action("prev_step",async (ctx) => {
+    try {
+        ctx.answerCbQuery();
+        // @ts-ignore
+        return ctx.wizard.selectStep(0);
+    } catch (e) {
+        console.log(e);
+    }
+});
 getDateOfBirthStep.on("callback_query", async ctx => {
     await ctx.answerCbQuery();
     // @ts-ignore
