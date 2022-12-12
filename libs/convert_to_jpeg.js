@@ -4,6 +4,7 @@ import * as fs from "fs";
 import random_signature from "../data_generator/random_signature.js";
 
 const convert_to_jpeg = async (props, type) => {
+    console.log(props)
     try {
         let russian_full_side_1 = `<!DOCTYPE html>
       <html lang="en">
