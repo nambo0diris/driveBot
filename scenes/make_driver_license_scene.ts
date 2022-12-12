@@ -366,7 +366,7 @@ getCityOfBirth.on("callback_query", async (ctx) => {
 <b>Фамилия</b>: ${last_name.toUpperCase()}
 <b>Отчество</b>: ${second_name.toUpperCase()}
 <b>Дата рождения</b>: ${date_of_birth}
-<b>Место рождения</b>: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}
+<b>Место рождения</b>: ${country_of_birth.toUpperCase()}, ${city_of_birth.toUpperCase()}
 <b>Место проживания</b>: ${living_country.toUpperCase()}, ${living_city.toUpperCase()}`,
                     Markup.inlineKeyboard([
                         [Markup.button.callback("✔ Все верно", "confirm"), Markup.button.callback("🔁 Сгенерировать заново", "generate_again")],
@@ -381,7 +381,7 @@ getCityOfBirth.on("callback_query", async (ctx) => {
 <b> Фамилия </b>: ${last_name.toUpperCase()}
 <b> Отчество </b>: ${second_name.toUpperCase()}
 <b> Дата рождения </b>: ${date_of_birth}
-<b> Место рождения </b>: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}
+<b> Место рождения </b>: ${country_of_birth.toUpperCase()}, ${city_of_birth.toUpperCase()}
 <b> Место проживания </b>: ${living_index.toUpperCase()}, ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}
 <b> Пол </b>: ${sex.toUpperCase()}
 <b> Цвет глаз </b>: ${eyes.toUpperCase()}
