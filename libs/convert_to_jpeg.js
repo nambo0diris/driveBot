@@ -17,7 +17,7 @@ const convert_to_jpeg = async (props, type) => {
             <div id="example_1">${type==="example" ? "Образец" : ""}</div>
             <div id="example_2">${type==="example" ? "Образец" : ""}</div>
             <img id="main-background--image" src="../../../document_templates/russian_international_driving_permit/full/assets/images/backgrounds/side_1.jpg" alt=""/>
-            <div id="serial-number-main"><span>${props.subject_id.split(' ')[0]}</span><span>${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
+            <div id="serial-number-main"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
             <div id="expire-date">12.10.2024</div>
             <div id="issued-by">State Road Traffic Safety Inspection</div>
             <div id="issued-at">${props.living_city}</div>
@@ -59,7 +59,7 @@ const convert_to_jpeg = async (props, type) => {
             <div id="place-of-birth">${props.city_of_birth}, ${props.country_of_birth}</div>
             <div id="date-of-birth">${props.date_of_birth}</div>
             <div id="living-place">${props.living_city}, ${props.living_country}</div>
-            <div id="serial-number">${props.subject_id}</div>
+            <div id="serial-number"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
             <img id="photo" src="${props.user_id}.jpg"/>
             <img id="stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp/stamp.png"/>
             <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/clients/signature_${random_signature()}.png"/>
@@ -92,7 +92,7 @@ const convert_to_jpeg = async (props, type) => {
                 <div id="example_1">${type==="example" ? "Образец" : ""}</div>
                 <div id="example_2">${type==="example" ? "Образец" : ""}</div>
                 <img id="main-background--image" src="../../../document_templates/russian_international_driving_permit/short/assets/images/backgrounds/side.jpg" alt="">
-                <div id="serial-number-main">${props.subject_id}</div>
+                <div id="serial-number-main"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
                 <div id="expire-date">12.10.2023</div>
                 <div id="issued-by">State Road Traffic Safety Inspection</div>
                 <div id="issued-at">${props.living_city}</div>
@@ -113,7 +113,7 @@ const convert_to_jpeg = async (props, type) => {
             
                 <img id="stamp2" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/stamp2.png">
                 <img id="photo" src="${props.user_id}.jpg"/>
-                <div id="serial-number">${props.subject_id}</div>
+                <div id="serial-number"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
                 <img id="stamp" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/stamp.png"/>
                 <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/short/assets/images/signatures/clients/signature_${random_signature()}.png"/>
             </div>

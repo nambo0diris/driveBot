@@ -193,7 +193,10 @@ body {
     font-family: Muara, sans-serif;
     color: #943b36;
 }
-
+.serial-number_letters {
+    font-family: SagonaSemiBold, sans-serif;
+    font-size: 142px;
+}
 #stamp {
     top: 2174px;
     left: 8769px;
