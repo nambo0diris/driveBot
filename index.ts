@@ -84,7 +84,7 @@ bot.start(async (ctx) => {
 })
 bot.command("/support", async (ctx) => {
     try {
-        await ctx.replyWithHTML("Если у вас возникли вопросы по использованию бота или у вас прошла оплтата, но файлы не пришли в течении 10 минут, пишите @xeroxDoc_bot_support" +
+        await ctx.replyWithHTML("Если у вас возникли вопросы по использованию бота или у вас прошла оплтата, но файлы не пришли в течении 10 минут, пишите @xeroxDoc_bot_support,\n" +
             "чтобы начать сначала жмите /start");
     }catch (e) {
         console.log(e)
