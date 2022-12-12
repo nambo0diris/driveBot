@@ -543,16 +543,16 @@ getLivingCity.on("text", async (ctx) => {
 // 14
 const getSubjectIdAndMakeSerialNumber = new Composer();
 getSubjectIdAndMakeSerialNumber.action("start_again", async ctx => {
-  try {
-      // @ts-ignore
-      if (ctx.update.callback_query["data"] === "start_again") {
-          await ctx.answerCbQuery();
-          // @ts-ignore
-          await ctx.wizard.selectStep(0);
-      }
-  } catch (e) {
-      console.log(e)
-  }
+    try {
+        // @ts-ignore
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
+    }
 })
 getSubjectIdAndMakeSerialNumber.on("text", async (ctx) => {
     try {
@@ -591,16 +591,16 @@ getApprove.on("text", async (ctx) => {
         // @ts-ignore
         if (type === "ru_eu"){
             await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>` +
-                 `Имя: ${first_name.toUpperCase()}` +
-                 `Фамилия: ${last_name.toUpperCase()}` +
-                 `Отчество: ${second_name.toUpperCase()}` +
-                 `Дата рождения: ${date_of_birth}` +
-                 `Место рождения: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}` +
-                 `Место проживания: ${living_index.toUpperCase()}, ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}` +
-                 `Пол: ${sex.toUpperCase()}` +
-                 `Цвет глаз: ${eyes.toUpperCase()}` +
-                 `Рост: ${height}` +
-                 `Номер удостоверения:${subject_id}`,
+                `Имя: ${first_name.toUpperCase()}` +
+                `Фамилия: ${last_name.toUpperCase()}` +
+                `Отчество: ${second_name.toUpperCase()}` +
+                `Дата рождения: ${date_of_birth}` +
+                `Место рождения: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}` +
+                `Место проживания: ${living_index.toUpperCase()}, ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}` +
+                `Пол: ${sex.toUpperCase()}` +
+                `Цвет глаз: ${eyes.toUpperCase()}` +
+                `Рост: ${height}` +
+                `Номер удостоверения:${subject_id}`,
 
                 Markup.inlineKeyboard([
                     [Markup.button.callback("✔ Всё верно","right"),Markup.button.callback("❌ Не верно","wrong") ]
@@ -608,14 +608,14 @@ getApprove.on("text", async (ctx) => {
             )
         } else {
             // @ts-ignore
-            await ctx.replyWithHTML(`
-             <b>Проверьте правильность введенной информации:</b>
-             Имя: ${first_name.toUpperCase()}
-             Фамилия: ${last_name.toUpperCase()}
-             Отчество: ${second_name.toUpperCase()}
-             Дата рождения: ${date_of_birth}
-             Место рождения: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}
-             Место проживания: ${living_country.toUpperCase()}, ${living_city.toUpperCase()}`,
+            await ctx.replyWithHTML(
+                `<b>Проверьте правильность введенной информации:</b>
+<b>Имя</b>: ${first_name.toUpperCase()}
+<b>Фамилия</b>: ${last_name.toUpperCase()}
+<b>Отчество</b>: ${second_name.toUpperCase()}
+<b>Дата рождения</b>: ${date_of_birth}
+<b>Место рождения</b>: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}
+<b>Место проживания</b>: ${living_country.toUpperCase()}, ${living_city.toUpperCase()}`,
                 Markup.inlineKeyboard([
                     [Markup.button.callback("✔ Всё верно","right"),Markup.button.callback("❌ Не верно","wrong") ]
                 ])
