@@ -11,13 +11,10 @@ import convert_to_jpeg_mask from "../libs/convert_to_jpeg";
 import * as fs from "fs";
 import download_image from "../libs/download";
 import {ICreatePayment, YooCheckout} from "@a2seven/yoo-checkout";
-
-
+import {login} from "telegraf/typings/button";
 let newDBconnect: db_connect;
 // @ts-ignore
 const cyrillicToTranslit = new CyrillicToTranslit();
-
-
 //step 0
 const chooseCountry = new Composer();
 chooseCountry.on("callback_query", async (ctx) => {
@@ -372,17 +369,7 @@ getCountryOfBirth.on("text", async (ctx) => {
                 [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
             ]))
         // @ts-ignore
-        if (ctx.wizard.state.type === "ru_eu") {
-            // @ts-ignore
-            return ctx.wizard.selectStep(10);
-        }
-        // @ts-ignore
-        if (ctx.wizard.state.type === "only_ru") {
-            // @ts-ignore
-            return ctx.wizard.selectStep(13);
-        }
-
-
+        return ctx.wizard.selectStep(10);
     } catch (e) {
         console.log(e)
     }
@@ -477,17 +464,7 @@ getLivingCity.action("start_again", async ctx => {
     }
 })
 getLivingCity.on("text", async (ctx) => {
-    let country_of_birth;
     try {
-        if (ctx.message.text.trim().toLowerCase() === "россия") {
-            country_of_birth = "Russia"
-        } else if (ctx.message.text.trim().toLowerCase() === "ссср") {
-            country_of_birth = "USSR"
-        } else {
-            country_of_birth = cyrillicToTranslit.transform(ctx.message.text).toUpperCase();
-        }
-        // @ts-ignore
-        ctx.wizard.state.country_of_birth = country
         // @ts-ignore
         ctx.wizard.state.living_country = "RUSSIA";
         // @ts-ignore
