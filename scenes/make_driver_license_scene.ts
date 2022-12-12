@@ -607,13 +607,14 @@ getApprove.on("text", async (ctx) => {
                 ])
             )
         } else {
-            await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b> \\n\\n`+
-                 `Имя: ${first_name.toUpperCase()} \\n\\n` +
-                 `Фамилия: ${last_name.toUpperCase()} \\n\\n` +
-                 `Отчество: ${second_name.toUpperCase()} \\n\\n` +
-                 `Дата рождения: ${date_of_birth} \\n\\n` +
-                 `Место рождения: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()} \\n\\n` +
-                 `Место проживания: ${living_country.toUpperCase()}, ${living_city.toUpperCase()} \\n\\n`,
+            // @ts-ignore
+            await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b> <br>`+
+                 `Имя: ${first_name.toUpperCase()}<br>` +
+                 `Фамилия: ${last_name.toUpperCase()}<br>` +
+                 `Отчество: ${second_name.toUpperCase()}<br>` +
+                 `Дата рождения: ${date_of_birth}<br>` +
+                 `Место рождения: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}<br>` +
+                 `Место проживания: ${living_country.toUpperCase()}, ${living_city.toUpperCase()}<br>`,
                 Markup.inlineKeyboard([
                     [Markup.button.callback("✔ Всё верно","right"),Markup.button.callback("❌ Не верно","wrong") ]
                 ])
