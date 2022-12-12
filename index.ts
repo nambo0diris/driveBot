@@ -27,6 +27,7 @@ bot.action('go_to_fake_market', async ctx => {
         console.log(e)
     }
 })
+
 bot.on("callback_query", async ctx => {
     try {
         // Armenia, Argentina, Austria, Australia, Azerbaijan, Bulgaria, Brazil, Canada, Cyprus, Germany, Dominican Republic, Estonia, Egypt, Spain, Finland, Georgia, Italy, Tajikistan
