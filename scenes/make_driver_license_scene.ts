@@ -369,7 +369,15 @@ getCountryOfBirth.on("text", async (ctx) => {
                 [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
             ]))
         // @ts-ignore
-        return ctx.wizard.selectStep(10);
+        if(ctx.wizard.state.type === "ru_eu") {
+            // @ts-ignore
+            return ctx.wizard.selectStep(10);
+        }
+        // @ts-ignore
+        if(ctx.wizard.state.type === "only_ru") {
+            // @ts-ignore
+            return ctx.wizard.selectStep(13);
+        }
     } catch (e) {
         console.log(e)
     }
@@ -465,11 +473,22 @@ getLivingCity.action("start_again", async ctx => {
 })
 getLivingCity.on("text", async (ctx) => {
     try {
+        let country = "";
+        if (ctx.message.text.trim().toLowerCase() === "россия") {
+            country = "Russia";
+        } else if (ctx.message.text.trim().toLowerCase() === "ссср") {
+            country = "USSR";
+        } else {
+            country = cyrillicToTranslit.transform(ctx.message.text).toUpperCase();
+        }
+        // @ts-ignore
+        ctx.wizard.state.country_of_birth = country;
+
         // @ts-ignore
         ctx.wizard.state.living_country = "RUSSIA";
         // @ts-ignore
         ctx.wizard.state.living_index = ctx.message.text.toUpperCase();
-        await ctx.replyWithHTML("Укажите город проживания. Пример: <b>Москва</b>")
+        await ctx.replyWithHTML("Укажите город проживания. Пример: <b>Москва</b>");
         // @ts-ignore
         return ctx.wizard.selectStep(14);
     } catch (e) {
