@@ -115,21 +115,29 @@ getSex.on("text", async(ctx) => {
     }
 })
 getSex.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
+    try {
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 // // 4
 const getEyesColor = new Composer();
 getEyesColor.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
+    try {
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 getEyesColor.on("callback_query", async(ctx) => {
@@ -153,15 +161,18 @@ getEyesColor.on("callback_query", async(ctx) => {
 // 5
 const getHeight = new Composer();
 getHeight.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
+    try {
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 getHeight.on("callback_query", async (ctx) => {
-
     // @ts-ignore
     let eyes_color = ctx.update.callback_query["data"];
     try {
@@ -179,9 +190,16 @@ getHeight.on("callback_query", async (ctx) => {
 // 6
 const getNameStep = new Composer();
 getNameStep.action("start_again", async ctx => {
-    await ctx.answerCbQuery();
-    // @ts-ignore
-    await ctx.wizard.selectStep(0)
+    try {
+        // @ts-ignore
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
+    }
 })
 getNameStep.on("text", async (ctx) => {
     try {
@@ -204,11 +222,15 @@ getNameStep.on("text", async (ctx) => {
 // 7
 const isRandomAll = new Composer();
 isRandomAll.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
+    try {
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 isRandomAll.on("text", async (ctx) => {
@@ -353,11 +375,15 @@ getCityOfBirth.on("callback_query", async (ctx) => {
 // 9
 const getCountryOfBirth = new Composer();
 getCountryOfBirth.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
+    try {
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 getCountryOfBirth.on("text", async (ctx) => {
@@ -386,11 +412,15 @@ getCountryOfBirth.on("text", async (ctx) => {
 // 10
 const getLivingStreet = new Composer();
 getLivingStreet.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
+    try {
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 getLivingStreet.on("text", async (ctx) => {
@@ -420,11 +450,15 @@ getLivingStreet.on("text", async (ctx) => {
 // 11
 const getHouseNumber = new Composer();
 getHouseNumber.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
+    try {
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 getHouseNumber.on("text", async (ctx) => {
@@ -442,11 +476,15 @@ getHouseNumber.on("text", async (ctx) => {
 // 12
 const getLivingIndex = new Composer();
 getLivingIndex.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
+    try {
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 getLivingIndex.on("text", async (ctx) => {
@@ -464,11 +502,15 @@ getLivingIndex.on("text", async (ctx) => {
 // 13
 const getLivingCity = new Composer();
 getLivingCity.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
+    try {
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 getLivingCity.on("text", async (ctx) => {
@@ -501,12 +543,16 @@ getLivingCity.on("text", async (ctx) => {
 // 14
 const getSubjectIdAndMakeSerialNumber = new Composer();
 getSubjectIdAndMakeSerialNumber.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
-        // @ts-ignore
-        await ctx.wizard.selectStep(0);
-    }
+  try {
+      // @ts-ignore
+      if (ctx.update.callback_query["data"] === "start_again") {
+          await ctx.answerCbQuery();
+          // @ts-ignore
+          await ctx.wizard.selectStep(0);
+      }
+  } catch (e) {
+      console.log(e)
+  }
 })
 getSubjectIdAndMakeSerialNumber.on("text", async (ctx) => {
     try {
@@ -524,11 +570,15 @@ getSubjectIdAndMakeSerialNumber.on("text", async (ctx) => {
 // 15
 const getApprove = new Composer();
 getApprove.action("start_again", async ctx => {
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
-        await ctx.answerCbQuery();
+    try {
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 getApprove.on("text", async (ctx) => {
@@ -583,13 +633,15 @@ getApprove.on("text", async (ctx) => {
 const getPhoto = new Composer();
 getPhoto.action("start_again", async ctx => {
     try {
-        await ctx.answerCbQuery();
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
     } catch (e) {
         console.log(e)
     }
-
 });
 
 getPhoto.action("make_payment", async ctx => {
@@ -805,18 +857,32 @@ getPhoto.action("generate_again", async ctx => {
 // 17
 const getAnswer = new Composer();
 getAnswer.action("start_again", async ctx => {
-    await ctx.answerCbQuery();
-    // @ts-ignore
-    await ctx.wizard.selectStep(0);
+    try {
+        // @ts-ignore
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
+    }
 })
 
 
 // 18
 const sendFinalData = new Composer();
 sendFinalData.action("start_again", async ctx => {
-    await ctx.answerCbQuery("update_photo");
-    // @ts-ignore
-    await ctx.wizard.selectStep(0);
+    try {
+        // @ts-ignore
+        if (ctx.update.callback_query["data"] === "start_again") {
+            await ctx.answerCbQuery();
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
+    }
 })
 
 sendFinalData.on('text', async (ctx) => {
