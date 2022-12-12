@@ -382,7 +382,7 @@ getCityOfBirth.on("callback_query", async (ctx) => {
 <b> Отчество </b>: ${second_name.toUpperCase()}
 <b> Дата рождения </b>: ${date_of_birth}
 <b> Место рождения </b>: ${country_of_birth.toUpperCase()}, ${city_of_birth.toUpperCase()}
-<b> Место проживания </b>: ${living_index.toUpperCase()}, ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}
+<b> Место проживания </b>: ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}, ${living_index.toUpperCase()}
 <b> Пол </b>: ${sex.toUpperCase()}
 <b> Цвет глаз </b>: ${eyes.toUpperCase()}
 <b> Рост </b>: ${height}
@@ -636,8 +636,8 @@ getApprove.on("text", async (ctx) => {
 <b> Фамилия </b>: ${last_name.toUpperCase()}
 <b> Отчество </b>: ${second_name.toUpperCase()}
 <b> Дата рождения </b>: ${date_of_birth}
-<b> Место рождения </b>: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}
-<b> Место проживания </b>: ${living_index.toUpperCase()}, ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}
+<b> Место рождения </b>: ${country_of_birth.toUpperCase()}, ${city_of_birth.toUpperCase()}
+<b> Место проживания </b>: ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}, ${living_index.toUpperCase()}
 <b> Пол </b>: ${sex.toUpperCase()}
 <b> Цвет глаз </b>: ${eyes.toUpperCase()}
 <b> Рост </b>: ${height}
@@ -654,7 +654,7 @@ getApprove.on("text", async (ctx) => {
 <b>Фамилия</b>: ${last_name.toUpperCase()}
 <b>Отчество</b>: ${second_name.toUpperCase()}
 <b>Дата рождения</b>: ${date_of_birth}
-<b>Место рождения</b>: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}
+<b>Место рождения</b>: ${country_of_birth.toUpperCase()}, ${city_of_birth.toUpperCase()}
 <b>Место проживания</b>: ${living_country.toUpperCase()}, ${living_city.toUpperCase()}`,
                 Markup.inlineKeyboard([
                     [Markup.button.callback("✔ Всё верно","right"),Markup.button.callback("❌ Не верно","wrong") ]
