@@ -18,20 +18,24 @@ const cyrillicToTranslit = new CyrillicToTranslit();
 //step 0
 const chooseCountry = new Composer();
 chooseCountry.on("callback_query", async (ctx) => {
-    // @ts-ignore
-    newDBconnect = new db_connect(ctx.id);
-    await ctx.answerCbQuery();
-    await ctx.replyWithHTML("Выберите страну", Markup.inlineKeyboard([
-        [Markup.button.callback("Франиция (в разработке)", "france")],
-        [Markup.button.callback("Англия (в разработке)", "united_kingdom")],
-        [Markup.button.callback("Мексика (в разработке)", "mexico")],
-        [Markup.button.callback("Россия", "russia")],
-        [Markup.button.callback("Украина (в разработке)", "ukraine")],
-        [Markup.button.callback("США (в разработке)", "united_states")],
-        [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
-    ]))
-    // @ts-ignore
-    return ctx.wizard.selectStep(1)
+   try {
+       // @ts-ignore
+       newDBconnect = new db_connect(ctx.id);
+       await ctx.answerCbQuery();
+       await ctx.replyWithHTML("Выберите страну", Markup.inlineKeyboard([
+           [Markup.button.callback("Франиция (в разработке)", "france")],
+           [Markup.button.callback("Англия (в разработке)", "united_kingdom")],
+           [Markup.button.callback("Мексика (в разработке)", "mexico")],
+           [Markup.button.callback("Россия", "russia")],
+           [Markup.button.callback("Украина (в разработке)", "ukraine")],
+           [Markup.button.callback("США (в разработке)", "united_states")],
+           [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
+       ]))
+       // @ts-ignore
+       return ctx.wizard.selectStep(1)
+   } catch (e) {
+       console.log(e)
+   }
 })
 
 // step 1
@@ -60,65 +64,65 @@ description.action("russia", async (ctx) => {
 // step 2
 const getDateOfBirthStep = new Composer();
 getDateOfBirthStep.action("look_examples", async (ctx) => {
-    // @ts-ignore
-    await ctx.answerCbQuery();
-    await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_1.jpg` });
-    await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_2.jpg` });
-    await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_1.jpg` });
-    await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
-    await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` },
-        Markup.inlineKeyboard(
-            [
-                [Markup.button.callback("⭐ Назад", "prev_step")],
-                [Markup.button.callback("👉 В начало", "to_start")]
-            ]
-        ));
+  try {
+      // @ts-ignore
+      await ctx.answerCbQuery();
+      await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_1.jpg` });
+      await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_2.jpg` });
+      await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_1.jpg` });
+      await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
+      await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` },
+          Markup.inlineKeyboard(
+              [
+                  [Markup.button.callback("⭐ Назад", "prev_step")],
+                  [Markup.button.callback("👉 В начало", "to_start")]
+              ]
+          ));
+  } catch (e) {
+      console.log(e)
+  }
 });
-getDateOfBirthStep.action("prev_step",async (ctx) => {
-    try {
-        ctx.answerCbQuery();
-        // @ts-ignore
-        return ctx.wizard.selectStep(1);
-    } catch (e) {
-        console.log(e);
-    }
-});
-getDateOfBirthStep.action("prev_step",async (ctx) => {
-    try {
-        ctx.answerCbQuery();
-        // @ts-ignore
-        return ctx.wizard.selectStep(0);
-    } catch (e) {
-        console.log(e);
-    }
-});
+
 getDateOfBirthStep.on("callback_query", async ctx => {
-    await ctx.answerCbQuery();
-    // @ts-ignore
-    ctx.wizard.state.type = ctx.update.callback_query["data"];
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "start_again") {
+    try {
+        await ctx.answerCbQuery();
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
-    }
-    await ctx.replyWithHTML("Напишите Дату Рождения 🎂 (формат: <b>дд.мм.гггг</b>)",
-        Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "only_ru") {
+        ctx.wizard.state.type = ctx.update.callback_query["data"];
         // @ts-ignore
-        return ctx.wizard.selectStep(6);
-    }
-    // @ts-ignore
-    if (ctx.update.callback_query["data"] === "ru_eu") {
+        if (ctx.update.callback_query["data"] === "start_again") {
+            // @ts-ignore
+            await ctx.wizard.selectStep(0);
+        }
+        await ctx.replyWithHTML("Напишите Дату Рождения 🎂 (формат: <b>дд.мм.гггг</b>)",
+            Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
         // @ts-ignore
-        return ctx.wizard.selectStep(3);
+        if (ctx.update.callback_query["data"] === "only_ru") {
+            // @ts-ignore
+            return ctx.wizard.selectStep(6);
+        }
+        // @ts-ignore
+        if (ctx.update.callback_query["data"] === "ru_eu") {
+            // @ts-ignore
+            return ctx.wizard.selectStep(3);
+        }
+        // @ts-ignore
+        if (ctx.update.callback_query["data"] === "prev_step") {
+            // @ts-ignore
+            return ctx.wizard.selectStep(1);
+        }
+        // @ts-ignore
+        if (ctx.update.callback_query["data"] === "to_start") {
+            // @ts-ignore
+            return ctx.wizard.selectStep(0);
+        }
+    } catch (e) {
+        console.log(e)
     }
 });
 
 // 3
 const getSex = new Composer();
 getSex.on("text", async(ctx) => {
-
     try {
         // @ts-ignore
         ctx.wizard.state.date_of_birth = ctx.message.text.trim();
@@ -797,26 +801,27 @@ getPhoto.on("photo", async (ctx) => {
                     await download_image(fileUrl.href, `/root/driveBot/temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
                 });
             }
-        });
-        // @ts-ignore
-        console.log(ctx.wizard.state)
-        // @ts-ignore
-        await convert_to_jpeg_mask(ctx.wizard.state, "example").then( async () => {
-            // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
             // @ts-ignore
-            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
+            console.log(ctx.wizard.state)
             // @ts-ignore
-            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
-            // @ts-ignore
-            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
-            // @ts-ignore
-            if (ctx.wizard.state.type === "ru_eu"){
+            await convert_to_jpeg_mask(ctx.wizard.state, "example").then( async () => {
+                // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
                 // @ts-ignore
-                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
+                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
                 // @ts-ignore
-                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
-            }
+                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
+                // @ts-ignore
+                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
+                // @ts-ignore
+                if (ctx.wizard.state.type === "ru_eu"){
+                    // @ts-ignore
+                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
+                    // @ts-ignore
+                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
+                }
+            });
         });
+
         await ctx.replyWithHTML(`Если образцы вышли хорошо, жмите кнопку <b>Оплатить</b>. В течение 1-5 минут после оплаты, вам придут файлы для печати. Чтобы 👉 начать заново (жми два раза) жмите соотвествующую кнопку`,
             Markup.inlineKeyboard([
                 [Markup.button.callback("💳 Оплатить","make_payment"), Markup.button.callback("🎭 Загрузить другое фото","update_photo")],
