@@ -26,19 +26,21 @@ const convert_to_jpeg = async (props, type) => {
           </div>
         </body>
       </html>`;
-        await fs.writeFile(`/root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.html`, russian_full_side_1, async (error) => {});
-        const browser = await puppeteer.launch({
-            args: ['--no-sandbox'],
+        await fs.writeFile(`/root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.html`, russian_full_side_1, async (error) => {
+            const browser = await puppeteer.launch({
+                args: ['--no-sandbox'],
+            });
+            const page1 = await browser.newPage();
+            await page1.goto(`file:///root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.html`);
+            await page1.setViewport({
+                width: 9606,
+                height: 4665,
+                deviceScaleFactor: 1,
+            });
+            await page1.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.jpg`, quality: 10 });
+            await browser.close();
         });
-        const page1 = await browser.newPage();
-        await page1.goto(`file:///root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.html`);
-        await page1.setViewport({
-            width: 9606,
-            height: 4665,
-            deviceScaleFactor: 1,
-        });
-        await page1.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.jpg`, quality: 10 });
-        await browser.close();
+
 
         let russian_full_side_2 = `<!DOCTYPE html>
       <html lang="en">
