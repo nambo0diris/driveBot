@@ -358,23 +358,42 @@ getCityOfBirth.on("callback_query", async (ctx) => {
             ctx.wizard.state.house_number = house_number;
             // @ts-ignore
             ctx.wizard.state.subject_id = subject_id;
+            // @ts-ignore
+            if (ctx.wizard.state.type === "only_ru") {
+                await ctx.replyWithHTML(
+                    `<b>Проверьте правильность введенной информации:</b>
+<b>Имя</b>: ${first_name.toUpperCase()}
+<b>Фамилия</b>: ${last_name.toUpperCase()}
+<b>Отчество</b>: ${second_name.toUpperCase()}
+<b>Дата рождения</b>: ${date_of_birth}
+<b>Место рождения</b>: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}
+<b>Место проживания</b>: ${living_country.toUpperCase()}, ${living_city.toUpperCase()}`,
+                    Markup.inlineKeyboard([
+                        [Markup.button.callback("✔ Все верно", "confirm"), Markup.button.callback("🔁 Сгенерировать заново", "generate_again")],
+                        [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
+                    ])
+                )
+            }
+            // @ts-ignore
+            if (ctx.wizard.state.type === "ru_eu") {
+                await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>
+<b> Имя </b>: ${first_name.toUpperCase()}
+<b> Фамилия </b>: ${last_name.toUpperCase()}
+<b> Отчество </b>: ${second_name.toUpperCase()}
+<b> Дата рождения </b>: ${date_of_birth}
+<b> Место рождения </b>: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}
+<b> Место проживания </b>: ${living_index.toUpperCase()}, ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}
+<b> Пол </b>: ${sex.toUpperCase()}
+<b> Цвет глаз </b>: ${eyes.toUpperCase()}
+<b> Рост </b>: ${height}
+<b> Номер удостоверения </b>:${subject_id}`,
+                    Markup.inlineKeyboard([
+                        [Markup.button.callback("✔ Все верно", "confirm"), Markup.button.callback("🔁 Сгенерировать заново", "generate_again")],
+                        [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
+                    ])
+                )
 
-            await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>
-                    Имя: ${first_name}
-                    Фамилия: ${last_name}
-                    Отчество: ${second_name}
-                    Пол: ${sex || "этот пункт для европейского образца"}
-                    Цвет глаз: ${eyes || "этот пункт для европейского образца"}
-                    Рост: ${height || "этот пункт для европейского образца"}
-                    Дата рождения: ${date_of_birth}
-                    Место рождения: ${city_of_birth}, ${country_of_birth}
-                    Место проживания: ${living_index}, ${living_country}, ${living_city}, ${living_street}, ${house_number}
-                    Номер удостоверения: ${subject_id}`,
-                Markup.inlineKeyboard([
-                    [Markup.button.callback("✔ Все верно", "confirm"), Markup.button.callback("🔁 Сгенерировать заново", "generate_again")],
-                    [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
-                ])
-            )
+            }
         }
 
 
