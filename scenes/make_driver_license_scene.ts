@@ -19,6 +19,9 @@ const cyrillicToTranslit = new CyrillicToTranslit();
 const chooseCountry = new Composer();
 chooseCountry.on("callback_query", async (ctx) => {
    try {
+
+       // @ts-ignore
+       ctx.wizard.state.user_id = ctx.update.callback_query.message.chat.id;
        // @ts-ignore
        newDBconnect = new db_connect(ctx.id);
        await ctx.answerCbQuery();
@@ -340,8 +343,6 @@ getCityOfBirth.on("callback_query", async (ctx) => {
             const date_of_birth = ctx.wizard.state.date_of_birth;
             // @ts-ignore
             ctx.wizard.state.subject_id = subject_id;
-            // @ts-ignore
-            ctx.wizard.state.user_id = ctx.update.callback_query.message.chat.id;
             // @ts-ignore
             ctx.wizard.state.city_of_birth = city_of_birth;
             // @ts-ignore
