@@ -590,18 +590,17 @@ getApprove.on("text", async (ctx) => {
         const { type, first_name, last_name, second_name, date_of_birth, city_of_birth, house_number, subject_id, country_of_birth, living_index, living_country, living_city, living_street, sex, eyes, height} = ctx.wizard.state;
         // @ts-ignore
         if (type === "ru_eu"){
-            await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>` +
-                `Имя: ${first_name.toUpperCase()}` +
-                `Фамилия: ${last_name.toUpperCase()}` +
-                `Отчество: ${second_name.toUpperCase()}` +
-                `Дата рождения: ${date_of_birth}` +
-                `Место рождения: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}` +
-                `Место проживания: ${living_index.toUpperCase()}, ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}` +
-                `Пол: ${sex.toUpperCase()}` +
-                `Цвет глаз: ${eyes.toUpperCase()}` +
-                `Рост: ${height}` +
-                `Номер удостоверения:${subject_id}`,
-
+            await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>
+<b> Имя </b>: ${first_name.toUpperCase()}
+<b> Фамилия </b>: ${last_name.toUpperCase()}
+<b> Отчество </b>: ${second_name.toUpperCase()}
+<b> Дата рождения </b>: ${date_of_birth}
+<b> Место рождения </b>: ${city_of_birth.toUpperCase()}, ${country_of_birth.toUpperCase()}
+<b> Место проживания </b>: ${living_index.toUpperCase()}, ${living_country.toUpperCase()}, ${living_city.toUpperCase()}, ${living_street.toUpperCase()}, ${house_number}
+<b> Пол </b>: ${sex.toUpperCase()}
+<b> Цвет глаз </b>: ${eyes.toUpperCase()}
+<b> Рост </b>: ${height}
+<b> Номер удостоверения </b>:${subject_id}`,
                 Markup.inlineKeyboard([
                     [Markup.button.callback("✔ Всё верно","right"),Markup.button.callback("❌ Не верно","wrong") ]
                 ])
