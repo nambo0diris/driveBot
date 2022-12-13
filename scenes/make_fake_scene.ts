@@ -10,7 +10,7 @@ zero_step.action("make_payment", async (ctx) => {
     const idempotenceKey = 'a41cffcc-67f2-ab2b-3c3e-f1a473e4e412';
     const createPayload: ICreatePayment = {
         amount: {
-            value: '400.00',
+            value: '500.00',
             currency: 'RUB'
         },
         payment_method_data: {

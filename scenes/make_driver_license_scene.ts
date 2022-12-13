@@ -695,7 +695,7 @@ getPhoto.action("make_payment", async ctx => {
         const idempotenceKey = uuidv4();
         const createPayload: ICreatePayment = {
             amount: {
-                value: '400.00',
+                value: '500.00',
                 currency: 'RUB'
             },
             payment_method_data: {
@@ -722,7 +722,7 @@ getPhoto.action("make_payment", async ctx => {
                         quantity: "1",
                         description: "Бутафория - Водительское Удостоверение",
                         amount: {
-                            value: "400.00",
+                            value: "500.00",
                             currency: "RUB",
                         },
                     }
