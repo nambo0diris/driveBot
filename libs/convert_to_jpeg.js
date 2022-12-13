@@ -22,6 +22,7 @@ const convert_to_jpeg = async (props, type) => {
             <div id="issued-by">State Road Traffic Safety Inspection</div>
             <div id="issued-at">${props.living_city}</div>
             <div id="date">12.10.2021</div>
+            <img id="stamp_on_main" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
             <div id="national-licence-serial-number">${props.national_driver_license}</div>
             <img id="official-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/official/signature_${random_signature()}.png"/>
           </div>
@@ -61,7 +62,9 @@ const convert_to_jpeg = async (props, type) => {
             <div id="living-place">${props.living_city}, ${props.living_country}</div>
             <div id="serial-number"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
             <img id="photo" src="${props.user_id}.jpg"/>
-            <img id="stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp/stamp.png"/>
+            <img id="category-stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
+            <img id="category-stamp_2" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
+            <img id="stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
             <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/clients/signature_${random_signature()}.png"/>
          </div>
         </body>
@@ -106,15 +109,15 @@ const convert_to_jpeg = async (props, type) => {
                 <div id="date-of-birth">${props.date_of_birth}</div>
                 <div id="living-place">${props.living_city}, ${props.living_country}</div>
             
-                <img class="category_stamp_1" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/licence-stamp.png">
-                <img class="category_stamp_2" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/licence-stamp.png">
-                <img class="category_stamp_3" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/licence-stamp.png">
+                <img class="category_stamp_1" src="../../../document_templates/russian_international_driving_permit/short/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png">
+                <img class="category_stamp_2" src="../../../document_templates/russian_international_driving_permit/short/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png">
             
             
-                <img id="stamp2" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/stamp2.png">
+                <img id="stamp" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
+                <img id="stamp2" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
+                <img id="stamp3" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
                 <img id="photo" src="${props.user_id}.jpg"/>
                 <div id="serial-number"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
-                <img id="stamp" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/stamp.png"/>
                 <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/short/assets/images/signatures/clients/signature_${random_signature()}.png"/>
             </div>
         </body>
@@ -228,3 +231,97 @@ const convert_to_jpeg = async (props, type) => {
 
 
 export default convert_to_jpeg;
+
+
+
+//
+// Республика Адыгея	01
+// Республика Алтай	04
+// Республика Башкортостан	02
+// Республика Бурятия	03
+// Республика Дагестан	05
+// Республика Ингушетия	06
+// Кабардино-Балкарская Республика	07
+// Республика Калмыкия	08
+// Карачаево-Черкесская Республика	09
+// Республика Карелия	10
+// Республика Коми	11
+// Республика Крым	82
+// Республика Марий Эл	12
+// Республика Мордовия	13
+// Республика Саха (Якутия)	14
+// Республика Северная Осетия — Алания	15
+// Республика Татарстан	16
+// Республика Тыва	17
+// Удмуртская Республика	18
+// Республика Хакасия	19
+// Чеченская Республика	20
+// Чувашская Республика	21
+// Алтайский край	22
+// Забайкальский край	75
+// Камчатский край	41
+// Краснодарский край	23
+// Красноярский край	24
+// Пермский край	59
+// Приморский край	25
+// Ставропольский край	26
+// Хабаровский край	27
+// Амурская область	28
+// Архангельская область	29
+// Астраханская область	30
+// Белгородская область	31
+// Брянская область	32
+// Владимирская область	33
+// Волгоградская область	34
+// Вологодская область	35
+// Воронежская область	36
+// Ивановская область	37
+// Иркутская область	38
+// Калининградская область	39
+// Калужская область	40
+// Кемеровская область	42
+// Кировская область	43
+// Костромская область	44
+// Курганская область	45
+// Курская область	46
+// Ленинградская область	47
+// Липецкая область	48
+// Магаданская область	49
+// Московская область	50
+// Мурманская область	51
+// Нижегородская область	52
+// Новгородская область	53
+// Новосибирская область	54
+// Омская область	55
+// Оренбургская область	56
+// Орловская область	57
+// Пензенская область	58
+// Псковская область	60
+// Ростовская область	61
+// Рязанская область	62
+// Самарская область	63
+// Саратовская область	64
+// Сахалинская область	65
+// Свердловская область	66
+// Смоленская область	67
+// Тамбовская область	68
+// Тверская область	69
+// Томская область	70
+// Тульская область	71
+// Тюменская область	72
+// Ульяновская область	73
+// Челябинская область	74
+// Ярославская область	76
+// Москва	77
+// Санкт-Петербург	78
+// Севастополь	92
+// Еврейская автономная область	79
+// Ненецкий автономный округ	83
+// Донецкая Народная Республика	80
+// Луганская Народная Республика	81
+// Херсонская область	84
+// Запорожская область	85
+// Ханты-Мансийский автономный округ — Югра	86
+// Чукотский автономный округ	87
+// Ямало-Ненецкий автономный округ	89
+// Территории, находящиеся за пределами РФ и обслуживаемые Управлением режимных объектов МВД России, Байконур	94

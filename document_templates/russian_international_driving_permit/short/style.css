@@ -190,26 +190,30 @@ body {
     left: 2184px;
     z-index: 10;
     position: absolute;
+    width: 436px;
 
 }
 .category_stamp_2 {
-    top: 685px;
-    left: 2620px;
+    top: 955px;
+    left: 2184px;
     z-index: 10;
     position: absolute;
+    width: 436px;
+    transform: rotate(-10deg);
 }
-.category_stamp_3 {
-    top: 885px;
-    left: 2684px;
-    z-index: 10;
-    position: absolute;
-}
+/*.category_stamp_3 {*/
+/*    top: 885px;*/
+/*    left: 2684px;*/
+/*    z-index: 10;*/
+/*    position: absolute;*/
+/*}*/
 
 #stamp {
     top: 1500px;
     left: 3500px;
     z-index: 10;
     position: absolute;
+    width: 409px;
 
 }
 #stamp2 {
@@ -218,6 +222,16 @@ body {
     z-index: 10;
     position: absolute;
     transform: rotate(-10deg);
+    width: 409px;
+
+}
+#stamp3 {
+    top: 2500px;
+    left: 168px;
+    z-index: 10;
+    position: absolute;
+    transform: rotate(-10deg);
+    width: 409px;
 
 }
 

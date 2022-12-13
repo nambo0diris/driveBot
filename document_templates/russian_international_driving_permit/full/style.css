@@ -204,6 +204,25 @@ body {
     position: absolute;
 
 }
+#stamp_on_main {
+    z-index: 10;
+    position: absolute;
+    top: 3800px;
+    left: 6703px;
+}
+#category-stamp {
+    z-index: 10;
+    position: absolute;
+    top: 1206px;
+    left: 6803px;
+}
+#category-stamp_2 {
+    z-index: 10;
+    position: absolute;
+    top: 1495px;
+    left: 6823px;
+    transform: rotate(10deg);
+}
 #client-signature {
     top: 2870px;
     left:8400px;
