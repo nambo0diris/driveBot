@@ -447,6 +447,8 @@ getCountryOfBirth.on("text", async (ctx) => {
             // @ts-ignore
             return ctx.wizard.selectStep(13);
         }
+        // @ts-ignore
+        return ctx.wizard.selectStep(10);
     } catch (e) {
         console.log(e)
     }
@@ -572,7 +574,7 @@ getLivingCity.on("text", async (ctx) => {
         // @ts-ignore
         ctx.wizard.state.living_country = "RUSSIA";
         // @ts-ignore
-        ctx.wizard.state.living_index = ctx.message.text.toUpperCase();
+        ctx.wizard.state.living_index = ctx.message.text;
         await ctx.replyWithHTML("Укажите город проживания. Пример: <b>Москва</b>");
         // @ts-ignore
         return ctx.wizard.selectStep(14);
