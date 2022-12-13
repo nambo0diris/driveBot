@@ -60,7 +60,7 @@ const convert_to_jpeg = async (props, type) => {
             <div id="place-of-birth">${props.city_of_birth}, ${props.country_of_birth}</div>
             <div id="date-of-birth">${props.date_of_birth}</div>
             <div id="living-place">${props.living_city}, ${props.living_country.toUpperCase()}</div>
-            <div id="serial-number"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
+            <div id="serial-number"><span>${props.subject_id.split(' ')[0]} </span><span id="serial-number_letters"> ${props.subject_id.split(' ')[1]} </span><span> ${props.subject_id.split(' ')[2]}</span></div>
             <img id="photo" src="${props.user_id}.jpg"/>
             <img id="category-stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
             <img id="category-stamp_2" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
