@@ -444,32 +444,27 @@ getLivingStreet.action("start_again", async ctx => {
     }
 })
 getLivingStreet.on("text", async (ctx) => {
-    // лютый костыль, пизда
-    if (ctx.message.text.length === 6 && typeof +ctx.message.text === "number") {
-        // @ts-ignore
-        ctx.wizard.state.living_index = ctx.message.text;
-    } else {
-        let country = "";
-        try {
-            if (ctx.message.text.trim().toLowerCase() === "россия") {
-                country = "Russia"
-            } else if (ctx.message.text.trim().toLowerCase() === "ссср") {
-                country = "USSR"
-            } else {
-                country = cyrillicToTranslit.transform(ctx.message.text).toUpperCase();
-            }
-            // @ts-ignore
-            ctx.wizard.state.country_of_birth = country
 
-            await ctx.replyWithHTML("Укажите улицу проживания. Пример: <b>ул.Гагарина</b>",
-                Markup.inlineKeyboard([
-                    [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
-                ]))
-            // @ts-ignore
-            return ctx.wizard.selectStep(11);
-        } catch (e) {
-            console.log(e)
+    let country = ""
+    try {
+        if (ctx.message.text.trim().toLowerCase() === "россия") {
+            country = "Russia"
+        } else if (ctx.message.text.trim().toLowerCase() === "ссср") {
+            country = "USSR"
+        } else {
+            country = cyrillicToTranslit.transform(ctx.message.text).toUpperCase();
         }
+        // @ts-ignore
+        ctx.wizard.state.country_of_birth = country
+
+        await ctx.replyWithHTML("Укажите улицу проживания. Пример: <b>ул.Гагарина</b>",
+            Markup.inlineKeyboard([
+                [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
+            ]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(11);
+    } catch (e) {
+        console.log(e)
     }
 })
 
