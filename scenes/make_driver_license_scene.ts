@@ -446,6 +446,8 @@ getLivingStreet.action("start_again", async ctx => {
 getLivingStreet.on("text", async (ctx) => {
     if (ctx.message.text.length === 6) {
         console.log("index")
+        console.log(Number(ctx.message))
+
     }
     console.log("дальше идем")
     let country = ""
