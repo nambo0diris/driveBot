@@ -18,26 +18,26 @@ const cyrillicToTranslit = new CyrillicToTranslit();
 //step 0
 const chooseCountry = new Composer();
 chooseCountry.on("callback_query", async (ctx) => {
-   try {
-       // @ts-ignore
-       ctx.wizard.state.user_id = ctx.update.callback_query.message.chat.id;
-       // @ts-ignore
-       newDBconnect = new db_connect(ctx.id);
-       await ctx.answerCbQuery();
-       await ctx.replyWithHTML("Выберите страну", Markup.inlineKeyboard([
-           [Markup.button.callback("Франиция (в разработке)", "france")],
-           [Markup.button.callback("Англия (в разработке)", "united_kingdom")],
-           [Markup.button.callback("Мексика (в разработке)", "mexico")],
-           [Markup.button.callback("Россия", "russia")],
-           [Markup.button.callback("Украина (в разработке)", "ukraine")],
-           [Markup.button.callback("США (в разработке)", "united_states")],
-           [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
-       ]))
-       // @ts-ignore
-       return ctx.wizard.selectStep(1)
-   } catch (e) {
-       console.log(e)
-   }
+    try {
+        // @ts-ignore
+        ctx.wizard.state.user_id = ctx.update.callback_query.message.chat.id;
+        // @ts-ignore
+        newDBconnect = new db_connect(ctx.id);
+        await ctx.answerCbQuery();
+        await ctx.replyWithHTML("Выберите страну", Markup.inlineKeyboard([
+            [Markup.button.callback("Франиция (в разработке)", "france")],
+            [Markup.button.callback("Англия (в разработке)", "united_kingdom")],
+            [Markup.button.callback("Мексика (в разработке)", "mexico")],
+            [Markup.button.callback("Россия", "russia")],
+            [Markup.button.callback("Украина (в разработке)", "ukraine")],
+            [Markup.button.callback("США (в разработке)", "united_states")],
+            [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
+        ]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(1)
+    } catch (e) {
+        console.log(e)
+    }
 })
 
 // step 1
@@ -66,23 +66,23 @@ description.action("russia", async (ctx) => {
 // step 2
 const getDateOfBirthStep = new Composer();
 getDateOfBirthStep.action("look_examples", async (ctx) => {
-  try {
-      // @ts-ignore
-      await ctx.answerCbQuery();
-      await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_1.jpg` });
-      await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_2.jpg` });
-      await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_1.jpg` });
-      await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
-      await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` },
-          Markup.inlineKeyboard(
-              [
-                  [Markup.button.callback("⭐ Назад", "prev_step")],
-                  [Markup.button.callback("👉 В начало", "to_start")]
-              ]
-          ));
-  } catch (e) {
-      console.log(e)
-  }
+    try {
+        // @ts-ignore
+        await ctx.answerCbQuery();
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_1.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_2.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_1.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` },
+            Markup.inlineKeyboard(
+                [
+                    [Markup.button.callback("⭐ Назад", "prev_step")],
+                    [Markup.button.callback("👉 В начало", "to_start")]
+                ]
+            ));
+    } catch (e) {
+        console.log(e)
+    }
 });
 
 getDateOfBirthStep.on("callback_query", async ctx => {
@@ -358,6 +358,8 @@ getCityOfBirth.on("callback_query", async (ctx) => {
             ctx.wizard.state.house_number = house_number;
             // @ts-ignore
             ctx.wizard.state.subject_id = subject_id;
+            // @ts-ignore
+            ctx.wizard.state.subject_id_number = subject_id.split(" ")[0];
             // @ts-ignore
             if (ctx.wizard.state.type === "only_ru") {
                 await ctx.replyWithHTML(
@@ -695,7 +697,7 @@ getPhoto.action("make_payment", async ctx => {
         const idempotenceKey = uuidv4();
         const createPayload: ICreatePayment = {
             amount: {
-                value: '500.00',
+                value: '499.00',
                 currency: 'RUB'
             },
             payment_method_data: {
@@ -722,7 +724,7 @@ getPhoto.action("make_payment", async ctx => {
                         quantity: "1",
                         description: "Бутафория - Водительское Удостоверение",
                         amount: {
-                            value: "500.00",
+                            value: "499.00",
                             currency: "RUB",
                         },
                     }
