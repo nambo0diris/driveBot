@@ -11,298 +11,24 @@ import convert_to_jpeg from "../libs/convert_to_jpeg";
 import * as fs from "fs";
 import download_image from "../libs/download";
 import {ICreatePayment, YooCheckout} from "@a2seven/yoo-checkout";
-import {login} from "telegraf/typings/button";
 let newDBconnect: db_connect;
 // @ts-ignore
 const cyrillicToTranslit = new CyrillicToTranslit();
 //step 0
 const chooseCountry = new Composer();
-chooseCountry.on("callback_query", async (ctx) => {
-    try {
-        // @ts-ignore
-        ctx.wizard.state.user_id = ctx.update.callback_query.message.chat.id;
-        // @ts-ignore
-        newDBconnect = new db_connect(ctx.id);
-        await ctx.answerCbQuery();
-        await ctx.replyWithHTML("Выберите страну", Markup.inlineKeyboard([
-            [Markup.button.callback("Франиция (в разработке)", "france")],
-            [Markup.button.callback("Англия (в разработке)", "united_kingdom")],
-            [Markup.button.callback("Мексика (в разработке)", "mexico")],
-            [Markup.button.callback("Россия", "russia")],
-            [Markup.button.callback("Украина (в разработке)", "ukraine")],
-            [Markup.button.callback("США (в разработке)", "united_states")],
-            [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
-        ]))
-        // @ts-ignore
-        return ctx.wizard.selectStep(1)
-    } catch (e) {
-        console.log(e)
-    }
-})
 
-// step 1
-const description = new Composer();
-description.action("russia", async (ctx) => {
+const to_start = async (ctx:any) => {
     try {
-        // @ts-ignore
-        ctx.wizard.state.country = "Russia";
-        // @ts-ignore
-        await ctx.replyWithHTML(`<b>В стоимость входит два вида макетов:</b>
-- Бутафорские Российские международные права <b>полный разворот</b> (2 файла)
-- Бутафорские Российские международные права <b>только основные части</b> (1 файл)
-В качестве <b>подарка</b> мы предоставляем вам возможность сделать бутафорию европейского образца (нужно будет ответить на несколько дополнительных вопросов)`,
-            Markup.inlineKeyboard([
-                [Markup.button.callback("🇷🇺 РФ международные","only_ru" )],
-                [Markup.button.callback("🇷🇺 РФ международные + 🇪🇺 европейские", "ru_eu")],
-                [Markup.button.callback("Посмотреть образцы", "look_examples")]
-            ]));
-        // @ts-ignore
-        return ctx.wizard.selectStep(2);
-    } catch (e) {
-        console.log(e)
-    }
-})
-
-// step 2
-const getDateOfBirthStep = new Composer();
-getDateOfBirthStep.action("look_examples", async (ctx) => {
-    try {
-        // @ts-ignore
-        await ctx.answerCbQuery();
-        await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_1.jpg` });
-        await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_2.jpg` });
-        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_1.jpg` });
-        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
-        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` },
-            Markup.inlineKeyboard(
-                [
-                    [Markup.button.callback("⭐ Назад", "prev_step")],
-                    [Markup.button.callback("👉 В начало", "to_start")]
-                ]
-            ));
-    } catch (e) {
-        console.log(e)
-    }
-});
-
-getDateOfBirthStep.on("callback_query", async ctx => {
-    try {
-        await ctx.answerCbQuery();
-        // @ts-ignore
-        ctx.wizard.state.type = ctx.update.callback_query["data"];
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "start_again") {
-            // @ts-ignore
-            return ctx.wizard.selectStep(0);
-        }
-        await ctx.replyWithHTML("Напишите Дату Рождения 🎂 (формат: <b>дд.мм.гггг</b>)",
-            Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "only_ru") {
-            // @ts-ignore
-            return ctx.wizard.selectStep(6);
-        }
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "ru_eu") {
-            // @ts-ignore
-            return ctx.wizard.selectStep(3);
-        }
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "prev_step") {
-            // @ts-ignore
-            return ctx.wizard.selectStep(1);
-        }
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "to_start") {
-            // @ts-ignore
-            return ctx.wizard.selectStep(0);
-        }
-    } catch (e) {
-        console.log(e)
-    }
-});
-
-// 3
-const getSex = new Composer();
-getSex.on("text", async(ctx) => {
-    try {
-        // @ts-ignore
-        ctx.wizard.state.date_of_birth = ctx.message.text.trim();
-        await ctx.replyWithHTML("Укажите ваш пол", Markup.inlineKeyboard([
-            [Markup.button.callback("🦸‍♂️М","M"), Markup.button.callback("🦸‍♀️Ж","F")],
-            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
-        ]))
-        // @ts-ignore
-        return ctx.wizard.selectStep(4);
-    } catch (e) {
-        console.log(e)
-    }
-})
-getSex.action("start_again", async ctx => {
-    try {
-        await ctx.answerCbQuery();
+        await ctx.answerCbQuery("to_start");
         // @ts-ignore
         await ctx.wizard.selectStep(0);
     } catch (e) {
         console.log(e)
     }
-})
-// // 4
-const getEyesColor = new Composer();
-getEyesColor.action("start_again", async ctx => {
-    try {
-        await ctx.answerCbQuery();
-        // @ts-ignore
-        await ctx.wizard.selectStep(0);
-    } catch (e) {
-        console.log(e)
-    }
-})
-getEyesColor.on("callback_query", async(ctx) => {
-    // @ts-ignore
-    let sex = ctx.update.callback_query["data"];
-    try {
-        // @ts-ignore
-        ctx.wizard.state.sex = sex;
-        await ctx.replyWithHTML("Укажите цвет глаз 👀", Markup.inlineKeyboard([
-            [Markup.button.callback("⚪ Серые","GRAY"),Markup.button.callback("🟢 Зеленые","GREEN") ],
-            [Markup.button.callback("🟡 Желтые", "YELLOW"), Markup.button.callback("🔵 Синие", "BLUE"), Markup.button.callback("🟤 Карие","BROWN")],
-            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
-        ]))
-        // @ts-ignore
-        return ctx.wizard.selectStep(5);
-    } catch (e) {
-        console.log(e)
-    }
-})
-
-// 5
-const getHeight = new Composer();
-getHeight.action("start_again", async ctx => {
-    try {
-        await ctx.answerCbQuery();
-        // @ts-ignore
-        await ctx.wizard.selectStep(0);
-    } catch (e) {
-        console.log(e)
-    }
-})
-getHeight.on("callback_query", async (ctx) => {
-    // @ts-ignore
-    ctx.wizard.state.eyes = ctx.update.callback_query["data"];
-    try {
-        await ctx.replyWithHTML("<b>Укажите ваш рост в сантиметрах. Например: 183</b>",  Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
-        // @ts-ignore
-        return ctx.wizard.selectStep(6);
-    } catch (e) {
-        console.log(e)
-    }
-})
-
-
-// 6
-const getNameStep = new Composer();
-getNameStep.action("start_again", async ctx => {
-    try {
-        await ctx.answerCbQuery();
-        // @ts-ignore
-        await ctx.wizard.selectStep(0);
-    } catch (e) {
-        console.log(e)
-    }
-})
-getNameStep.on("text", async (ctx) => {
-    try {
-        if (ctx.message.text.split('.').length === 3) {
-            // @ts-ignore
-            ctx.wizard.state.date_of_birth = ctx.message.text.trim();
-        } else {
-            // @ts-ignore
-            ctx.wizard.state.height = ctx.message.text;
-        }
-        await ctx.replyWithHTML("Напишите Фамилию Имя Отчество. Пример: <b>Пушкин Александр Сергеевич</b>",  Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
-        // @ts-ignore
-        return ctx.wizard.selectStep(7);
-    } catch (e) {
-        console.log(e)
-    }
-})
-
-
-// 7
-const isRandomAll = new Composer();
-isRandomAll.action("start_again", async ctx => {
-    try {
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "start_again") {
-            await ctx.answerCbQuery();
-            // @ts-ignore
-            await ctx.wizard.selectStep(0);
-        }
-    } catch (e) {
-        console.log(e)
-    }
-})
-isRandomAll.on("text", async (ctx) => {
-    try {
-        // @ts-ignore
-        ctx.wizard.state.last_name = cyrillicToTranslit.transform(ctx.message.text.split(" ")[0]).toUpperCase();
-        // @ts-ignore
-        ctx.wizard.state.first_name = cyrillicToTranslit.transform(ctx.message.text.split(" ")[1]).toUpperCase();
-        // @ts-ignore
-        ctx.wizard.state.second_name = cyrillicToTranslit.transform(ctx.message.text.split(" ")[2]).toUpperCase();
-
-        await ctx.replyWithHTML("Мы можем заполнить все оставшиеся пункты за вас <b>случайными</b> данными", Markup.inlineKeyboard([
-            [Markup.button.callback("🖋 Заполню сам","write_myself"), Markup.button.callback("🔣 Случайные данные", "random_data") ],
-            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
-        ]))
-
-        // @ts-ignore
-        return ctx.wizard.selectStep(8);
-    } catch (e) {
-        console.log(e)
-    }
-})
-
-
-
-// 8
-const getCityOfBirth = new Composer();
-getCityOfBirth.action("start_again", async ctx => {
-    try {
-        await ctx.answerCbQuery();
-        // @ts-ignore
-        await ctx.wizard.selectStep(0);
-    } catch (e) {
-        console.log(e)
-    }
-})
-getCityOfBirth.action("confirm", async ctx => {
-    try {
-        await ctx.answerCbQuery();
-        // @ts-ignore
-        ctx.wizard.state.id_code = id_code();
-        // @ts-ignore
-        ctx.wizard.state.passport_number = passport_number();
-        // @ts-ignore
-        ctx.wizard.state.national_driver_license = passport_number();
-
-        await ctx.replyWithHTML(`Загрузите фото <b>как на документы</b>, соотношение ширины к высоте <b>3:4</b>.
-Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.`,
-            Markup.inlineKeyboard([
-                [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
-            ]))
-        // @ts-ignore
-        return ctx.wizard.selectStep(16);
-    } catch (e) {
-        console.log(e)
-    }
-
-})
-getCityOfBirth.on("callback_query", async (ctx) => {
-    try {
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "random_data" || ctx.update.callback_query["data"] === "generate_again") {
+}
+const random_data = async (ctx:any) => {
+    await ctx.answerCbQuery();
+        try {
             const fake_data = await get_random_data();
             // @ts-ignore
             const {city_of_birth, country_of_birth, living_index, living_country, living_city, living_street, house_number, subject_id} = fake_data;
@@ -374,38 +100,262 @@ getCityOfBirth.on("callback_query", async (ctx) => {
                         [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
                     ])
                 )
-
             }
+        } catch (e) {
+            console.log(e)
         }
+    }
 
 
+
+chooseCountry.action("russia", async (ctx) => {
+    try {
         // @ts-ignore
-        if (ctx.update.callback_query["data"] === "write_myself") {
-            await ctx.replyWithHTML("Укажитете город, где родились. Пример: <b>Москва</b>",
-                Markup.inlineKeyboard([
-                    [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
-                ]))
-            // @ts-ignore
-            return ctx.wizard.selectStep(9);
-        }
-        // // @ts-ignore
-        // return ctx.wizard.selectStep(7);
+        ctx.wizard.state.living_country = "RUSSIA";
+        // @ts-ignore
+        await ctx.replyWithHTML(`<b>В стоимость входит два вида макетов:</b>
+- Бутафорские Российские международные права <b>полный разворот</b> (2 файла)
+- Бутафорские Российские международные права <b>только основные части</b> (1 файл)
+В качестве <b>подарка</b> мы предоставляем вам возможность сделать бутафорию европейского образца (нужно будет ответить на несколько дополнительных вопросов)`,
+            Markup.inlineKeyboard([
+                [Markup.button.callback("🇷🇺 РФ международные","only_ru" )],
+                [Markup.button.callback("🇷🇺 РФ международные + 🇪🇺 европейские", "ru_eu")],
+                [Markup.button.callback("Посмотреть образцы", "look_examples")]
+            ]));
+        // @ts-ignore
+        return ctx.wizard.selectStep(1);
+    } catch (e) {
+        console.log(e)
+    }
+})
+chooseCountry.on("callback_query", async (ctx) => {
+    try {
+        // @ts-ignore
+        ctx.wizard.state.user_id = ctx.update.callback_query.message.chat.id;
+        // @ts-ignore
+        newDBconnect = new db_connect(ctx.id);
+        await ctx.answerCbQuery();
+        await ctx.replyWithHTML("Выберите страну", Markup.inlineKeyboard([
+            [Markup.button.callback("Франиция (в разработке)", "france")],
+            [Markup.button.callback("Англия (в разработке)", "united_kingdom")],
+            [Markup.button.callback("Мексика (в разработке)", "mexico")],
+            [Markup.button.callback("Россия", "russia")],
+            [Markup.button.callback("Украина (в разработке)", "ukraine")],
+            [Markup.button.callback("США (в разработке)", "united_states")],
+            [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
+        ]))
     } catch (e) {
         console.log(e)
     }
 })
 
-// 9
-const getCountryOfBirth = new Composer();
-getCountryOfBirth.action("start_again", async ctx => {
+// step 1
+const getDateOfBirthStep = new Composer();
+getDateOfBirthStep.action("look_examples", async (ctx) => {
+    try {
+        // @ts-ignore
+        await ctx.answerCbQuery();
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_1.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/international_driver_license/Европейские(на пластик)_2.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_1.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/full/Полный_разворот_2.jpg` });
+        await ctx.replyWithDocument({ source: `/root/driveBot/examples/russian_international_driving_permit/short/Короткая_версия.jpg` },
+            Markup.inlineKeyboard(
+                [
+                    [Markup.button.callback("⭐ Назад", "prev_step")],
+                    [Markup.button.callback("👉 В начало", "to_start")]
+                ]
+            ));
+    } catch (e) {
+        console.log(e)
+    }
+});
+getDateOfBirthStep.action("start_again", to_start);
+getDateOfBirthStep.action("only_ru", async (ctx) => {
     try {
         await ctx.answerCbQuery();
         // @ts-ignore
-        await ctx.wizard.selectStep(0);
+        ctx.wizard.state.type = ctx.update.callback_query["data"];
+        await ctx.replyWithHTML("Напишите Дату Рождения 🎂 (формат: <b>дд.мм.гггг</b>)",
+            Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(5);
     } catch (e) {
         console.log(e)
     }
 })
+getDateOfBirthStep.action("ru_eu", async (ctx) => {
+    try {
+        await ctx.answerCbQuery();
+        // @ts-ignore
+        ctx.wizard.state.type = ctx.update.callback_query["data"];
+        await ctx.replyWithHTML("Напишите Дату Рождения 🎂 (формат: <b>дд.мм.гггг</b>)",
+            Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(2);
+    } catch (e) {
+        console.log(e)
+    }
+})
+getDateOfBirthStep.action("prev_step", async (ctx) => {
+    try {
+        await ctx.answerCbQuery();
+        // @ts-ignore
+        return ctx.wizard.selectStep(0);
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+getDateOfBirthStep.action("to_start", async (ctx) => {
+    try {
+        await ctx.answerCbQuery();
+        // @ts-ignore
+        return ctx.wizard.selectStep(0);
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+
+// 2
+const getSex = new Composer();
+getSex.action("start_again", to_start);
+getSex.on("text", async(ctx) => {
+    try {
+        // @ts-ignore
+        ctx.wizard.state.date_of_birth = ctx.message.text.trim();
+        await ctx.replyWithHTML("Укажите ваш пол", Markup.inlineKeyboard([
+            [Markup.button.callback("🦸‍♂️М","M"), Markup.button.callback("🦸‍♀️Ж","F")],
+            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
+        ]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(3);
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+
+// 3
+const getEyesColor = new Composer();
+getEyesColor.action("start_again", to_start);
+getEyesColor.on("callback_query", async(ctx) => {
+    // @ts-ignore
+    let sex = ctx.update.callback_query["data"];
+    try {
+        // @ts-ignore
+        ctx.wizard.state.sex = sex;
+        await ctx.replyWithHTML("Укажите цвет глаз 👀", Markup.inlineKeyboard([
+            [Markup.button.callback("⚪ Серые","GRAY"),Markup.button.callback("🟢 Зеленые","GREEN") ],
+            [Markup.button.callback("🔵 Синие", "BLUE"), Markup.button.callback("🟤 Карие","BROWN")],
+            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
+        ]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(4);
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+// 4
+const getHeight = new Composer();
+getHeight.action("start_again", to_start);
+getHeight.on("callback_query", async (ctx) => {
+    // @ts-ignore
+    ctx.wizard.state.eyes = ctx.update.callback_query["data"];
+    try {
+        await ctx.replyWithHTML("<b>Укажите ваш рост в сантиметрах. Например: 183</b>",  Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(5);
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+
+// 5
+const getNameStep = new Composer();
+getNameStep.action("start_again", to_start)
+getNameStep.on("text", async (ctx) => {
+    try {
+        if (ctx.message.text.split('.').length === 3) {
+            // @ts-ignore
+            ctx.wizard.state.date_of_birth = ctx.message.text.trim();
+        } else {
+            // @ts-ignore
+            ctx.wizard.state.height = ctx.message.text;
+        }
+        await ctx.replyWithHTML("Напишите Фамилию Имя Отчество. Пример: <b>Пушкин Александр Сергеевич</b>",  Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(6);
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+
+// 6
+const isRandomAll = new Composer();
+isRandomAll.action("start", to_start);
+isRandomAll.action("write_myself", async (ctx) => {
+    // @ts-ignore
+    if (ctx.update.callback_query["data"] === "write_myself") {
+        await ctx.replyWithHTML("Укажитете город, где родились. Пример: <b>Москва</b>",
+            Markup.inlineKeyboard([
+                [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
+            ]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(7);
+    }
+});
+isRandomAll.action("random_data", random_data);
+isRandomAll.action("generate_again", random_data);
+isRandomAll.action("confirm", async (ctx) => {
+    try {
+        await ctx.answerCbQuery();
+        // @ts-ignore
+        ctx.wizard.state.id_code = id_code();
+        // @ts-ignore
+        ctx.wizard.state.passport_number = passport_number();
+        // @ts-ignore
+        ctx.wizard.state.national_driver_license = passport_number();
+
+        await ctx.replyWithHTML(`Загрузите фото <b>как на документы</b>, соотношение ширины к высоте <b>3:4</b>.
+Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.`,
+            Markup.inlineKeyboard([
+                [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
+            ]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(14);
+    } catch (e) {
+        console.log(e)
+    }
+});
+isRandomAll.on("text", async (ctx) => {
+    try {
+        // @ts-ignore
+        ctx.wizard.state.last_name = cyrillicToTranslit.transform(ctx.message.text.split(" ")[0]).toUpperCase();
+        // @ts-ignore
+        ctx.wizard.state.first_name = cyrillicToTranslit.transform(ctx.message.text.split(" ")[1]).toUpperCase();
+        // @ts-ignore
+        ctx.wizard.state.second_name = cyrillicToTranslit.transform(ctx.message.text.split(" ")[2]).toUpperCase();
+
+        await ctx.replyWithHTML("Мы можем заполнить все оставшиеся пункты за вас <b>случайными</b> данными", Markup.inlineKeyboard([
+            [Markup.button.callback("🖋 Заполню сам","write_myself"), Markup.button.callback("🔣 Случайные данные", "random_data") ],
+            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
+        ]))
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+
+
+
+// 7
+const getCountryOfBirth = new Composer();
+getCountryOfBirth.action("start_again", to_start);
 getCountryOfBirth.on("text", async (ctx) => {
     try {
         // @ts-ignore
@@ -417,55 +367,69 @@ getCountryOfBirth.on("text", async (ctx) => {
         // @ts-ignore
         if(ctx.wizard.state.type === "ru_eu") {
             // @ts-ignore
-            return ctx.wizard.selectStep(10);
+            return ctx.wizard.selectStep(8);
         }
         // @ts-ignore
         if(ctx.wizard.state.type === "only_ru") {
             // @ts-ignore
-            return ctx.wizard.selectStep(13);
+            return ctx.wizard.selectStep(12);
         }
     } catch (e) {
         console.log(e)
     }
 })
 
-// 10
+// 8
 const getLivingStreet = new Composer();
-getLivingStreet.action("start_again", async ctx => {
-    try {
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "start_again") {
-            await ctx.answerCbQuery();
-            // @ts-ignore
-            await ctx.wizard.selectStep(0);
-        }
-    } catch (e) {
-        console.log(e)
-    }
-})
+getLivingStreet.action("start_again", to_start);
 getLivingStreet.on("text", async (ctx) => {
-    if (ctx.message.text.length === 6) {
-        console.log("index")
-        console.log(Number(ctx.message.text))
 
-    }
-    console.log("дальше идем")
     let country = ""
     try {
         if (ctx.message.text.trim().toLowerCase() === "россия") {
-            country = "Russia"
+            country = "RUSSIA"
         } else if (ctx.message.text.trim().toLowerCase() === "ссср") {
             country = "USSR"
         } else {
             country = cyrillicToTranslit.transform(ctx.message.text).toUpperCase();
         }
         // @ts-ignore
-        ctx.wizard.state.country_of_birth = country
+        ctx.wizard.state.country_of_birth = country.toUpperCase();
 
         await ctx.replyWithHTML("Укажите улицу проживания. Пример: <b>ул.Гагарина</b>",
             Markup.inlineKeyboard([
                 [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
             ]))
+        // @ts-ignore
+        return ctx.wizard.selectStep(9);
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+// 9
+const getHouseNumber = new Composer();
+getHouseNumber.action("start_again", to_start);
+getHouseNumber.on("text", async (ctx) => {
+    try {
+        // @ts-ignore
+        ctx.wizard.state.living_street = cyrillicToTranslit.transform(ctx.message.text).toUpperCase()
+        await ctx.replyWithHTML("Укажите номер дома. Пример: <b>34/2</b>")
+        // @ts-ignore
+        return ctx.wizard.selectStep(10);
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+// 10
+const getLivingIndex = new Composer();
+getLivingIndex.action("start_again", to_start);
+getLivingIndex.on("text", async (ctx) => {
+    try {
+        // @ts-ignore
+        ctx.wizard.state.house_number = ctx.message.text;
+        await ctx.replyWithHTML("Укажите почтовый индекс. Пример: <b>192168</b>")
         // @ts-ignore
         return ctx.wizard.selectStep(11);
     } catch (e) {
@@ -473,74 +437,31 @@ getLivingStreet.on("text", async (ctx) => {
     }
 })
 
-// 11
-const getHouseNumber = new Composer();
-getHouseNumber.action("start_again", async ctx => {
-    try {
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "start_again") {
-            await ctx.answerCbQuery();
-            // @ts-ignore
-            await ctx.wizard.selectStep(0);
-        }
-    } catch (e) {
-        console.log(e)
-    }
-})
-getHouseNumber.on("text", async (ctx) => {
-    try {
-        // @ts-ignore
-        ctx.wizard.state.living_street = cyrillicToTranslit.transform(ctx.message.text).toUpperCase()
-        await ctx.replyWithHTML("Укажите номер дома. Пример: <b>34/2</b>")
-        // @ts-ignore
-        return ctx.wizard.selectStep(12);
-    } catch (e) {
-        console.log(e)
-    }
-})
 
-// 12
-const getLivingIndex = new Composer();
-getLivingIndex.action("start_again", async ctx => {
+
+
+// 11
+const getLivingCity = new Composer();
+getLivingCity.action("start_again", to_start);
+getLivingCity.on("text", async (ctx) => {
     try {
         // @ts-ignore
-        if (ctx.update.callback_query["data"] === "start_again") {
-            await ctx.answerCbQuery();
-            // @ts-ignore
-            await ctx.wizard.selectStep(0);
-        }
-    } catch (e) {
-        console.log(e)
-    }
-})
-getLivingIndex.on("text", async (ctx) => {
-    try {
-        // @ts-ignore
-        ctx.wizard.state.house_number = ctx.message.text;
-        await ctx.replyWithHTML("Укажите почтовый индекс. Пример: <b>192168</b>")
+        ctx.wizard.state.living_index = ctx.message.text.toUpperCase();
+        await ctx.replyWithHTML("Укажите город проживания. Пример: <b>Москва</b>");
         // @ts-ignore
         return ctx.wizard.selectStep(13);
     } catch (e) {
         console.log(e)
     }
-})
+});
 
-// 13
-const getLivingCity = new Composer();
-getLivingCity.action("start_again", async ctx => {
-    try {
-        await ctx.answerCbQuery();
-        // @ts-ignore
-        await ctx.wizard.selectStep(0);
-    } catch (e) {
-        console.log(e)
-    }
-})
-getLivingCity.on("text", async (ctx) => {
+// 12
+const getLivingCity_ru = new Composer();
+getLivingCity_ru.on("text", async (ctx) => {
     try {
         let country = "";
         if (ctx.message.text.trim().toLowerCase() === "россия") {
-            country = "Russia";
+            country = "RUSSIA";
         } else if (ctx.message.text.trim().toLowerCase() === "ссср") {
             country = "USSR";
         } else {
@@ -549,10 +470,22 @@ getLivingCity.on("text", async (ctx) => {
         // @ts-ignore
         ctx.wizard.state.country_of_birth = country;
         // @ts-ignore
-        ctx.wizard.state.living_country = "RUSSIA";
-        // @ts-ignore
         ctx.wizard.state.living_index = ctx.message.text.toUpperCase();
         await ctx.replyWithHTML("Укажите город проживания. Пример: <b>Москва</b>");
+        // @ts-ignore
+        return ctx.wizard.selectStep(13);
+    } catch (e) {
+        console.log(e)
+    }
+});
+// 13
+const getSubjectIdAndMakeSerialNumber = new Composer();
+getSubjectIdAndMakeSerialNumber.action("start_again", to_start);
+getSubjectIdAndMakeSerialNumber.on("text", async (ctx) => {
+    try {
+        // @ts-ignore
+        ctx.wizard.state.living_city = cyrillicToTranslit.transform(ctx.message.text).toUpperCase();
+        await ctx.replyWithHTML("Напишите двузначный ГИБДД-код субьекта РФ, к которому относится место проживания, указанное на предыдущем шаге.<a href='https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%B4%D1%8B_%D1%81%D1%83%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%B9_%D0%A4%D0%B5%D0%B4%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8'>Узнать код можно тут</a>")
         // @ts-ignore
         return ctx.wizard.selectStep(14);
     } catch (e) {
@@ -561,51 +494,11 @@ getLivingCity.on("text", async (ctx) => {
 })
 
 
-
 // 14
-const getSubjectIdAndMakeSerialNumber = new Composer();
-getSubjectIdAndMakeSerialNumber.action("start_again", async ctx => {
-    try {
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "start_again") {
-            await ctx.answerCbQuery();
-            // @ts-ignore
-            await ctx.wizard.selectStep(0);
-        }
-    } catch (e) {
-        console.log(e)
-    }
-})
-getSubjectIdAndMakeSerialNumber.on("text", async (ctx) => {
-    try {
-        // @ts-ignore
-        ctx.wizard.state.living_city = cyrillicToTranslit.transform(ctx.message.text).toUpperCase();
-        await ctx.replyWithHTML("Напишите двузначный ГИБДД-код субьекта РФ, к которому относится место проживания, указанное на предыдущем шаге.<a href='https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%B4%D1%8B_%D1%81%D1%83%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%B9_%D0%A4%D0%B5%D0%B4%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8'>Узнать код можно тут</a>")
-        // @ts-ignore
-        return ctx.wizard.selectStep(15);
-    } catch (e) {
-        console.log(e)
-    }
-})
-
-
-// 15
 const getApprove = new Composer();
-getApprove.action("start_again", async ctx => {
-    try {
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "start_again") {
-            await ctx.answerCbQuery();
-            // @ts-ignore
-            await ctx.wizard.selectStep(0);
-        }
-    } catch (e) {
-        console.log(e)
-    }
-})
+getApprove.action("start_again", to_start);
 getApprove.on("text", async (ctx) => {
     try {
-
         // @ts-ignore
         ctx.wizard.state.subject_id_number = ctx.message.text;
         // @ts-ignore
@@ -613,7 +506,10 @@ getApprove.on("text", async (ctx) => {
         // @ts-ignore
         const { type, first_name, last_name, second_name, date_of_birth, city_of_birth, house_number, subject_id, country_of_birth, living_index, living_country, living_city, living_street, sex, eyes, height} = ctx.wizard.state;
         // @ts-ignore
+        console.log(ctx.wizard.state)
+        // @ts-ignore
         if (type === "ru_eu"){
+            console.log("ru_eu")
             await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>
 <b> Имя </b>: ${first_name.toUpperCase()}
 <b> Фамилия </b>: ${last_name.toUpperCase()}
@@ -646,27 +542,16 @@ getApprove.on("text", async (ctx) => {
         }
 
         // @ts-ignore
-        return ctx.wizard.selectStep(16);
+        return ctx.wizard.selectStep(15);
     } catch (e) {
         console.log(e)
     }
 })
 
 
-// 16
+// 15
 const getPhoto = new Composer();
-getPhoto.action("start_again", async ctx => {
-    try {
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "start_again") {
-            await ctx.answerCbQuery();
-            // @ts-ignore
-            await ctx.wizard.selectStep(0);
-        }
-    } catch (e) {
-        console.log(e)
-    }
-});
+getPhoto.action("start_again", to_start);
 
 getPhoto.action("make_payment", async ctx => {
     try {
@@ -773,7 +658,7 @@ getPhoto.action("make_payment", async ctx => {
 getPhoto.action("wrong", async ctx => {
     try {
         await ctx.answerCbQuery();
-        await ctx.replyWithHTML("<b>Чтобы перейти к началу заполнения анкеты, нажмите кнопку '👉 Начать заново (жми два раза)'</b>",
+        await ctx.replyWithHTML("<b>Чтобы перейти к началу заполнения анкеты, нажмите кнопку '👉 Начать заново'</b>",
             Markup.inlineKeyboard([[Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]]));
         // @ts-ignore
         return ctx.wizard.selectStep(0);
@@ -871,47 +756,10 @@ getPhoto.action("update_photo", async (ctx) => {
         console.log(e)
     }
 });
-getPhoto.action("generate_again", async ctx => {
-    try {
-        await ctx.answerCbQuery();
-        await ctx.reply("Генерю...");
-        // @ts-ignore
-        return ctx.wizard.selectStep(7);
-    } catch (e) {
-        console.log(e)
-    }
-});
 
-// 17
-const getAnswer = new Composer();
-getAnswer.action("start_again", async ctx => {
-    try {
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "start_again") {
-            await ctx.answerCbQuery();
-            // @ts-ignore
-            await ctx.wizard.selectStep(0);
-        }
-    } catch (e) {
-        console.log(e)
-    }
-})
-
-
-// 18
+// 16
 const sendFinalData = new Composer();
-sendFinalData.action("start_again", async ctx => {
-    try {
-        // @ts-ignore
-        if (ctx.update.callback_query["data"] === "start_again") {
-            await ctx.answerCbQuery();
-            // @ts-ignore
-            await ctx.wizard.selectStep(0);
-        }
-    } catch (e) {
-        console.log(e)
-    }
-})
+sendFinalData.action("start_again", to_start);
 
 sendFinalData.on('text', async (ctx) => {
     try {
@@ -927,23 +775,21 @@ sendFinalData.on('text', async (ctx) => {
 const make_driver_license_scene = new Scenes.WizardScene(
     "make_driver_license_scene",
     chooseCountry,
-    description,
     getDateOfBirthStep,
     getSex,
     getEyesColor,
     getHeight,
     getNameStep,
     isRandomAll,
-    getCityOfBirth,
     getCountryOfBirth,
     getLivingStreet,
     getHouseNumber,
     getLivingIndex,
     getLivingCity,
+    getLivingCity_ru,
     getSubjectIdAndMakeSerialNumber,
     getApprove,
     getPhoto,
-    getAnswer,
     sendFinalData,
 )
 
