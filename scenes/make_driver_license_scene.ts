@@ -28,63 +28,63 @@ const to_start = async (ctx:any) => {
 }
 const random_data = async (ctx:any) => {
     await ctx.answerCbQuery();
-        try {
-            const fake_data = await get_random_data();
-            // @ts-ignore
-            const {city_of_birth, country_of_birth, living_index, living_country, living_city, living_street, house_number, subject_id} = fake_data;
-            // @ts-ignore
-            const first_name = ctx.wizard.state.first_name;
-            // @ts-ignore
-            const last_name = ctx.wizard.state.last_name;
-            // @ts-ignore
-            const second_name = ctx.wizard.state.second_name;
-            // @ts-ignore
-            const sex = ctx.wizard.state.sex;
-            // @ts-ignore
-            const eyes = ctx.wizard.state.eyes;
-            // @ts-ignore
-            const height = ctx.wizard.state.height;
-            // @ts-ignore
-            const date_of_birth = ctx.wizard.state.date_of_birth;
-            // @ts-ignore
-            ctx.wizard.state.subject_id = subject_id;
-            // @ts-ignore
-            ctx.wizard.state.city_of_birth = city_of_birth;
-            // @ts-ignore
-            ctx.wizard.state.country_of_birth = country_of_birth;
-            // @ts-ignore
-            ctx.wizard.state.living_index = living_index;
-            // @ts-ignore
-            ctx.wizard.state.living_country = living_country;
-            // @ts-ignore
-            ctx.wizard.state.living_city = living_city;
-            // @ts-ignore
-            ctx.wizard.state.living_street = living_street;
-            // @ts-ignore
-            ctx.wizard.state.house_number = house_number;
-            // @ts-ignore
-            ctx.wizard.state.subject_id = subject_id;
-            // @ts-ignore
-            ctx.wizard.state.subject_id_number = subject_id.split(" ")[0];
-            // @ts-ignore
-            if (ctx.wizard.state.type === "only_ru") {
-                await ctx.replyWithHTML(
-                    `<b>Проверьте правильность введенной информации:</b>
+    try {
+        const fake_data = await get_random_data();
+        // @ts-ignore
+        const {city_of_birth, country_of_birth, living_index, living_country, living_city, living_street, house_number, subject_id} = fake_data;
+        // @ts-ignore
+        const first_name = ctx.wizard.state.first_name;
+        // @ts-ignore
+        const last_name = ctx.wizard.state.last_name;
+        // @ts-ignore
+        const second_name = ctx.wizard.state.second_name;
+        // @ts-ignore
+        const sex = ctx.wizard.state.sex;
+        // @ts-ignore
+        const eyes = ctx.wizard.state.eyes;
+        // @ts-ignore
+        const height = ctx.wizard.state.height;
+        // @ts-ignore
+        const date_of_birth = ctx.wizard.state.date_of_birth;
+        // @ts-ignore
+        ctx.wizard.state.subject_id = subject_id;
+        // @ts-ignore
+        ctx.wizard.state.city_of_birth = city_of_birth;
+        // @ts-ignore
+        ctx.wizard.state.country_of_birth = country_of_birth;
+        // @ts-ignore
+        ctx.wizard.state.living_index = living_index;
+        // @ts-ignore
+        ctx.wizard.state.living_country = living_country;
+        // @ts-ignore
+        ctx.wizard.state.living_city = living_city;
+        // @ts-ignore
+        ctx.wizard.state.living_street = living_street;
+        // @ts-ignore
+        ctx.wizard.state.house_number = house_number;
+        // @ts-ignore
+        ctx.wizard.state.subject_id = subject_id;
+        // @ts-ignore
+        ctx.wizard.state.subject_id_number = subject_id.split(" ")[0];
+        // @ts-ignore
+        if (ctx.wizard.state.type === "only_ru") {
+            await ctx.replyWithHTML(
+                `<b>Проверьте правильность введенной информации:</b>
 <b>Имя</b>: ${first_name.toUpperCase()}
 <b>Фамилия</b>: ${last_name.toUpperCase()}
 <b>Отчество</b>: ${second_name.toUpperCase()}
 <b>Дата рождения</b>: ${date_of_birth}
 <b>Место рождения</b>: ${country_of_birth.toUpperCase()}, ${city_of_birth.toUpperCase()}
 <b>Место проживания</b>: ${living_country.toUpperCase()}, ${living_city.toUpperCase()}`,
-                    Markup.inlineKeyboard([
-                        [Markup.button.callback("✔ Все верно", "confirm"), Markup.button.callback("🔁 Сгенерировать заново", "generate_again")],
-                        [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
-                    ])
-                )
-            }
-            // @ts-ignore
-            if (ctx.wizard.state.type === "ru_eu") {
-                await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>
+                Markup.inlineKeyboard([
+                    [Markup.button.callback("✔ Все верно", "confirm"), Markup.button.callback("🔁 Сгенерировать заново", "generate_again")],
+                    [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
+                ])
+            )
+        }
+        // @ts-ignore
+        if (ctx.wizard.state.type === "ru_eu") {
+            await ctx.replyWithHTML(`<b>Проверьте правильность введенной информации:</b>
 <b> Имя </b>: ${first_name.toUpperCase()}
 <b> Фамилия </b>: ${last_name.toUpperCase()}
 <b> Отчество </b>: ${second_name.toUpperCase()}
@@ -95,15 +95,15 @@ const random_data = async (ctx:any) => {
 <b> Цвет глаз </b>: ${eyes.toUpperCase()}
 <b> Рост </b>: ${height}
 <b> Номер удостоверения </b>:${subject_id}`,
-                    Markup.inlineKeyboard([
-                        [Markup.button.callback("✔ Все верно", "confirm"), Markup.button.callback("🔁 Сгенерировать заново", "generate_again")],
-                        [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
-                    ])
-                )
-            }
-        } catch (e) {
-            console.log(e)
+                Markup.inlineKeyboard([
+                    [Markup.button.callback("✔ Все верно", "confirm"), Markup.button.callback("🔁 Сгенерировать заново", "generate_again")],
+                    [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
+                ])
+            )
         }
+    } catch (e) {
+        console.log(e)
+    }
 
 }
 
@@ -328,7 +328,7 @@ isRandomAll.action("confirm", async (ctx) => {
                 [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
             ]))
         // @ts-ignore
-        return ctx.wizard.selectStep(14);
+        return ctx.wizard.selectStep(15);
     } catch (e) {
         console.log(e)
     }
@@ -527,6 +527,7 @@ getApprove.on("text", async (ctx) => {
                 ])
             )
         } else {
+            console.log("ru")
             // @ts-ignore
             await ctx.replyWithHTML(
                 `<b>Проверьте правильность введенной информации:</b>
@@ -541,7 +542,6 @@ getApprove.on("text", async (ctx) => {
                 ])
             )
         }
-
         // @ts-ignore
         return ctx.wizard.selectStep(15);
     } catch (e) {
@@ -671,26 +671,26 @@ getPhoto.action("wrong", async ctx => {
 getPhoto.on("photo", async (ctx) => {
     // @ts-ignore
     const picture = ctx.message.photo[2].file_id || ctx.message.photo[1].file_id || ctx.message.photo[0].file_id;
-    console.log("picture " + picture)
-
+    // console.log("picture " + picture)
+    console.log(picture)
     const fileUrl = await ctx.telegram.getFileLink(picture);
-    console.log("fileUrl " + fileUrl)
+    // console.log("fileUrl " + fileUrl)
     try {
         fs.stat(`/root/driveBot/temp/users/${ctx.message.chat.id}`, async (err) => {
             if (!err) {
-                console.log("папка создана")
+                // console.log("папка создана")
                 await download_image(fileUrl.href, `/root/driveBot/temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
             } else if (err.code === 'ENOENT') {
-                console.log('директории нет');
+                // console.log('директории нет');
                 fs.mkdir(`/root/driveBot/temp/users/${ctx.message.chat.id}`, async (err) => {
                     if (err)
                         throw err; // не удалось создать папку
-                    console.log("папку создал")
+                    // console.log("папку создал")
                     await download_image(fileUrl.href, `/root/driveBot/temp/users/${ctx.message.chat.id}/${ctx.message.chat.id}.jpg`);
                 });
             }
             // @ts-ignore
-            console.log(ctx.wizard.state)
+            // console.log(ctx.wizard.state)
             // @ts-ignore
             await convert_to_jpeg(ctx.wizard.state, "example").then( async () => {
                 // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
