@@ -566,7 +566,8 @@ getPhoto.action("make_payment", async ctx => {
                 currency: 'RUB'
             },
             payment_method_data: {
-                type: 'sbp',
+                type: 'bank_card',
+
             },
             confirmation: {
                 type: 'redirect',
