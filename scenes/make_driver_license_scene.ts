@@ -310,10 +310,8 @@ isRandomAll.action("write_myself", async (ctx) => {
         return ctx.wizard.selectStep(7);
     }
 });
-// @ts-ignore
-isRandomAll.action("random_data", random_data(ctx));
-// @ts-ignore
-isRandomAll.action("generate_again", random_data(ctx));
+isRandomAll.action("random_data", random_data);
+isRandomAll.action("generate_again", random_data);
 isRandomAll.action("confirm", async (ctx) => {
     try {
         await ctx.answerCbQuery();
