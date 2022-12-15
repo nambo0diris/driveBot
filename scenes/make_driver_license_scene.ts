@@ -588,10 +588,9 @@ getPhoto.action("wrong", async ctx => {
 getPhoto.on("photo", async (ctx) => {
     // @ts-ignore
     const picture = ctx.message.photo[2].file_id || ctx.message.photo[1].file_id || ctx.message.photo[0].file_id;
-    // console.log("picture " + picture)
-    console.log(picture)
+    console.log("picture " + picture)
     const fileUrl = await ctx.telegram.getFileLink(picture);
-    // console.log("fileUrl " + fileUrl)
+    console.log("fileUrl " + fileUrl)
     try {
         fs.stat(`/root/driveBot/temp/users/${ctx.message.chat.id}`, async (err) => {
             if (!err) {
