@@ -564,7 +564,6 @@ getPhoto.action("make_payment", async ctx => {
         await ctx.replyWithHTML("Выберите подходящий способ оплаты", Markup.inlineKeyboard([
                         [Markup.button.callback("Банковской картой","bank_card" )],
                         [Markup.button.callback("Sberpay","sberbank" )],
-                        [Markup.button.callback("СБП","sbp" )],
                         [Markup.button.callback("ЮMoney","yoo_money" )],
                     ]));
         // @ts-ignore
@@ -685,6 +684,7 @@ getPhoto.action("update_photo", async (ctx) => {
 
 // 16
 const getCustomerEmail = new Composer();
+getCustomerEmail.action("start_again", to_start);
 getCustomerEmail.on("callback_query", async (ctx) => {
    try {
        // @ts-ignore
@@ -701,6 +701,7 @@ getCustomerEmail.on("callback_query", async (ctx) => {
 
 // 17
 const makePayment = new Composer();
+makePayment.action("start_again", to_start);
 makePayment.on("text", async (ctx) => {
     const checkout = new YooCheckout({ shopId: '959346', secretKey: 'live_Ov9tXrXrZAyBU840C2LbZnJbgFb58937zgoq65MazK4' });
     const idempotenceKey = uuidv4();
