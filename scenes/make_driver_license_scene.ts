@@ -721,9 +721,7 @@ makePayment.on("text", async (ctx) => {
         const confirmation_url = payment.confirmation.confirmation_url ? payment.confirmation.confirmation_url : 'empty';
 
         if (confirmation_url != null) {
-            await ctx.replyWithHTML(confirmation_url, Markup.inlineKeyboard([
-                [Markup.button.callback("Начать заново","start_again" )],
-            ])).then(async () => {
+            await ctx.replyWithHTML(confirmation_url).then(async () => {
                 let payment_result = await checkout.getPayment(payment_id);
                 let counter = 0;
                 async function getPayment() {
