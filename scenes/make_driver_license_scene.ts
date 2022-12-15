@@ -733,17 +733,17 @@ makePayment.on("text", async (ctx) => {
                         // @ts-ignore
                         await convert_to_jpeg(ctx.wizard.state).then( async () => {
                             // @ts-ignore
-                            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Полный_разворот_1.jpg` });
+                            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.wizard.state.user_id}/Полный_разворот_1.jpg` });
                             // @ts-ignore
-                            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Полный_разворот_2.jpg` });
+                            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.wizard.state.user_id}/Полный_разворот_2.jpg` });
                             // @ts-ignore
-                            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Короткая_версия.jpg` });
+                            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.wizard.state.user_id}/Короткая_версия.jpg` });
                             // @ts-ignore
                             if (ctx.wizard.state.type === "ru_eu"){
                                 // @ts-ignore
-                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Европейские(на пластик)_1.jpg` });
+                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.wizard.state.user_id}/Европейские(на пластик)_1.jpg` });
                                 // @ts-ignore
-                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Европейские(на пластик)_2.jpg` });
+                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.wizard.state.user_id}/Европейские(на пластик)_2.jpg` });
                             }
                         });
                     }
