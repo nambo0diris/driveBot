@@ -116,7 +116,7 @@ chooseCountry.action("russia", async (ctx) => {
         // @ts-ignore
         ctx.wizard.state.living_country = "RUSSIA";
         // @ts-ignore
-        await ctx.replyWithVideo("/root/driveBot/examples/example.mp4")
+        // await ctx.replyWithVideo("/root/driveBot/examples/example.mp4");
         await ctx.replyWithHTML(`<b>В стоимость входит два вида макетов:</b>
 - Бутафорские Российские международные права <b>полный разворот</b> (2 файла)
 - Бутафорские Российские международные права <b>только основные части</b> (1 файл)
