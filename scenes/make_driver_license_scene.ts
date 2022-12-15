@@ -564,7 +564,6 @@ getPhoto.action("make_payment", async ctx => {
         await ctx.replyWithHTML("Выберите подходящий способ оплаты", Markup.inlineKeyboard([
                         [Markup.button.callback("Банковской картой","bank_card" )],
                         [Markup.button.callback("Sberpay","sberbank" )],
-                        [Markup.button.callback("ЮMoney","yoo_money" )],
                     ]));
         // @ts-ignore
         return ctx.wizard.selectStep(16);
@@ -718,13 +717,6 @@ makePayment.on("text", async (ctx) => {
             case "sberbank":
                 payment = await checkout.createPayment(sberbank(email), idempotenceKey);
                 break;
-            case "sbp":
-                payment = await checkout.createPayment(sbp(email), idempotenceKey);
-                break;
-            case "yoomoney":
-                payment = await checkout.createPayment(yoomoney(email), idempotenceKey);
-                break;
-
         }
         // @ts-ignore
         const payment_id = payment.id;
