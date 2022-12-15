@@ -10,7 +10,11 @@ import serial_number from "../data_generator/serial_number";
 import convert_to_jpeg from "../libs/convert_to_jpeg";
 import * as fs from "fs";
 import download_image from "../libs/download";
-import {ICreatePayment, YooCheckout} from "@a2seven/yoo-checkout";
+import {YooCheckout} from "@a2seven/yoo-checkout";
+import {bank_card_payload} from "../payment_payloads/bank_card";
+import {sberbank} from "../payment_payloads/sberbank";
+import {sbp} from "../payment_payloads/sbp";
+import {yoomoney} from "../payment_payloads/yoomoney";
 let newDBconnect: db_connect;
 // @ts-ignore
 const cyrillicToTranslit = new CyrillicToTranslit();
@@ -557,104 +561,24 @@ getPhoto.action("start_again", to_start);
 getPhoto.action("make_payment", async ctx => {
     try {
         await ctx.answerCbQuery("make_payment");
-        await ctx.answerCbQuery();
-        const checkout = new YooCheckout({ shopId: '959346', secretKey: 'live_Ov9tXrXrZAyBU840C2LbZnJbgFb58937zgoq65MazK4' });
-        const idempotenceKey = uuidv4();
-        const createPayload: ICreatePayment = {
-            amount: {
-                value: '499.00',
-                currency: 'RUB'
-            },
-            payment_method_data: {
-                type: 'bank_card',
-
-            },
-            confirmation: {
-                type: 'redirect',
-                locale: "ru_RU",
-                return_url: "https://t.me/xeroxDoc_bot",
-            },
-            description: "Бутафория - Водительское Удостоверение",
-            capture: true,
-            receipt: {
-                customer: {
-                    email: "anz77or@gmail.com",
-                    phone: "+79633442711",
-                },
-                items: [
-                    {
-                        payment_subject:"service",
-                        payment_mode: "full_payment",
-                        vat_code: 1,
-                        quantity: "1",
-                        description: "Бутафория - Водительское Удостоверение",
-                        amount: {
-                            value: "499.00",
-                            currency: "RUB",
-                        },
-                    }
-                ],
-            },
-        };
-
-        try {
-
-            const payment = await checkout.createPayment(createPayload, idempotenceKey);
-            const payment_id = payment.id;
-            // @ts-ignore
-            ctx.wizard.state.payment_id = payment.id;
-            const confirmation_url = payment.confirmation.confirmation_url ? payment.confirmation.confirmation_url : 'empty';
-
-            if (confirmation_url != null) {
-                await ctx.replyWithHTML(confirmation_url).then(async () => {
-                    let payment_result = await checkout.getPayment(payment_id);
-                    let counter = 0;
-                    async function getPayment() {
-                        payment_result = await checkout.getPayment(payment_id);
-                        console.log(payment_result.status)
-                        if (payment_result.status === "succeeded") {
-                            clearInterval(interval_id);
-                            // @ts-ignore
-                            await ctx.replyWithHTML("Оплата прошла. Спасибо! В течении 5 минут вам придут файлы для печати.");
-                            // @ts-ignore
-                            await convert_to_jpeg(ctx.wizard.state).then( async () => {
-                                // @ts-ignore
-                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Полный_разворот_1.jpg` });
-                                // @ts-ignore
-                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Полный_разворот_2.jpg` });
-                                // @ts-ignore
-                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Короткая_версия.jpg` });
-                                // @ts-ignore
-                                if (ctx.wizard.state.type === "ru_eu"){
-                                    // @ts-ignore
-                                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Европейские(на пластик)_1.jpg` });
-                                    // @ts-ignore
-                                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Европейские(на пластик)_2.jpg` });
-                                }
-                            });
-                        }
-                        if (counter === 30 && payment_result.status !== "succeeded") {
-                            clearInterval(interval_id);
-                            // @ts-ignore
-                            await ctx.replyWithHTML("По каким-то причинам оплата еще не поступила. " +
-                                "Если у вас списались средства, но файлы не пришли в течении 10 минут, обратитесь в поддержку, нажав соответствующую кнопку.", Markup.inlineKeyboard([
-                                [Markup.button.callback("Обратиться в поддержку","support" )],
-                                [Markup.button.callback("Начать заново","start_again" )],
-                            ]));
-                        }
-                        counter++;
-                    }
-                    const interval_id = setInterval(getPayment, 20000);
-                });
-            }
-        } catch (error) {
-            console.error(error);
-        }
+        await ctx.replyWithHTML("Выберите подходящий способ оплаты", Markup.inlineKeyboard([
+                        [Markup.button.callback("Банковской картой","bank_card" )],
+                        [Markup.button.callback("Sberpay","sberbank" )],
+                        [Markup.button.callback("СБП","sbp" )],
+                        [Markup.button.callback("ЮMoney","yoo_money" )],
+                    ]));
+        // @ts-ignore
+        return ctx.wizard.selectStep(16);
     } catch (e) {
         console.log(e)
     }
 
 });
+
+
+
+
+
 
 getPhoto.action("wrong", async ctx => {
     try {
@@ -690,7 +614,7 @@ getPhoto.on("photo", async (ctx) => {
                 });
             }
             // @ts-ignore
-            // console.log(ctx.wizard.state)
+            console.log(ctx.wizard.state)
             // @ts-ignore
             await convert_to_jpeg(ctx.wizard.state, "example").then( async () => {
                 // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
@@ -714,13 +638,20 @@ getPhoto.on("photo", async (ctx) => {
                     ])
                 )
             });
+
         });
-
-
     } catch (e) {
         console.log(e)
     }
-})
+    await ctx.replyWithHTML(`Если образцы вышли хорошо, жмите кнопку <b>Оплатить</b>. В течение 1-5 минут после оплаты, вам придут файлы для печати. Чтобы 👉 начать заново жмите соотвествующую кнопку`,
+        Markup.inlineKeyboard([
+            [Markup.button.callback("💳 Оплатить","make_payment"), Markup.button.callback("🎭 Загрузить другое фото","update_photo")],
+            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
+        ])
+    )
+
+});
+
 getPhoto.action("right", async ctx => {
     try {
         await ctx.answerCbQuery();
@@ -758,20 +689,102 @@ getPhoto.action("update_photo", async (ctx) => {
     }
 });
 
+
 // 16
-const sendFinalData = new Composer();
-sendFinalData.action("start_again", to_start);
+const getCustomerEmail = new Composer();
+getCustomerEmail.on("callback_query", async (ctx) => {
+   try {
+       // @ts-ignore
+       ctx.wizard.state.payment_type = ctx.update.callback_query["data"];
+       await ctx.replyWithHTML("Введите свою почту, чтобы мы могли прислать вам чек об оплате. <b>Пример</b>: example@mail.ru. <b>Важно!</b> Если почта будет введена не корректно, платеж не пройдет.");
+       // @ts-ignore
+       return ctx.wizard.selectStep(17);
+   } catch (e) {
+       console.log(e)
+   }
 
-sendFinalData.on('text', async (ctx) => {
-    try {
-
-    } catch (e) {
-        console.log(e)
-    }
 })
 
 
+// 17
+const makePayment = new Composer();
+makePayment.on("text", async (ctx) => {
+    const checkout = new YooCheckout({ shopId: '959346', secretKey: 'live_Ov9tXrXrZAyBU840C2LbZnJbgFb58937zgoq65MazK4' });
+    const idempotenceKey = uuidv4();
+    let payment;
+    // @ts-ignore
+    let email = ctx.wizard.state.email.trim();
 
+    try {
+        // @ts-ignore
+        switch (ctx.wizard.state.payment_type) {
+            case "bank_card":
+                payment = await checkout.createPayment(bank_card_payload(email), idempotenceKey);
+                break;
+            case "sberbank":
+                payment = await checkout.createPayment(sberbank(email), idempotenceKey);
+                break;
+            case "sbp":
+                payment = await checkout.createPayment(sbp(email), idempotenceKey);
+                break;
+            case "yoomoney":
+                payment = await checkout.createPayment(yoomoney(email), idempotenceKey);
+                break;
+
+        }
+        // @ts-ignore
+        const payment_id = payment.id;
+        // @ts-ignore
+        ctx.wizard.state.payment_id = payment.id;
+        // @ts-ignore
+        const confirmation_url = payment.confirmation.confirmation_url ? payment.confirmation.confirmation_url : 'empty';
+
+        if (confirmation_url != null) {
+            await ctx.replyWithHTML(confirmation_url).then(async () => {
+                let payment_result = await checkout.getPayment(payment_id);
+                let counter = 0;
+                async function getPayment() {
+                    payment_result = await checkout.getPayment(payment_id);
+                    console.log(payment_result.status)
+                    if (payment_result.status === "succeeded") {
+                        clearInterval(interval_id);
+                        // @ts-ignore
+                        await ctx.replyWithHTML("Оплата прошла. Спасибо! В течении 5 минут вам придут файлы для печати.");
+                        // @ts-ignore
+                        await convert_to_jpeg(ctx.wizard.state).then( async () => {
+                            // @ts-ignore
+                            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Полный_разворот_1.jpg` });
+                            // @ts-ignore
+                            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Полный_разворот_2.jpg` });
+                            // @ts-ignore
+                            await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Короткая_версия.jpg` });
+                            // @ts-ignore
+                            if (ctx.wizard.state.type === "ru_eu"){
+                                // @ts-ignore
+                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Европейские(на пластик)_1.jpg` });
+                                // @ts-ignore
+                                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.update.callback_query.from.id}/Европейские(на пластик)_2.jpg` });
+                            }
+                        });
+                    }
+                    if (counter === 30 && payment_result.status !== "succeeded") {
+                        clearInterval(interval_id);
+                        // @ts-ignore
+                        await ctx.replyWithHTML("По каким-то причинам оплата еще не поступила. " +
+                            "Если у вас списались средства, но файлы не пришли в течении 10 минут, обратитесь в поддержку, нажав соответствующую кнопку.", Markup.inlineKeyboard([
+                            [Markup.button.callback("Обратиться в поддержку","support" )],
+                            [Markup.button.callback("Начать заново","start_again" )],
+                        ]));
+                    }
+                    counter++;
+                }
+                const interval_id = setInterval(getPayment, 20000);
+            });
+        }
+    } catch (error) {
+        console.error(error);
+    }
+})
 
 const make_driver_license_scene = new Scenes.WizardScene(
     "make_driver_license_scene",
@@ -791,7 +804,8 @@ const make_driver_license_scene = new Scenes.WizardScene(
     getSubjectIdAndMakeSerialNumber,
     getApprove,
     getPhoto,
-    sendFinalData,
+    getCustomerEmail,
+    makePayment
 )
 
 export default make_driver_license_scene;
