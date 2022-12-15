@@ -18,8 +18,6 @@ import {yoomoney} from "../payment_payloads/yoomoney";
 let newDBconnect: db_connect;
 // @ts-ignore
 const cyrillicToTranslit = new CyrillicToTranslit();
-//step 0
-const chooseCountry = new Composer();
 
 const to_start = async (ctx:any) => {
     try {
@@ -111,8 +109,8 @@ const random_data = async (ctx:any) => {
 
 }
 
-
-
+//step 0
+const chooseCountry = new Composer();
 chooseCountry.action("russia", async (ctx) => {
     try {
         // @ts-ignore
@@ -127,6 +125,7 @@ chooseCountry.action("russia", async (ctx) => {
                 [Markup.button.callback("🇷🇺 РФ международные + 🇪🇺 европейские", "ru_eu")],
                 [Markup.button.callback("Посмотреть образцы", "look_examples")]
             ]));
+        await ctx.replyWithVideoNote("/root/driveBot/examples/example.mp4")
         // @ts-ignore
         return ctx.wizard.selectStep(1);
     } catch (e) {
