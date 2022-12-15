@@ -706,7 +706,7 @@ makePayment.on("text", async (ctx) => {
     const idempotenceKey = uuidv4();
     let payment;
     // @ts-ignore
-    let email = ctx.wizard.state.email.trim();
+    let email = ctx.message.text.trim();
 
     try {
         // @ts-ignore
