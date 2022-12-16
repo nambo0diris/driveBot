@@ -29,7 +29,7 @@ bot.action('go_to_fake_market', async ctx => {
     }
 })
 bot.action('tutorial', async ctx => {
-    ctx.answerCbQuery();
+    ctx.answerCbQuery("/start");
     try {
         // @ts-ignore
         await ctx.replyWithHTML(`Чтобы подготовить фото с соотношением сторон 3х4, вы можете воспользоваться простейшим приложением, скачать его на андроид можно по 👉 <a href='https://play.google.com/store/apps/details?id=com.arumcomm.cropimage'>этой ссылке</a>👈
@@ -38,17 +38,13 @@ bot.action('tutorial', async ctx => {
         await ctx.replyWithDocument({
             source: "/root/driveBot/examples/example.mp4",
         },Markup.inlineKeyboard([
-            [Markup.button.callback("🐣 В начало","start" )],
+            [Markup.button.callback("🐣 В начало","/start" )],
         ]))
     } catch (e) {
         console.log(e)
     }
 })
-bot.action('start', async ctx => {
-    ctx.answerCbQuery();
-    // @ts-ignore
-    return ctx.wizard.selectStep(0);
-})
+
 bot.on("callback_query", async ctx => {
     try {
         // Armenia, Argentina, Austria, Australia, Azerbaijan, Bulgaria, Brazil, Canada, Cyprus, Germany, Dominican Republic, Estonia, Egypt, Spain, Finland, Georgia, Italy, Tajikistan
