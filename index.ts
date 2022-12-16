@@ -44,9 +44,8 @@ bot.action('tutorial', async ctx => {
     }
 })
 bot.action('start', async ctx => {
+    ctx.answerCbQuery();
     bot.start(async (ctx) => {
-        let newDBconnect: db_connect;
-
         try {
             await fs.stat(`/root/driveBot/temp/users/${ctx.message.chat.id}`, async (err) => {
                 if (!err) {
