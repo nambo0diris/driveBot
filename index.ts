@@ -9,20 +9,34 @@ import make_passport_scene from "./scenes/make_passport_scene.js";
 import make_drive_license_scene from "./scenes/make_driver_license_scene.js";
 dotenv.config();
 // @ts-ignore
-const bot = new Telegraf(process.env.BOT_TOKEN);
+const bot = new Telegraf(process.env.DEV_BOT_TOKEN);
 // @ts-ignore
 const stage = new Scenes.Stage([make_passport_scene, make_drive_license_scene]);
 bot.use(session());
 // @ts-ignore
 bot.use(stage.middleware());
 bot.action('go_to_fake_market', async ctx => {
+    ctx.answerCbQuery();
     try {
         await ctx.replyWithHTML("Какую бутафорию/сувенир вы хотите сделать?",
             Markup.inlineKeyboard([
-                [Markup.button.callback("Бутафорские водительские удостоверения","drive_license" )],
-                [Markup.button.callback("Бутафорские паспорта (в разработке)", "passports")],
+                [Markup.button.callback("🚘 Бутафорские водительские удостоверения","drive_license" )],
+                [Markup.button.callback("👓 Бутафорские паспорта (в разработке)", "passports")],
             ]));
+
+    } catch (e) {
+        console.log(e)
+    }
+})
+bot.action('tutorial', async ctx => {
+    ctx.answerCbQuery();
+    try {
         // @ts-ignore
+        await ctx.replyWithDocument({
+            source: "/root/driveBot/examples/example.mp4",
+        },Markup.inlineKeyboard([
+            [Markup.button.callback("🐣 В начало","/start" )],
+        ]))
     } catch (e) {
         console.log(e)
     }
@@ -76,6 +90,7 @@ bot.start(async (ctx) => {
         await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
             [
                 [Markup.button.callback("⭐ Перейти к выбору бутафории", "go_to_fake_market")],
+                [Markup.button.callback("🎥 Посмотреть видео-инструкицю", "tutorial")],
             ]
         ));
     } catch (e) {
