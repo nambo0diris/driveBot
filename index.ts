@@ -45,7 +45,7 @@ bot.action('tutorial', async ctx => {
 })
 bot.action('start', async ctx => {
     try {
-        ctx.answerCbQuery("/start")
+        ctx.leaveChat();
     } catch (e) {
         console.log(e)
     }
