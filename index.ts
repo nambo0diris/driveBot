@@ -44,11 +44,42 @@ bot.action('tutorial', async ctx => {
     }
 })
 bot.action('start', async ctx => {
-    try {
-        ctx.leaveChat();
-    } catch (e) {
-        console.log(e)
-    }
+    bot.start(async (ctx) => {
+        let newDBconnect: db_connect;
+
+        try {
+            await fs.stat(`/root/driveBot/temp/users/${ctx.message.chat.id}`, async (err) => {
+                if (!err) {
+                    fs.readdir(`/root/driveBot/temp/users/${ctx.message.chat.id}/`, (err, files) => {
+                        if (err) throw err;
+                        for (const file of files) {
+                            fs.unlink(path.join(`/root/driveBot/temp/users/${ctx.message.chat.id}/`, file), err => {
+                                if (err) throw err;
+                            });
+                        }
+                    });
+                } else if (err.code === 'ENOENT') {
+
+                }
+            });
+
+            // newDBconnect = new db_connect(ctx.message.chat.id);
+            // await newDBconnect.closeOrder();
+            // await newDBconnect.checkCustomer(async (result: any) => {
+            //     if (typeof result === "undefined"){
+            //         await newDBconnect.addNewCustomer();
+            //     }
+            // });
+            await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
+                [
+                    [Markup.button.callback("⭐ Перейти к выбору бутафории", "go_to_fake_market")],
+                    [Markup.button.callback("🎥 Посмотреть видео-инструкицю", "tutorial")],
+                ]
+            ));
+        } catch (e) {
+            console.log(e)
+        }
+    })
 })
 bot.on("callback_query", async ctx => {
     try {
