@@ -38,13 +38,17 @@ bot.action('tutorial', async ctx => {
         await ctx.replyWithDocument({
             source: "/root/driveBot/examples/example.mp4",
         },Markup.inlineKeyboard([
-            [Markup.button.callback("🐣 В начало","/start" )],
+            [Markup.button.callback("🐣 В начало","start" )],
         ]))
     } catch (e) {
         console.log(e)
     }
 })
-
+bot.action('start', async ctx => {
+    ctx.answerCbQuery();
+    // @ts-ignore
+    return ctx.wizard.selectStep(0);
+})
 bot.on("callback_query", async ctx => {
     try {
         // Armenia, Argentina, Austria, Australia, Azerbaijan, Bulgaria, Brazil, Canada, Cyprus, Germany, Dominican Republic, Estonia, Egypt, Spain, Finland, Georgia, Italy, Tajikistan
