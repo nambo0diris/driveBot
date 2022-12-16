@@ -32,6 +32,8 @@ bot.action('tutorial', async ctx => {
     ctx.answerCbQuery();
     try {
         // @ts-ignore
+        await ctx.replyWithHTML(`Чтобы подготовить фото с соотношением сторон 3х4, вы можете воспользоваться простейшим приложением, скачать его на андроид можно по 👉 <a href='https://play.google.com/store/apps/details?id=com.arumcomm.cropimage'>этой ссылке</a>👈
+для айфона приложение мы можете скачть по 👉 <a href='https://apps.apple.com/ru/app/%D0%BE%D0%B1%D1%80%D0%B5%D0%B7%D0%BA%D0%B0-%D1%84%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%B9/id442008567'>этой ссылке</a>👈`)
         await ctx.replyWithDocument({
             source: "/root/driveBot/examples/example.mp4",
         },Markup.inlineKeyboard([
