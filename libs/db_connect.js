@@ -36,11 +36,9 @@ export default class db_connect {
             console.log(e)
         }
     }
-    addNewOrder = async () => {
-        let data = {user_id: this.userChatId};
-        console.log(data)
+    addNewOrder = async (order_data) => {
         try {
-            await this.pool.query('INSERT INTO orders SET ?',data , function (error, results, fields) {
+            await this.pool.query(`INSERT INTO orders SET user_id=${order_data.user_id}, payment_type=${order_data.payment_type}` , function (error, results, fields) {
                 if (error) throw error;
             });
         } catch (e) {

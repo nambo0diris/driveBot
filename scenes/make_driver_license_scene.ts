@@ -110,6 +110,8 @@ const random_data = async (ctx:any) => {
 //step 0
 const chooseCountry = new Composer();
 chooseCountry.action("russia", async (ctx) => {
+    // @ts-ignore
+    ctx.wizard.state.order_data = {};
     try {
         // @ts-ignore
         ctx.wizard.state.living_country = "RUSSIA";
@@ -133,6 +135,9 @@ chooseCountry.action("russia", async (ctx) => {
 })
 chooseCountry.on("callback_query", async (ctx) => {
     try {
+        // @ts-ignore
+        ctx.wizard.state.order_data.user_id = ctx.update.callback_query.message.chat.id;
+        // удалить потом пару нижних строк
         // @ts-ignore
         ctx.wizard.state.user_id = ctx.update.callback_query.message.chat.id;
         // @ts-ignore
@@ -685,21 +690,33 @@ getCustomerEmail.action("start_again", to_start);
 getCustomerEmail.on("callback_query", async (ctx) => {
     try {
         // @ts-ignore
+        ctx.wizard.state.order_data.payment_type = ctx.update.callback_query["data"];
+        // @ts-ignore
         ctx.wizard.state.payment_type = ctx.update.callback_query["data"];
         await ctx.replyWithHTML("Введите свою почту, чтобы мы могли прислать вам чек об оплате. <b>Пример</b>: example@mail.ru. <b>Важно!</b> Если почта будет введена не корректно, платеж не пройдет.");
+
+        // @ts-ignore
+        let db = new db_connect(ctx.wizard.state.user_id);
+
+        // @ts-ignore
+        await db.addNewOrder(ctx.wizard.state.order_data);
+
         // @ts-ignore
         return ctx.wizard.selectStep(17);
     } catch (e) {
         console.log(e)
     }
-
-})
+});
 
 
 // 17
 const makePayment = new Composer();
 makePayment.action("start_again", to_start);
 makePayment.on("text", async (ctx) => {
+
+
+
+
     const checkout = new YooCheckout({ shopId: '959346', secretKey: 'live_Ov9tXrXrZAyBU840C2LbZnJbgFb58937zgoq65MazK4' });
     const idempotenceKey = uuidv4();
     let payment;
