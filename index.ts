@@ -96,7 +96,7 @@ bot.start(async (ctx) => {
         let newDBconnect = new db_connect();
         await newDBconnect.count(async (result:any) => {
             let count = Number(result["COUNT(*)"]) + 134;
-            await ctx.replyWithHTML(`⚡⚡⚡ Количество людей, уже получивших копии: <b>${count}</b>⚡⚡⚡`);
+            await ctx.replyWithHTML(`⚡⚡ Количество людей, уже получивших копии: <b>${count}</b>⚡⚡`);
             await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
                 [
                     [Markup.button.callback("⭐ Перейти к выбору бутафории", "go_to_fake_market")],
