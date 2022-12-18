@@ -110,8 +110,6 @@ const random_data = async (ctx:any) => {
 //step 0
 const chooseCountry = new Composer();
 chooseCountry.action("russia", async (ctx) => {
-    // @ts-ignore
-    ctx.wizard.state.order_data = {};
     try {
         // @ts-ignore
         ctx.wizard.state.living_country = "RUSSIA";
@@ -136,12 +134,8 @@ chooseCountry.action("russia", async (ctx) => {
 chooseCountry.on("callback_query", async (ctx) => {
     try {
         // @ts-ignore
-        ctx.wizard.state.order_data.user_id = ctx.update.callback_query.message.chat.id;
-        // удалить потом пару нижних строк
-        // @ts-ignore
         ctx.wizard.state.user_id = ctx.update.callback_query.message.chat.id;
         // @ts-ignore
-        newDBconnect = new db_connect(ctx.id);
         await ctx.answerCbQuery();
         await ctx.replyWithHTML("Выберите страну", Markup.inlineKeyboard([
             [Markup.button.callback("Франиция (в разработке)", "france")],
@@ -637,6 +631,12 @@ getPhoto.on("photo", async (ctx) => {
             });
 
         });
+        await ctx.replyWithHTML(`Если образцы вышли хорошо, жмите кнопку <b>Оплатить</b>. В течение 1-5 минут после оплаты, вам придут файлы для печати. Чтобы 👉 начать заново жмите соотвествующую кнопку`,
+            Markup.inlineKeyboard([
+                [Markup.button.callback("💳 Оплатить","make_payment"), Markup.button.callback("🎭 Загрузить другое фото","update_photo")],
+                [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
+            ])
+        )
     } catch (e) {
         console.log(e)
     }
@@ -690,16 +690,21 @@ getCustomerEmail.action("start_again", to_start);
 getCustomerEmail.on("callback_query", async (ctx) => {
     try {
         // @ts-ignore
-        ctx.wizard.state.order_data.payment_type = ctx.update.callback_query["data"];
-        // @ts-ignore
         ctx.wizard.state.payment_type = ctx.update.callback_query["data"];
+        // @ts-ignore
+        const payment_type = ctx.wizard.state.payment_type;
         await ctx.replyWithHTML("Введите свою почту, чтобы мы могли прислать вам чек об оплате. <b>Пример</b>: example@mail.ru. <b>Важно!</b> Если почта будет введена не корректно, платеж не пройдет.");
+        // @ts-ignore
+        const user_id = ctx.wizard.state.user_id;
+        const order_data = {
+            user_id,
+            payment_type
+        }
+        // @ts-ignore
+        newDBconnect = new db_connect(ctx.wizard.state.user_id);
 
         // @ts-ignore
-        let db = new db_connect(ctx.wizard.state.user_id);
-
-        // @ts-ignore
-        await db.addNewOrder(ctx.wizard.state.order_data);
+        await newDBconnect.addNewOrder(order_data);
 
         // @ts-ignore
         return ctx.wizard.selectStep(17);
@@ -736,7 +741,9 @@ makePayment.on("text", async (ctx) => {
         // @ts-ignore
         const payment_id = payment.id;
         // @ts-ignore
-        ctx.wizard.state.payment_id = payment.id;
+        ctx.wizard.state.payment_id = payment_id;
+        // @ts-ignore
+        await newDBconnect.updateOrder({value: "payment_id", key: payment_id});
         // @ts-ignore
         const confirmation_url = payment.confirmation.confirmation_url ? payment.confirmation.confirmation_url : 'empty';
 
@@ -746,9 +753,10 @@ makePayment.on("text", async (ctx) => {
                 let counter = 0;
                 async function getPayment() {
                     payment_result = await checkout.getPayment(payment_id);
-                    console.log(payment_result.status)
                     if (payment_result.status === "succeeded") {
                         clearInterval(interval_id);
+                        // @ts-ignore
+                        await newDBconnect.updateOrder({value: "payment_status", key: "success"});
                         // @ts-ignore
                         await ctx.replyWithHTML("Оплата прошла. Спасибо! В течении 5 минут вам придут файлы для печати.");
                         // @ts-ignore
@@ -766,10 +774,16 @@ makePayment.on("text", async (ctx) => {
                                 // @ts-ignore
                                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.wizard.state.user_id}/Европейские(на пластик)_2.jpg` });
                             }
+                            // @ts-ignore
+                            await newDBconnect.updateOrder({value: "status", key: "success"});
                         });
                     }
                     if (counter === 30 && payment_result.status !== "succeeded") {
                         clearInterval(interval_id);
+                        // @ts-ignore
+                        await newDBconnect.updateOrder({value: "status", key: "fail"});
+                        // @ts-ignore
+                        await newDBconnect.updateOrder({value: "payment_status", key: "fail"});
                         // @ts-ignore
                         await ctx.replyWithHTML("По каким-то причинам оплата еще не поступила. " +
                             "Если у вас списались средства, но файлы не пришли в течении 10 минут, обратитесь в поддержку, нажав соответствующую кнопку.", Markup.inlineKeyboard([

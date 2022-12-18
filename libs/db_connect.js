@@ -1,7 +1,8 @@
 import mysql from 'mysql';
 import config from "../config.js";
 export default class db_connect {
-    constructor(userChatId) {
+    constructor(userChatId="noUser") {
+        console.log(userChatId)
         this.userChatId = userChatId;
         this.pool = mysql.createPool(config);
     }
@@ -38,7 +39,7 @@ export default class db_connect {
     }
     addNewOrder = async (order_data) => {
         try {
-            await this.pool.query(`INSERT INTO orders SET user_id=${order_data.user_id}, payment_type=${order_data.payment_type}` , function (error, results, fields) {
+            await this.pool.query(`INSERT INTO orders (user_id, payment_type) VALUES ("${order_data.user_id}","${order_data.payment_type}")` , function (error, results, fields) {
                 if (error) throw error;
             });
         } catch (e) {
@@ -75,6 +76,18 @@ export default class db_connect {
             console.log(e)
         }
     }
+    count = async (callback) => {
+        try {
+            let result = await this.pool.query(`SELECT COUNT(*) FROM orders WHERE status='success'`, [this.userChatId], (error, results) => {
+                callback(Object.values(JSON.parse(JSON.stringify(results)))[0]);
+            });
+            return result;
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     close() {
         this.pool.end();
     }

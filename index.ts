@@ -32,7 +32,7 @@ bot.action('tutorial', async ctx => {
     try {
         // @ts-ignore
         await ctx.replyWithHTML(`Чтобы подготовить фото с соотношением сторон 3х4, вы можете воспользоваться простейшим приложением, скачать его на андроид можно по 👉 <a href='https://play.google.com/store/apps/details?id=com.arumcomm.cropimage'>этой ссылке</a>👈
-для айфона приложение мы можете скачть 
+для айфона приложение мы можете скачать 
 по 👉 <a href='https://apps.apple.com/ru/app/%D0%BE%D0%B1%D1%80%D0%B5%D0%B7%D0%BA%D0%B0-%D1%84%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%B9/id442008567'>этой ссылке</a>👈`)
         await ctx.replyWithDocument({
             source: "/root/driveBot/examples/example.mp4",
@@ -44,6 +44,8 @@ bot.action('tutorial', async ctx => {
     }
 })
 bot.action('start', async ctx => {
+// @ts-ignore
+    await newDBconnect.addNewOrder(order_data);
     try {
         await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
             [
@@ -90,13 +92,18 @@ bot.start(async (ctx) => {
 
             }
         });
-
-        await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
-            [
-                [Markup.button.callback("⭐ Перейти к выбору бутафории", "go_to_fake_market")],
-                [Markup.button.callback("🎥 Посмотреть видео-инструкицю", "tutorial")],
-            ]
-        ));
+        // @ts-ignore
+        let newDBconnect = new db_connect();
+        await newDBconnect.count(async (result:any) => {
+            let count = Number(result["COUNT(*)"]) + 134;
+            await ctx.replyWithHTML(`⚡⚡⚡ Количество людей, уже получивших копии: <b>${count}</b>⚡⚡⚡`);
+            await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
+                [
+                    [Markup.button.callback("⭐ Перейти к выбору бутафории", "go_to_fake_market")],
+                    [Markup.button.callback("🎥 Посмотреть видео-инструкицю", "tutorial")],
+                ]
+            ));
+        })
     } catch (e) {
         console.log(e)
     }
