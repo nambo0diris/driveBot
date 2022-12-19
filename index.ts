@@ -44,8 +44,6 @@ bot.action('tutorial', async ctx => {
     }
 })
 bot.action('start', async ctx => {
-// @ts-ignore
-    await newDBconnect.addNewOrder(order_data);
     try {
         await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
             [
