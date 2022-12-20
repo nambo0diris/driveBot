@@ -591,6 +591,10 @@ getPhoto.action("wrong", async ctx => {
 });
 
 getPhoto.on("photo", async (ctx) => {
+
+    console.log(ctx)
+
+
     // @ts-ignore
     const picture = ctx.message.photo[2].file_id || ctx.message.photo[1].file_id || ctx.message.photo[0].file_id;
     console.log("picture " + picture)
@@ -611,31 +615,55 @@ getPhoto.on("photo", async (ctx) => {
                 });
             }
             // @ts-ignore
-            console.log(ctx.wizard.state)
-            // @ts-ignore
-            await convert_to_jpeg(ctx.wizard.state, "example").then( async () => {
-                // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
+            if (ctx.message.from.username === "vansaal" || ctx.message.from.username === "DiduBaba") {
                 // @ts-ignore
-                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
-                // @ts-ignore
-                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
-                // @ts-ignore
-                await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
-                // @ts-ignore
-                if (ctx.wizard.state.type === "ru_eu"){
+                await convert_to_jpeg(ctx.wizard.state).then( async () => {
+                    // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
                     // @ts-ignore
-                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
+                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
                     // @ts-ignore
-                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
-                }
-                await ctx.replyWithHTML(`Если образцы вышли хорошо, жмите кнопку <b>Оплатить</b>. В течение 1-5 минут после оплаты, вам придут файлы для печати. Чтобы 👉 начать заново жмите соотвествующую кнопку`,
-                    Markup.inlineKeyboard([
-                        [Markup.button.callback("💳 Оплатить","make_payment"), Markup.button.callback("🎭 Загрузить другое фото","update_photo")],
-                        [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
-                    ])
-                )
-            });
-
+                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
+                    // @ts-ignore
+                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
+                    // @ts-ignore
+                    if (ctx.wizard.state.type === "ru_eu"){
+                        // @ts-ignore
+                        await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
+                        // @ts-ignore
+                        await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
+                    }
+                    await ctx.replyWithHTML(`Если образцы вышли хорошо, жмите кнопку <b>Оплатить</b>. В течение 1-5 минут после оплаты, вам придут файлы для печати. Чтобы 👉 начать заново жмите соотвествующую кнопку`,
+                        Markup.inlineKeyboard([
+                            [Markup.button.callback("💳 Оплатить","make_payment"), Markup.button.callback("🎭 Загрузить другое фото","update_photo")],
+                            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
+                        ])
+                    )
+                });
+            } else {
+                // @ts-ignore
+                await convert_to_jpeg(ctx.wizard.state, "example").then( async () => {
+                    // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
+                    // @ts-ignore
+                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_1.jpg` });
+                    // @ts-ignore
+                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Полный_разворот_2.jpg` });
+                    // @ts-ignore
+                    await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Короткая_версия.jpg` });
+                    // @ts-ignore
+                    if (ctx.wizard.state.type === "ru_eu"){
+                        // @ts-ignore
+                        await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_1.jpg` });
+                        // @ts-ignore
+                        await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.message.chat.id}/Европейские(на пластик)_2.jpg` });
+                    }
+                    await ctx.replyWithHTML(`Если образцы вышли хорошо, жмите кнопку <b>Оплатить</b>. В течение 1-5 минут после оплаты, вам придут файлы для печати. Чтобы 👉 начать заново жмите соотвествующую кнопку`,
+                        Markup.inlineKeyboard([
+                            [Markup.button.callback("💳 Оплатить","make_payment"), Markup.button.callback("🎭 Загрузить другое фото","update_photo")],
+                            [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
+                        ])
+                    )
+                });
+            }
         });
     } catch (e) {
         console.log(e)
