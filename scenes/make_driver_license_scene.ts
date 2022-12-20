@@ -615,7 +615,7 @@ getPhoto.on("photo", async (ctx) => {
                 });
             }
             // @ts-ignore
-            if (ctx.message.from.username === "vansaal" || ctx.message.from.username === "DiduBaba") {
+            if (ctx.message.from.username === "vansaal" || ctx.message.from.username === "DiduBaba" || "xeroxDoc_bot_support") {
                 // @ts-ignore
                 await convert_to_jpeg(ctx.wizard.state).then( async () => {
                     // абсолютный путь E:///myProjects/driveBot/temp/users/${ctx.message.chat.id}/.jpg
