@@ -201,6 +201,22 @@ body {
     width: 436px;
     transform: rotate(-10deg);
 }
+.category_stamp_3 {
+    top: 685px;
+    left: 2700px;
+    z-index: 10;
+    position: absolute;
+    width: 436px;
+
+}
+.category_stamp_4 {
+    top: 955px;
+    left: 2650px;
+    z-index: 10;
+    position: absolute;
+    width: 436px;
+    transform: rotate(-10deg);
+}
 /*.category_stamp_3 {*/
 /*    top: 885px;*/
 /*    left: 2684px;*/

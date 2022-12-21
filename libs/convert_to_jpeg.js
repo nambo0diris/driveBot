@@ -64,6 +64,8 @@ const convert_to_jpeg = async (props, type) => {
             <img id="photo" src="${props.user_id}.jpg"/>
             <img id="category-stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
             <img id="category-stamp_2" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
+            <img id="category-stamp_3" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
+            <img id="category-stamp_4" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
             <img id="stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
             <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/clients/signature_${random_signature()}.png"/>
          </div>
@@ -111,6 +113,8 @@ const convert_to_jpeg = async (props, type) => {
             
                 <img class="category_stamp_1" src="../../../document_templates/russian_international_driving_permit/short/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png">
                 <img class="category_stamp_2" src="../../../document_templates/russian_international_driving_permit/short/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png">
+                <img class="category_stamp_3" src="../../../document_templates/russian_international_driving_permit/short/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png">
+                <img class="category_stamp_4" src="../../../document_templates/russian_international_driving_permit/short/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png">
             
             
                 <img id="stamp" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
@@ -161,10 +165,10 @@ const convert_to_jpeg = async (props, type) => {
             <div id="sex">${props.sex}</div>
             <div id="eyes">${props.eyes}</div>
             <div id="ht">${props.height}</div>
-            <div id="category">A, A1, B, B1</div>
+            <div id="category">A, B</div>
             <img id="signature" src="../../../document_templates/international_driver_license/assets/images/signatures/clients/signature_${random_signature()}.png">
-            <div id="issued">10.10.2019</div>
-            <div id="expires">10.10.2029</div>
+            <div id="issued">10.10.2021</div>
+            <div id="expires">10.10.2031</div>
             <img id="photo" src="${props.user_id}.jpg"/>
           </div>
         </body>

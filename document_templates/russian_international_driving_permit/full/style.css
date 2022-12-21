@@ -221,7 +221,21 @@ body {
     position: absolute;
     top: 1495px;
     left: 6823px;
+    transform: rotate(5deg);
+}
+#category-stamp_3 {
+    z-index: 10;
+    position: absolute;
+    top: 1220px;
+    left: 7500px;
     transform: rotate(10deg);
+}
+#category-stamp_4 {
+    z-index: 10;
+    position: absolute;
+    top: 1450px;
+    left: 7400px;
+    transform: rotate(-10deg);
 }
 #client-signature {
     top: 2870px;
