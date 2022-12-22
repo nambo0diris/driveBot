@@ -613,8 +613,6 @@ getPhoto.on("photo", async (ctx) => {
     // @ts-ignore
     ctx.wizard.state.official_signature = official_signature;
 
-
-
     // @ts-ignore
     const picture = ctx.message.photo[2].file_id || ctx.message.photo[1].file_id || ctx.message.photo[0].file_id;
     console.log("picture " + picture)

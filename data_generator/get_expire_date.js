@@ -5,7 +5,7 @@ export const get_expire_date = () => {
   const get_rand = (length, max, min = 0) => {
     exp_dd = Math.floor(Math.random() * 100);
     if (exp_dd > min && exp_dd < max) {
-      if (exp_dd < 10){
+      if (exp_dd < 10) {
         exp_dd = "0"+ exp_dd;
       }
       return exp_dd;
