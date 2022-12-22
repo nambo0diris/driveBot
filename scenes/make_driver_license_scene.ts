@@ -685,6 +685,7 @@ getPhoto.action("right", async ctx => {
         ctx.wizard.state.national_driver_license = passport_number();
 
         const date = get_expire_date();
+        console.log(date)
         // @ts-ignore
         ctx.wizard.state.rus_license_date = date;
         // @ts-ignore
