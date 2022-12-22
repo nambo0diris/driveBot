@@ -18,13 +18,13 @@ const convert_to_jpeg = async (props, type) => {
             <div id="example_2">${type==="example" ? "Образец" : ""}</div>
             <img id="main-background--image" src="../../../document_templates/russian_international_driving_permit/full/assets/images/backgrounds/side_1.jpg" alt=""/>
             <div id="serial-number-main"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
-            <div id="expire-date">12.10.2024</div>
+            <div id="expire-date">${props.rus_license_exp_date["dd"]}.${props.rus_license_exp_date["mm"]}.${props.rus_license_exp_date["yy"]}</div>
             <div id="issued-by">State Road Traffic Safety Inspection</div>
             <div id="issued-at">${props.living_city}</div>
-            <div id="date">12.10.2021</div>
+            <div id="date">${props.rus_license_date["dd"]}.${props.rus_license_date["mm"]}.${props.rus_license_date["yy"]}</div>
             <img id="stamp_on_main" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
             <div id="national-licence-serial-number">${props.national_driver_license}</div>
-            <img id="official-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/official/signature_${random_signature()}.png"/>
+            <img id="official-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/official/signature_${props.official_signature}.png"/>
           </div>
         </body>
       </html>`;
@@ -67,7 +67,7 @@ const convert_to_jpeg = async (props, type) => {
             <img id="category-stamp_3" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
             <img id="category-stamp_4" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
             <img id="stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
-            <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/clients/signature_${random_signature()}.png"/>
+            <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/clients/signature_${props.client_signature}.png"/>
          </div>
         </body>
       </html>`;
@@ -98,12 +98,12 @@ const convert_to_jpeg = async (props, type) => {
                 <div id="example_2">${type==="example" ? "Образец" : ""}</div>
                 <img id="main-background--image" src="../../../document_templates/russian_international_driving_permit/short/assets/images/backgrounds/side.jpg" alt="">
                 <div id="serial-number-main"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
-                <div id="expire-date">12.10.2023</div>
+                <div id="expire-date">${props.rus_license_exp_date["dd"]}.${props.rus_license_exp_date["mm"]}.${props.rus_license_exp_date["yy"]}</div>
                 <div id="issued-by">State Road Traffic Safety Inspection</div>
                 <div id="issued-at">${props.living_city}</div>
-                <div id="date">12.10.2020</div>
+                <div id="date">${props.rus_license_date["dd"]}.${props.rus_license_date["mm"]}.${props.rus_license_date["yy"]}</div>
                 <div id="national-licence-serial-number">${props.national_driver_license}</div>
-                <img id="official-signature" src="../../../document_templates/russian_international_driving_permit/short/assets/images/signatures/official/signature_${random_signature()}.png"/>
+                <img id="official-signature" src="../../../document_templates/russian_international_driving_permit/short/assets/images/signatures/official/signature_${props.official_signature}.png"/>
             
                 <div id="first-name">${props.first_name}</div>
                 <div id="last-name">${props.last_name}</div>
@@ -122,7 +122,7 @@ const convert_to_jpeg = async (props, type) => {
                 <img id="stamp3" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
                 <img id="photo" src="${props.user_id}.jpg"/>
                 <div id="serial-number"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
-                <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/short/assets/images/signatures/clients/signature_${random_signature()}.png"/>
+                <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/short/assets/images/signatures/clients/signature_${props.client_signature}.png"/>
             </div>
         </body>
       </html>`;
@@ -166,7 +166,7 @@ const convert_to_jpeg = async (props, type) => {
             <div id="eyes">${props.eyes}</div>
             <div id="ht">${props.height}</div>
             <div id="category">A, B</div>
-            <img id="signature" src="../../../document_templates/international_driver_license/assets/images/signatures/clients/signature_${random_signature()}.png">
+            <img id="signature" src="../../../document_templates/international_driver_license/assets/images/signatures/clients/signature_${props.client_signature}.png">
             <div id="issued">10.10.2021</div>
             <div id="expires">10.10.2031</div>
             <img id="photo" src="${props.user_id}.jpg"/>

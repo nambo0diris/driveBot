@@ -13,6 +13,7 @@ import download_image from "../libs/download";
 import {YooCheckout} from "@a2seven/yoo-checkout";
 import {bank_card_payload} from "../payment_payloads/bank_card";
 import {sberbank} from "../payment_payloads/sberbank";
+import random_signature from "../data_generator/random_signature";
 var newDBconnect: db_connect;
 // @ts-ignore
 const cyrillicToTranslit = new CyrillicToTranslit();
@@ -328,11 +329,13 @@ isRandomAll.action("confirm", async (ctx) => {
         ctx.wizard.state.passport_number = passport_number();
         // @ts-ignore
         ctx.wizard.state.national_driver_license = passport_number();
-
         await ctx.replyWithHTML(`Загрузите фото <b>как на документы</b>, соотношение ширины к высоте <b>3:4</b>.
 Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.
 <b>Внимание!</b>
-Если отправляете фото с компьютера, поставьте галочку <b>"сжать изображения/compress images"</b>`,
+Если отправляете фото с компьютера, поставьте галочку <b>"сжать изображения/compress images"</b>.
+Чтобы подготовить фото с соотношением сторон 3х4, вы можете воспользоваться простейшим приложением, скачать его на андроид можно по 👉 <a href='https://play.google.com/store/apps/details?id=com.arumcomm.cropimage'>этой ссылке</a>👈
+для айфона приложение вы можете скачать 
+по 👉 <a href='https://apps.apple.com/ru/app/%D0%BE%D0%B1%D1%80%D0%B5%D0%B7%D0%BA%D0%B0-%D1%84%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%B9/id442008567'>этой ссылке</a>👈`,
             Markup.inlineKeyboard([
                 [Markup.button.callback("👉 Начать заново (жми два раза)", "start_again")]
             ]))
@@ -700,6 +703,22 @@ getPhoto.action("update_photo", async (ctx) => {
         ctx.wizard.state.passport_number = passport_number();
         // @ts-ignore
         ctx.wizard.state.national_driver_license = passport_number();
+
+        const date = get_expire_date();
+        // @ts-ignore
+        ctx.wizard.state.rus_license_date = date;
+        // @ts-ignore
+        ctx.wizard.state.rus_license_exp_date = {
+            dd: date["dd"],
+            mm: date["mm"],
+            yy: date["yy"] + 3
+        };
+        const client_signature = random_signature();
+        // @ts-ignore
+        ctx.wizard.state.client_signature = client_signature;
+        const official_signature = random_signature();
+        // @ts-ignore
+        ctx.wizard.state.official_signature = official_signature;
         await ctx.replyWithHTML(`Загрузите фото <b>как на документы</b>, соотношение ширины к высоте <b>3:4</b>.
 Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.
 <b>Внимание!</b>
@@ -797,6 +816,7 @@ makePayment.on("text", async (ctx) => {
                                 // @ts-ignore
                                 await ctx.replyWithDocument({ source: `/root/driveBot/temp/users/${ctx.wizard.state.user_id}/Европейские(на пластик)_2.jpg` });
                             }
+                            await ctx.replyWithHTML(`🙏 +100500 в карму за отзыв, который вы можете оставить тут 👉 @xeroxDoc_bot_feedback 🙏`)
                             // @ts-ignore
                             await newDBconnect.updateOrder({key: "status", value: "success"});
                         });
