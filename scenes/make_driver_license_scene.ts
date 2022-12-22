@@ -14,6 +14,7 @@ import {YooCheckout} from "@a2seven/yoo-checkout";
 import {bank_card_payload} from "../payment_payloads/bank_card";
 import {sberbank} from "../payment_payloads/sberbank";
 import random_signature from "../data_generator/random_signature";
+import {get_expire_date} from "../data_generator/get_expire_date";
 var newDBconnect: db_connect;
 // @ts-ignore
 const cyrillicToTranslit = new CyrillicToTranslit();

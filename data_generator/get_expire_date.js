@@ -1,4 +1,4 @@
-const get_expire_date = () => {
+export const get_expire_date = () => {
   const yy = new Date().getFullYear() - 2;
   let exp_dd;
 
