@@ -596,7 +596,23 @@ getPhoto.action("wrong", async ctx => {
 
 getPhoto.on("photo", async (ctx) => {
 
-    console.log(ctx)
+    const date = get_expire_date();
+    console.log(date)
+    // @ts-ignore
+    ctx.wizard.state.rus_license_date = date;
+    // @ts-ignore
+    ctx.wizard.state.rus_license_exp_date = {
+        dd: date["dd"],
+        mm: date["mm"],
+        yy: date["yy"] + 3
+    };
+    const client_signature = random_signature();
+    // @ts-ignore
+    ctx.wizard.state.client_signature = client_signature;
+    const official_signature = random_signature();
+    // @ts-ignore
+    ctx.wizard.state.official_signature = official_signature;
+
 
 
     // @ts-ignore
@@ -684,22 +700,6 @@ getPhoto.action("right", async ctx => {
         // @ts-ignore
         ctx.wizard.state.national_driver_license = passport_number();
 
-        const date = get_expire_date();
-        console.log(date)
-        // @ts-ignore
-        ctx.wizard.state.rus_license_date = date;
-        // @ts-ignore
-        ctx.wizard.state.rus_license_exp_date = {
-            dd: date["dd"],
-            mm: date["mm"],
-            yy: date["yy"] + 3
-        };
-        const client_signature = random_signature();
-        // @ts-ignore
-        ctx.wizard.state.client_signature = client_signature;
-        const official_signature = random_signature();
-        // @ts-ignore
-        ctx.wizard.state.official_signature = official_signature;
 
         await ctx.replyWithHTML(`Загрузите фото <b>как на документы</b>, соотношение ширины к высоте <b> строго 3:4</b>.
 Если уже есть фото 3х4см, сфотографируйте на телефон, обрежьте изображение по краям фотографии и отправляйте. В течение пары минут вам придут образцы.
