@@ -614,7 +614,7 @@ getPhoto.on("photo", async (ctx) => {
     ctx.wizard.state.official_signature = official_signature;
 
     // @ts-ignore
-    const picture = ctx.message.photo[2].file_id || ctx.message.photo[1].file_id || ctx.message.photo[0].file_id;
+    const picture = ctx.message.photo[-1].file_id;
     console.log("picture " + picture)
     const fileUrl = await ctx.telegram.getFileLink(picture);
     console.log("fileUrl " + fileUrl)
@@ -773,6 +773,7 @@ makePayment.on("text", async (ctx) => {
                 payment = await checkout.createPayment(sberbank(email), idempotenceKey);
                 break;
         }
+
         // @ts-ignore
         const payment_id = payment.id;
         // @ts-ignore
