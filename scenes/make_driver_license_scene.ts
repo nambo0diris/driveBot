@@ -146,7 +146,7 @@ chooseCountry.on("callback_query", async (ctx) => {
         // @ts-ignore
         await ctx.answerCbQuery();
         await ctx.replyWithHTML("Выберите страну", Markup.inlineKeyboard([
-            [Markup.button.callback("Франиция (в разработке)", "france")],
+            [Markup.button.callback("Франция (в разработке)", "france")],
             [Markup.button.callback("Англия (в разработке)", "united_kingdom")],
             [Markup.button.callback("Мексика (в разработке)", "mexico")],
             [Markup.button.callback("Россия", "russia")],
@@ -311,7 +311,7 @@ isRandomAll.action("start", to_start);
 isRandomAll.action("write_myself", async (ctx) => {
     // @ts-ignore
     if (ctx.update.callback_query["data"] === "write_myself") {
-        await ctx.replyWithHTML("Укажитете город, где родились. Пример: <b>Москва</b>",
+        await ctx.replyWithHTML("Укажите город, где родились. Пример: <b>Москва</b>",
             Markup.inlineKeyboard([
                 [Markup.button.callback("👉 Начать заново (жми два раза)","start_again")]
             ]))
@@ -572,7 +572,7 @@ getPhoto.action("make_payment", async ctx => {
         await ctx.answerCbQuery("make_payment");
         await ctx.replyWithHTML("Выберите подходящий способ оплаты", Markup.inlineKeyboard([
             [Markup.button.callback("Банковской картой","bank_card" )],
-            [Markup.button.callback("Sberpay","sberbank" )],
+            [Markup.button.callback("СберPay","sberbank" )],
         ]));
         // @ts-ignore
         return ctx.wizard.selectStep(16);

@@ -9,7 +9,7 @@ import make_passport_scene from "./scenes/make_passport_scene.js";
 import make_drive_license_scene from "./scenes/make_driver_license_scene.js";
 dotenv.config();
 // @ts-ignore
-const bot = new Telegraf(process.env.BOT_TOKEN);
+const bot = new Telegraf(process.env.DEV_BOT_TOKEN);
 // @ts-ignore
 const stage = new Scenes.Stage([make_passport_scene, make_drive_license_scene]);
 bot.use(session());
@@ -48,7 +48,7 @@ bot.action('start', async ctx => {
         await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
             [
                 [Markup.button.callback("⭐ Перейти к выбору бутафории", "go_to_fake_market")],
-                [Markup.button.callback("🎥 Посмотреть видео-инструкицю", "tutorial")],
+                [Markup.button.callback("🎥 Посмотреть видео-инструкцию", "tutorial")],
             ]
         ));
     } catch (e) {
@@ -98,7 +98,7 @@ bot.start(async (ctx) => {
             await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
                 [
                     [Markup.button.callback("⭐ Перейти к выбору бутафории", "go_to_fake_market")],
-                    [Markup.button.callback("🎥 Посмотреть видео-инструкицю", "tutorial")],
+                    [Markup.button.callback("🎥 Посмотреть видео-инструкцию", "tutorial")],
                 ]
             ));
         })
@@ -108,7 +108,7 @@ bot.start(async (ctx) => {
 })
 bot.command("/support", async (ctx) => {
     try {
-        await ctx.replyWithHTML("Если у вас возникли вопросы по использованию бота или у вас прошла оплтата, но файлы не пришли в течении 10 минут, пишите @xeroxDoc_bot_support.\n" +
+        await ctx.replyWithHTML("Если у вас возникли вопросы по использованию бота или у вас прошла оплата, но файлы не пришли в течении 10 минут, пишите @xeroxDoc_bot_support.\n" +
             "Чтобы начать сначала жмите /start.");
     } catch (e) {
         console.log(e)
