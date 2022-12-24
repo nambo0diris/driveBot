@@ -9,7 +9,7 @@ import make_passport_scene from "./scenes/make_passport_scene.js";
 import make_drive_license_scene from "./scenes/make_driver_license_scene.js";
 dotenv.config();
 // @ts-ignore
-const bot = new Telegraf(process.env.DEV_BOT_TOKEN);
+const bot = new Telegraf(process.env.BOT_TOKEN);
 // @ts-ignore
 const stage = new Scenes.Stage([make_passport_scene, make_drive_license_scene]);
 bot.use(session());
