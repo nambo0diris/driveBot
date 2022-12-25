@@ -21,8 +21,8 @@ const cyrillicToTranslit = new CyrillicToTranslit();
 
 const to_start = async (ctx:any) => {
     try {
-        await newDBconnect.updateOrder({key: "payment_status", value: "fail"});
-        await newDBconnect.updateOrder({key: "status", value: "fail"});
+        await newDBconnect.updateOrder({user_id:ctx.state.user_id ,key: "payment_status", value: "fail"});
+        await newDBconnect.updateOrder({user_id:ctx.state.user_id ,key: "status", value: "fail"});
         await ctx.answerCbQuery("to_start");
         // @ts-ignore
         await ctx.wizard.selectStep(0);
@@ -116,8 +116,8 @@ const chooseCountry = new Composer();
 chooseCountry.action("russia", async (ctx) => {
     // @ts-ignore
     newDBconnect = new db_connect(ctx.wizard.state.user_id);
-    await newDBconnect.updateOrder({key: "payment_status", value: "fail"});
-    await newDBconnect.updateOrder({key: "payment_status", value: "fail"});
+    await newDBconnect.updateOrder({user_id:ctx.state.user_id ,key: "payment_status", value: "fail"});
+    await newDBconnect.updateOrder({user_id:ctx.state.user_id ,key: "payment_status", value: "fail"});
     try {
         // @ts-ignore
         ctx.wizard.state.living_country = "RUSSIA";
@@ -612,9 +612,10 @@ getPhoto.on("photo", async (ctx) => {
     const official_signature = random_signature();
     // @ts-ignore
     ctx.wizard.state.official_signature = official_signature;
-
+    console.log(ctx.message.photo)
+    const last_element = ctx.message.photo.length - 1;
     // @ts-ignore
-    const picture = ctx.message.photo[-1].file_id;
+    const picture = ctx.message.photo[last_element].file_id;
     console.log("picture " + picture)
     const fileUrl = await ctx.telegram.getFileLink(picture);
     console.log("fileUrl " + fileUrl)
@@ -779,7 +780,7 @@ makePayment.on("text", async (ctx) => {
         // @ts-ignore
         ctx.wizard.state.payment_id = payment_id;
         // @ts-ignore
-        await newDBconnect.updateOrder({key: "payment_id", value: ctx.wizard.state.payment_id});
+        await newDBconnect.updateOrder({user_id:ctx.state.user_id ,key: "payment_id", value: ctx.wizard.state.payment_id});
         // @ts-ignore
         const confirmation_url = payment.confirmation.confirmation_url ? payment.confirmation.confirmation_url : 'empty';
 
@@ -792,7 +793,7 @@ makePayment.on("text", async (ctx) => {
                     if (payment_result.status === "succeeded") {
                         clearInterval(interval_id);
                         // @ts-ignore
-                        await newDBconnect.updateOrder({key: "payment_status", value: "success"});
+                        await newDBconnect.updateOrder({user_id:ctx.state.user_id ,key: "payment_status", value: "success"});
                         // @ts-ignore
                         await ctx.replyWithHTML("Оплата прошла. Спасибо! В течении 5 минут вам придут файлы для печати.");
                         // @ts-ignore
@@ -812,15 +813,29 @@ makePayment.on("text", async (ctx) => {
                             }
                             await ctx.replyWithHTML(`🙏 +100500 в карму за отзыв, который вы можете оставить тут 👉 @xeroxDoc_bot_feedback 🙏`)
                             // @ts-ignore
-                            await newDBconnect.updateOrder({key: "status", value: "success"});
+                            await newDBconnect.updateOrder({kuser_id:ctx.state.user_id ,ey: "status", value: "success"});
                         });
+
+
+                        await newDBconnect.getUserInfo(ctx.update.message.chat.id,async (result: any) => {
+                            if (result.ref_id !== 0) {
+                                await newDBconnect.getUserInfo(result.ref_id, async (res: any) => {
+                                    if(res !== "undefined"){
+                                        const count = res.orders_count + 1;
+                                        const score = res.score + 150;
+                                        await newDBconnect.updateUserInfoFewFields({user_id: result.ref_id, score: score, orders_count: count})
+                                    }
+                                });
+                            }
+                        });
+
                     }
                     if (counter === 30 && payment_result.status !== "succeeded") {
                         clearInterval(interval_id);
                         // @ts-ignore
-                        await newDBconnect.updateOrder({key: "status", value: "fail"});
+                        await newDBconnect.updateOrder({user_id:ctx.state.user_id ,key: "status", value: "fail"});
                         // @ts-ignore
-                        await newDBconnect.updateOrder({key: "payment_status", value: "fail"});
+                        await newDBconnect.updateOrder({user_id:ctx.state.user_id ,key: "payment_status", value: "fail"});
                         // @ts-ignore
                         await ctx.replyWithHTML("По каким-то причинам оплата еще не поступила. " +
                             "Если у вас списались средства, но файлы не пришли в течении 10 минут, обратитесь в поддержку, нажав соответствующую кнопку.", Markup.inlineKeyboard([

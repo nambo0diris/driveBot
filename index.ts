@@ -7,14 +7,27 @@ import * as fs from "fs";
 import * as path from "path";
 import make_passport_scene from "./scenes/make_passport_scene.js";
 import make_drive_license_scene from "./scenes/make_driver_license_scene.js";
+import withdraw_money_scene from "./scenes/withdraw_money_scene";
 dotenv.config();
 // @ts-ignore
 const bot = new Telegraf(process.env.BOT_TOKEN);
 // @ts-ignore
-const stage = new Scenes.Stage([make_passport_scene, make_drive_license_scene]);
+const stage = new Scenes.Stage([make_passport_scene, make_drive_license_scene, withdraw_money_scene]);
 bot.use(session());
 // @ts-ignore
 bot.use(stage.middleware());
+
+
+
+// bot.action('withdraw', async ctx => {
+//     try {
+//         // @ts-ignore
+//         return ctx.scene.enter(withdraw_money_scene);
+//     } catch (e) {
+//         console.log(e)
+//     }
+// });
+
 bot.action('go_to_fake_market', async ctx => {
     ctx.answerCbQuery();
     try {
@@ -90,17 +103,52 @@ bot.start(async (ctx) => {
 
             }
         });
+
         // @ts-ignore
         let newDBconnect = new db_connect();
-        await newDBconnect.count(async (result:any) => {
+        await newDBconnect.getUserInfo(ctx.update.message.chat.id, async (result: any) => {
+            if (typeof result === "undefined") {
+                // @ts-ignore
+                await newDBconnect.addNewUser({user_id: ctx.update.message.chat.id, ref_id: ctx.startPayload});
+            }
+            if(ctx.startPayload !== ""){
+                // @ts-ignore
+                await newDBconnect.getUserInfo(ctx.startPayload, async (res:any) => {
+                    console.log(res)
+                    const redirect_count = res.redirect_count + 1;
+                    await newDBconnect.updateUserInfo({user_id: ctx.startPayload, key:"redirect_count", value: redirect_count})
+                })
+            }
+
+        });
+
+        await newDBconnect.count(ctx.update.message.chat.id, async (result:any) => {
             let count = Number(result["COUNT(*)"]) + 134;
-            await ctx.replyWithHTML(`⚡⚡ Количество людей, уже получивших копии: <b>${count}</b>⚡⚡`);
-            await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
-                [
-                    [Markup.button.callback("⭐ Перейти к выбору бутафории", "go_to_fake_market")],
-                    [Markup.button.callback("🎥 Посмотреть видео-инструкцию", "tutorial")],
-                ]
-            ));
+            await newDBconnect.getUserInfo(ctx.update.message.chat.id, async (res:any) => {
+                await ctx.replyWithHTML(`Распространяйте реферальную ссылку и получайте <b>30%</b> с каждой оплаты ваших рефералов.
+Ваша реферальная ссылка: https://t.me/dev_test_drive_bot?start=${ctx.update.message.chat.id}
+
+Переходов по вашей реферальной ссылке было: <b>${res.redirect_count}</b>.
+Ваши рефералы сделали сделок: <b>${res.orders_count}</b>.
+Ваш баланс: <b>${res.score}</b> рублей.
+Выплачено: <b>${res.widthdraw}</b> рублей.
+Всего заработано: <b>${res.widthdraw + res.score}</b> рублей.
+
+Чтобы сделать выплату, введите команду /withdraw "номер телефона", привязанного к банку или номер банковской карты)
+<b>Например:</b>
+/withdwraw +79991111111
+/withdwraw 1111 2222 1111 2222
+/withdwraw 1111222211112222
+`);
+
+                await ctx.replyWithHTML(`⚡⚡ Количество людей, уже получивших копии: <b>${count}</b>⚡⚡`);
+                await ctx.replyWithHTML(startText, Markup.inlineKeyboard(
+                    [
+                        [Markup.button.callback("⭐ Перейти к выбору бутафории", "go_to_fake_market")],
+                        [Markup.button.callback("🎥 Посмотреть видео-инструкцию", "tutorial")],
+                    ]
+                ));
+            })
         })
     } catch (e) {
         console.log(e)
@@ -110,6 +158,14 @@ bot.command("/support", async (ctx) => {
     try {
         await ctx.replyWithHTML("Если у вас возникли вопросы по использованию бота или у вас прошла оплата, но файлы не пришли в течении 10 минут, пишите @xeroxDoc_bot_support.\n" +
             "Чтобы начать сначала жмите /start.");
+    } catch (e) {
+        console.log(e)
+    }
+})
+bot.command("/withdraw", async (ctx) => {
+    try {
+        await ctx.replyWithHTML(`Ожидайте выплату в течение 24 часов, если оплата не поступила, обратитесь в поддержку 👉 /support`);
+
     } catch (e) {
         console.log(e)
     }
