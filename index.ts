@@ -126,7 +126,7 @@ bot.start(async (ctx) => {
             let count = Number(result["COUNT(*)"]) + 134;
             await newDBconnect.getUserInfo(ctx.update.message.chat.id, async (res:any) => {
                 await ctx.replyWithHTML(`Распространяйте реферальную ссылку и получайте <b>30%</b> с каждой оплаты ваших рефералов.
-Ваша реферальная ссылка: https://t.me/dev_test_drive_bot?start=${ctx.update.message.chat.id}
+Ваша реферальная ссылка: https://t.me/xeroxDoc_bot?start=${ctx.update.message.chat.id}
 
 Переходов по вашей реферальной ссылке было: <b>${res.redirect_count}</b>.
 Ваши рефералы сделали сделок: <b>${res.orders_count}</b>.
