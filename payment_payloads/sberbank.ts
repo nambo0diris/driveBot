@@ -6,7 +6,7 @@ export const sberbank = (email) => {
     let payload: ICreatePayment;
     return payload = {
         amount: {
-            value: '1.00',
+            value: '499.00',
             currency: 'RUB'
         },
         payment_method_data: {
@@ -31,7 +31,7 @@ export const sberbank = (email) => {
                     quantity: "1",
                     description: "Бутафория - Водительское Удостоверение",
                     amount: {
-                        value: "1.00",
+                        value: "499.00",
                         currency: "RUB",
                     },
                 }

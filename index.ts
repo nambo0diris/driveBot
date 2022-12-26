@@ -16,7 +16,8 @@ const stage = new Scenes.Stage([make_passport_scene, make_drive_license_scene, w
 bot.use(session());
 // @ts-ignore
 bot.use(stage.middleware());
-
+// @ts-ignore
+let newDBconnect = new db_connect();
 
 
 // bot.action('withdraw', async ctx => {
@@ -104,8 +105,7 @@ bot.start(async (ctx) => {
             }
         });
 
-        // @ts-ignore
-        let newDBconnect = new db_connect();
+
         await newDBconnect.getUserInfo(ctx.update.message.chat.id, async (result: any) => {
             if (typeof result === "undefined") {
                 // @ts-ignore
@@ -157,15 +157,28 @@ bot.start(async (ctx) => {
 bot.command("/support", async (ctx) => {
     try {
         await ctx.replyWithHTML("Если у вас возникли вопросы по использованию бота или у вас прошла оплата, но файлы не пришли в течении 10 минут, пишите @xeroxDoc_bot_support.\n" +
-            "Чтобы начать сначала жмите /start.");
+            "Чтобы начать сначала выберите в меню команду /start.");
     } catch (e) {
         console.log(e)
     }
 })
 bot.command("/withdraw", async (ctx) => {
     try {
-        await ctx.replyWithHTML(`Ожидайте выплату в течение 24 часов, если оплата не поступила, обратитесь в поддержку 👉 /support`);
+        await newDBconnect.getUserInfo(ctx.update.message.chat.id, async (result: any) => {
+            if (result.score === 0) {
+                await ctx.replyWithHTML(`Кажется ваш баланс на нуле.
+                Чтобы начать сначала выберите в меню команду /start.`);
+            } else if (0 < result.score && result.score < 150 ) {
+                    await ctx.replyWithHTML(`Минимальная сумма для вывода 150 рублей.
+                    Чтобы начать сначала выберите в меню команду /start.`);
+            } if (result.score > 150) {
 
+                    await ctx.replyWithHTML(`Ожидайте выплату в течение 24 часов, если оплата не поступила, обратитесь в поддержку 👉 /support
+                    Чтобы начать сначала выберите в меню команду /start.`);
+            }
+
+        });
+        await ctx.replyWithHTML(`Ожидайте выплату в течение 24 часов, если оплата не поступила, обратитесь в поддержку 👉 /support`);
     } catch (e) {
         console.log(e)
     }
