@@ -21,7 +21,7 @@ const convert_to_jpeg = async (props, type) => {
             <div id="issued-by">State Road Traffic Safety Inspection</div>
             <div id="issued-at">${props.living_city}</div>
             <div id="date">${props.rus_license_date["dd"]}.${props.rus_license_date["mm"]}.${props.rus_license_date["yy"]}</div>
-            <img id="stamp_on_main" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
+            <img id="stamp_on_main" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp_without_line/${props.subject_id_number} 02.png"/>
             <div id="national-licence-serial-number">${props.national_driver_license}</div>
             <img id="official-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/official/signature_${props.official_signature}.png"/>
           </div>
@@ -65,7 +65,7 @@ const convert_to_jpeg = async (props, type) => {
             <img id="category-stamp_2" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
             <img id="category-stamp_3" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
             <img id="category-stamp_4" src="../../../document_templates/russian_international_driving_permit/full/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png"/>
-            <img id="stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
+            <img id="stamp" src="../../../document_templates/russian_international_driving_permit/full/assets/images/stamp_with_line/${props.subject_id_number} 02.png"/>
             <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/full/assets/images/signatures/clients/signature_${props.client_signature}.png"/>
          </div>
         </body>
