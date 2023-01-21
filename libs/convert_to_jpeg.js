@@ -116,9 +116,9 @@ const convert_to_jpeg = async (props, type) => {
                 <img class="category_stamp_4" src="../../../document_templates/russian_international_driving_permit/short/assets/images/category_stamp/МВД%20РОССИИ%20копия%20${props.subject_id_number}.png">
             
             
-                <img id="stamp" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp_with_line/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
+                <img id="stamp" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp_with_line/${props.subject_id_number} 02.png"/>
 <!--                <img id="stamp2" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>-->
-                <img id="stamp3" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp_without_line/Circulation%20Automobile%20International%20копия%20${props.subject_id_number}.png"/>
+                <img id="stamp3" src="../../../document_templates/russian_international_driving_permit/short/assets/images/stamp_without_line/${props.subject_id_number} 02.png"/>
                 <img id="photo" src="${props.user_id}.jpg"/>
                 <div id="serial-number"><span>${props.subject_id.split(' ')[0]}</span><span id="serial-number_letters">${props.subject_id.split(' ')[1]}</span><span>${props.subject_id.split(' ')[2]}</span></div>
                 <img id="client-signature" src="../../../document_templates/russian_international_driving_permit/short/assets/images/signatures/clients/signature_${props.client_signature}.png"/>
