@@ -854,7 +854,6 @@ makePayment.on("text", async (ctx) => {
 })
 
 
-
 const make_driver_license_scene = new Scenes.WizardScene(
     "make_driver_license_scene",
     chooseCountry,
