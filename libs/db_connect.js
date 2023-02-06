@@ -51,7 +51,11 @@ export default class db_connect {
     count = async (data, callback) => {
         try {
             return await this.pool.query(`SELECT COUNT(*) FROM orders WHERE status='success'`, [data.user_id], (error, results) => {
-                callback(Object.values(JSON.parse(JSON.stringify(results)))[0]);
+                try {
+                    callback(Object.values(JSON.parse(JSON.stringify(results)))[0]);
+                } catch (e) {
+                    console.log(e)
+                }
             });
         } catch (e) {
             console.log(e)
