@@ -64,7 +64,11 @@ export default class db_connect {
         )
         try {
             return  await this.pool.query(`SELECT * FROM users WHERE user_id = ?`, [Number(user_id)], function (error, results, fields) {
-                callback(Object.values(JSON.parse(JSON.stringify(results)))[0]);
+                try {
+                    callback(Object.values(JSON.parse(JSON.stringify(results)))[0]);
+                } catch (e) {
+                    console.log(e)
+                }
             });
         } catch (e) {
             console.log(e)
