@@ -38,7 +38,7 @@ const convert_to_jpeg = async (props, type) => {
                 height: 4665,
                 deviceScaleFactor: 1,
             });
-            await page1.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.jpg`, quality: 10 });
+            await page1.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_1.jpg`, quality: 50 });
             await browser.close();
         });
 
@@ -82,7 +82,7 @@ const convert_to_jpeg = async (props, type) => {
             height: 4665,
             deviceScaleFactor: 1,
         });
-        await page2.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_2.jpg`, quality: 10});
+        await page2.screenshot({path: `/root/driveBot/temp/users/${props.user_id}/Полный_разворот_2.jpg`, quality: 50});
         await browser2.close();
 
         let russian_short = `<!DOCTYPE html>
